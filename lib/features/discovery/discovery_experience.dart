@@ -144,7 +144,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AnimatedOpacity(
-                          opacity: snapshot.data == 0 ? 1 : 0.25,
+                          opacity: (snapshot.data >= 0 && snapshot.data < 49) ? 1 : 0.25,
                           duration: Duration(milliseconds: 250),
                           child: Container(
                             child: Text(
@@ -157,7 +157,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                           ),
                         ),
                         AnimatedOpacity(
-                          opacity: snapshot.data == 50 ? 1 : 0.25,
+                          opacity: (snapshot.data >= 50 && snapshot.data < 100) ? 1 : 0.25,
                           duration: Duration(milliseconds: 250),
                           child: Container(
                             child: Text(
