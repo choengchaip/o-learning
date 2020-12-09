@@ -1,14 +1,37 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
-import 'package:o_learning/datas/discovery_data.dart';
+import 'package:o_learning/repository/discovery_widget_repository.dart';
+import 'package:o_learning/repository/widget_slider_repository.dart';
+import 'package:o_learning/states/discovery_data_types.dart';
 
 class DiscoveryListFeature extends StatefulWidget {
+  final WidgetSliderRepository widgetSliderRepository;
+  final DiscoveryWidgetRepository discoveryWidgetRepository;
+  final List<IDiscoveryItem> mockItems;
+
+  DiscoveryListFeature(
+      {@required this.widgetSliderRepository,
+      @required this.discoveryWidgetRepository,
+      @required this.mockItems});
+
   @override
-  _DiscoveryListFeature createState() => _DiscoveryListFeature();
+  _DiscoveryListFeature createState() => _DiscoveryListFeature(
+      widgetSliderRepository: this.widgetSliderRepository,
+      discoveryWidgetRepository: this.discoveryWidgetRepository,
+      mockItems: this.mockItems);
 }
 
 class _DiscoveryListFeature extends State<DiscoveryListFeature> {
+  final WidgetSliderRepository widgetSliderRepository;
+  final DiscoveryWidgetRepository discoveryWidgetRepository;
+  final List<IDiscoveryItem> mockItems;
+
+  _DiscoveryListFeature(
+      {@required this.widgetSliderRepository,
+      @required this.discoveryWidgetRepository,
+      @required this.mockItems});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,24 +62,14 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
           Expanded(
             child: Container(
               child: ListView.builder(
-                itemCount: mockDiscoveryItems.length,
+                itemCount: this.mockItems.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    child: Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(.25),
-                            spreadRadius: 0,
-                            blurRadius: 3,
-                            offset: Offset(0, 2), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      margin: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                    onTap: (){
+                      this.discoveryWidgetRepository.addAliasToList(this.mockItems[index].alias);
+                      this.widgetSliderRepository.nextPage();
+                    },
+                    child: Card(
                       child: Row(
                         children: [
                           Container(
@@ -67,14 +80,15 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
                             width: 60,
                             child: Container(
                                 decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    shape: BoxShape.circle
-                                )
-                            ),
+                                    color: Colors.red, shape: BoxShape.circle)),
                           ),
                           Expanded(
                             child: Container(
-                              child: Text(mockDiscoveryItems[index].title, style: TextStyle(color: dark, fontWeight: FontWeight.bold),),
+                              child: Text(
+                                this.mockItems[index].title,
+                                style: TextStyle(
+                                    color: dark, fontWeight: FontWeight.bold),
+                              ),
                             ),
                           )
                         ],

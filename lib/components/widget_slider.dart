@@ -3,19 +3,30 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/types.dart';
+import 'package:o_learning/repository/widget_slider_repository.dart';
 
 class WidgetSlider extends StatefulWidget {
+  final WidgetSliderRepository widgetSliderRepository;
   final List<IWidgetSlider> components;
   final bool showDot;
   final bool scrollable;
 
-  WidgetSlider({@required this.components, this.showDot, this.scrollable});
+  WidgetSlider(
+      {@required this.widgetSliderRepository,
+      @required this.components,
+      this.showDot,
+      this.scrollable});
 
   @override
-  _WidgetSlider createState() => _WidgetSlider(components: this.components, showDot: this.showDot, scrollable: this.scrollable);
+  _WidgetSlider createState() => _WidgetSlider(
+      widgetSliderRepository: this.widgetSliderRepository,
+      components: this.components,
+      showDot: this.showDot,
+      scrollable: this.scrollable);
 }
 
 class _WidgetSlider extends State<WidgetSlider> {
+  final WidgetSliderRepository widgetSliderRepository;
   final List<IWidgetSlider> components;
   bool showDot;
   bool scrollable;
@@ -23,7 +34,11 @@ class _WidgetSlider extends State<WidgetSlider> {
   PageController pageController;
   StreamController<int> activeIndex = new StreamController<int>();
 
-  _WidgetSlider({@required this.components, this.showDot, this.scrollable}) {
+  _WidgetSlider(
+      {@required this.widgetSliderRepository,
+      @required this.components,
+      this.showDot,
+      this.scrollable}) {
     if (this.showDot == null) {
       this.showDot = true;
     }
@@ -36,6 +51,8 @@ class _WidgetSlider extends State<WidgetSlider> {
   void initState() {
     this.activeIndex.add(0);
     this.pageController = PageController(initialPage: 0);
+    this.widgetSliderRepository.initial(
+        pageController: this.pageController, components: this.components);
     super.initState();
   }
 
@@ -49,26 +66,15 @@ class _WidgetSlider extends State<WidgetSlider> {
     List<Widget> components = List<Widget>();
 
     for (int index = 0; index < this.components.length; index++) {
-      components.add(GestureDetector(
-        onTap: () {
-          if (index != position) {
-            this.toPagePosition(index);
-          }
-        },
-        child: Container(
-          margin: EdgeInsets.only(right: 6, left: 6),
-          height: index == position ? 10 : 8,
-          width: index == position ? 10 : 8,
-          decoration: BoxDecoration(
-              color: index == position
-                  ? Theme
-                  .of(context)
-                  .primaryColor
-                  : Theme
-                  .of(context)
-                  .primaryColorLight,
-              shape: BoxShape.circle),
-        ),
+      components.add(Container(
+        margin: EdgeInsets.only(right: 6, left: 6),
+        height: index == position ? 10 : 8,
+        width: index == position ? 10 : 8,
+        decoration: BoxDecoration(
+            color: index == position
+                ? Theme.of(context).primaryColor
+                : Theme.of(context).primaryColorLight,
+            shape: BoxShape.circle),
       ));
     }
 
@@ -90,12 +96,11 @@ class _WidgetSlider extends State<WidgetSlider> {
       children: [
         Expanded(
           child: Container(
-            width: MediaQuery
-                .of(context)
-                .size
-                .width,
+            width: MediaQuery.of(context).size.width,
             child: PageView.builder(
-              physics: this.scrollable ? AlwaysScrollableScrollPhysics() : NeverScrollableScrollPhysics(),
+              physics: this.scrollable
+                  ? AlwaysScrollableScrollPhysics()
+                  : NeverScrollableScrollPhysics(),
               onPageChanged: (int position) {
                 this.activeIndex.add(position);
               },
@@ -108,25 +113,24 @@ class _WidgetSlider extends State<WidgetSlider> {
             ),
           ),
         ),
-        showDot ? StreamBuilder(
-          stream: activeIndex.stream,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                padding: EdgeInsets.only(top: 16, bottom: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: this.dotItems(snapshot.data),
-                ),
-              );
-            }
-            return Container();
-          },
-        ) : Container(),
+        showDot
+            ? StreamBuilder(
+                stream: activeIndex.stream,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.only(top: 16, bottom: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: this.dotItems(snapshot.data),
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              )
+            : Container(),
       ],
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
+import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/pages/discovery_page.dart';
 import 'package:o_learning/utils/page_helper.dart';
 
@@ -50,38 +51,16 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
               padding: EdgeInsets.all(64),
               width: MediaQuery.of(context).size.width,
               child: Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle),
+                decoration: BoxDecoration(shape: BoxShape.circle),
                 child: Image.asset('lib/statics/mock_logo.png'),
               ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(top: 8, bottom: 16, left: 16, right: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Container(
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                      color: Theme.of(context).primaryColor,
-                      padding: EdgeInsets.only(top: 12, bottom: 12),
-                      onPressed: () {
-                        pageLauncher(DiscoveryPage(), context);
-                      },
-                      child: Text(
-                        'LET\'S GO',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          CurveButton(
+            title: 'LET\'S GO',
+            onPressed: () {
+              pageLauncher(DiscoveryPage(), context);
+            },
           ),
         ],
       ),

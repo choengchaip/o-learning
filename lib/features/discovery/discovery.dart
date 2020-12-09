@@ -2,7 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
+import 'package:o_learning/datas/discovery_data.dart';
 import 'package:o_learning/features/discovery/discovert_list.dart';
+import 'package:o_learning/features/discovery/discovery_experience.dart';
+import 'package:o_learning/repository/discovery_widget_repository.dart';
+import 'package:o_learning/repository/widget_slider_repository.dart';
 
 class DiscoveryFeature extends StatefulWidget {
   @override
@@ -10,6 +14,9 @@ class DiscoveryFeature extends StatefulWidget {
 }
 
 class _DiscoveryFeature extends State<DiscoveryFeature> {
+  WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
+  DiscoveryWidgetRepository discoveryWidgetRepository = new DiscoveryWidgetRepository();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,12 +26,30 @@ class _DiscoveryFeature extends State<DiscoveryFeature> {
         children: [
           Expanded(
             child: WidgetSlider(
+              widgetSliderRepository: this.widgetSliderRepository,
               scrollable: false,
               showDot: false,
               components: [
-                IWidgetSlider(component: DiscoveryListFeature()),
-                IWidgetSlider(component: DiscoveryListFeature()),
-                IWidgetSlider(component: DiscoveryListFeature()),
+                IWidgetSlider(
+                  component: DiscoveryListFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
+                    discoveryWidgetRepository: this.discoveryWidgetRepository,
+                    mockItems: mockDiscoveryItems1,
+                  ),
+                ),
+                IWidgetSlider(
+                  component: DiscoveryListFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
+                    discoveryWidgetRepository: this.discoveryWidgetRepository,
+                    mockItems: mockDiscoveryItems2,
+                  ),
+                ),
+                IWidgetSlider(
+                  component: DiscoveryExperienceFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
+                    discoveryWidgetRepository: this.discoveryWidgetRepository,
+                  )
+                ),
               ],
             ),
           ),
