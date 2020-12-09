@@ -34,14 +34,17 @@ class _WelcomeFeature extends State<WelcomeFeature> {
             child: WidgetSlider(
               components: [
                 IWidgetSlider(component: WelcomePageDetail(
+                  logoImage: 'lib/statics/mock_logo.png',
                   title: 'Learn to code',
                   description: 'Master the skills to read and write code,\nbuild apps and games, and advance\n your career',
                 ), buttonTitle: 'GET STARTED'),
                 IWidgetSlider(component: WelcomePageDetail(
+                  logoImage: 'lib/statics/mock_logo.png',
                   title: 'Build projects',
                   description: 'Make apps, games, websites, and more\nwith step-by-step guidance',
                 ), buttonTitle: 'GET STARTED'),
                 IWidgetSlider(component: WelcomePageDetail(
+                  logoImage: 'lib/statics/mock_logo.png',
                   title: 'Join the community',
                   description: 'Get advice and inspiration from more\nthan 5 million learners',
                 ), buttonTitle: 'GET STARTED'),

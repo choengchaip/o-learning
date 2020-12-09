@@ -41,10 +41,10 @@ class _WelcomePageDetail extends State<WelcomePageDetail> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.all(16),
+            margin: EdgeInsets.only(top: 16, bottom: 16, left: 46, right: 64),
             height: 250,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle, color: Theme.of(context).primaryColor),
+            child: Image.asset(this.logoImage),
+            decoration: BoxDecoration(shape: BoxShape.circle),
           ),
           Container(
             padding: EdgeInsets.all(8),

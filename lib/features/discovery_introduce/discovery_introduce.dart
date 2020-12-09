@@ -51,8 +51,8 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
               width: MediaQuery.of(context).size.width,
               child: Container(
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
                     shape: BoxShape.circle),
+                child: Image.asset('lib/statics/mock_logo.png'),
               ),
             ),
           ),
