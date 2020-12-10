@@ -1,7 +1,13 @@
 {
   "welcome": {
     "login_button": "LOG IN",
-    "get_started_button": "GET STARTED"
+    "get_started_button": "GET STARTED",
+    "learn_to_code_title": "Learn to code",
+    "learn_to_code_description": "Master the skills to read and write code,\nbuild apps and games, and advance\n your career",
+    "build_project_title": "Build projects",
+    "build_project_description": "Make apps, games, websites, and more\nwith step-by-step guidance",
+    "join_community_title": "Join the community",
+    "join_community_description": "Get advice and inspiration from more\nthan 5 million learners"
   },
   "discovery_intro": {
     "header": "INTRODUCTION",
@@ -25,5 +31,22 @@
     "title": "Why do you want to learn?",
     "description": "You can always switch paths later on",
     "continue_button": "CONTINUE"
+  },
+  "discovery_goal": {
+    "header": "GOAL",
+    "title": "How much time do you want to\nspend learning?",
+    "note": "SET YOUR DAILY GOAL",
+    "minute": "Minutes",
+    "casual": "Casual",
+    "regular": "Regular",
+    "serious": "Serious",
+    "continue_button": "CONTINUE"
+  },
+  "discovery_notification": {
+    "header": "REMINDER",
+    "title": "When do you like to\nbe reminded?",
+    "note": "SET DAILY REMINDER",
+    "enable_notification_button": "ENABLED NOTIFICATIONS",
+    "not_now": "NOT NOW"
   }
 }

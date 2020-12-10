@@ -65,7 +65,7 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
               appLocaleRepo.$l('discovery_course', 'header'),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 14,
+                fontSize: fontSizeP,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -75,16 +75,20 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
             child: Text(
               appLocaleRepo.$l('discovery_course', 'title'),
               style: TextStyle(
-                  color: dark, fontSize: 20, fontWeight: FontWeight.bold),
+                  color: dark,
+                  fontSize: fontSizeH3,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
           Container(
             padding: EdgeInsets.only(top: 8, left: 8, right: 8),
             child: Text(
-              appLocaleRepo.$l('discovery_course', 'description') + 'as',
+              appLocaleRepo.$l('discovery_course', 'description'),
               style: TextStyle(
-                  color: gray, fontSize: 16, fontWeight: FontWeight.bold),
+                  color: gray,
+                  fontSize: fontSizeP,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -105,8 +109,8 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                     height:
                         (MediaQuery.of(context).size.width * 0.75) / ratio78,
                     child: ListView.builder(
+                      padding: EdgeInsets.only(left: 16, right: 16),
                       controller: this.scrollController,
-                      padding: EdgeInsets.only(right: 16, left: 16),
                       scrollDirection: Axis.horizontal,
                       itemCount: mockItems.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -130,16 +134,17 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(16),
                                     boxShadow: [
-                                      snapshot.data ==
-                                          this.mockItems[index].id ?
-                                      BoxShadow(
-                                          color: Theme.of(context).primaryColor,
-                                          blurRadius: 0,
-                                          spreadRadius: 3):
-                                      BoxShadow(
-                                          color: Colors.black12,
-                                          blurRadius: 1,
-                                          spreadRadius: 1)
+                                      snapshot.data == this.mockItems[index].id
+                                          ? BoxShadow(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              blurRadius: 0,
+                                              spreadRadius: 3)
+                                          : BoxShadow(
+                                              color: Colors.black12,
+                                              offset: Offset(0.0, 1),
+                                              blurRadius: 6,
+                                              spreadRadius: 1)
                                     ]),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
@@ -175,7 +180,7 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                                                   mockItems[index].title,
                                                   style: TextStyle(
                                                       color: dark,
-                                                      fontSize: 18,
+                                                      fontSize: fontSizeH4,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -188,7 +193,7 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                                                         .description,
                                                     style: TextStyle(
                                                         color: gray,
-                                                        fontSize: 14,
+                                                        fontSize: fontSizeS1,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -213,10 +218,13 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
             ),
           ),
           CurveButton(
-              title: appLocaleRepo.$l('discovery_course', 'continue_button'),
-              onPressed: () {
-                this.discoveryWidgetRepository.addAliasToList(this.selectedCourseId);
-              })
+            margin: EdgeInsets.only(left: 16, right: 16),
+            title: appLocaleRepo.$l('discovery_course', 'continue_button'),
+            onPressed: () {
+              this.discoveryWidgetRepository.addCourse(this.selectedCourseId);
+              this.widgetSliderRepository.nextWidget();
+            },
+          )
         ],
       ),
     );

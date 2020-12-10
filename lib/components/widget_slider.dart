@@ -31,8 +31,8 @@ class _WidgetSlider extends State<WidgetSlider> {
   bool showDot;
   bool scrollable;
 
-  PageController pageController;
-  StreamController<int> activeIndex = new StreamController<int>();
+  PageController widgetController;
+  StreamController<int> activeIndex = StreamController<int>();
 
   _WidgetSlider(
       {@required this.widgetSliderRepository,
@@ -50,16 +50,16 @@ class _WidgetSlider extends State<WidgetSlider> {
   @override
   void initState() {
     this.activeIndex.add(0);
-    this.pageController = PageController(initialPage: 0);
+    this.widgetController = PageController(initialPage: 0);
     this.widgetSliderRepository.initial(
-        pageController: this.pageController, components: this.components);
+        widgetController: this.widgetController, components: this.components);
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-    activeIndex.close();
+    this.activeIndex.close();
   }
 
   List<Widget> dotItems(int position) {
@@ -84,7 +84,7 @@ class _WidgetSlider extends State<WidgetSlider> {
   toPagePosition(int position) {
     if (position < this.components.length) {
       this.activeIndex.add(position);
-      this.pageController.animateToPage(position,
+      this.widgetController.animateToPage(position,
           duration: Duration(milliseconds: 250), curve: Curves.ease);
     }
   }
@@ -105,7 +105,7 @@ class _WidgetSlider extends State<WidgetSlider> {
                 this.activeIndex.add(position);
               },
               scrollDirection: Axis.horizontal,
-              controller: pageController,
+              controller: widgetController,
               itemCount: this.components.length,
               itemBuilder: (BuildContext context, int index) {
                 return this.components[index].component;

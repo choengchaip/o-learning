@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
+import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -40,6 +41,7 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
         Provider.of<AppLocaleRepository>(context);
 
     return Container(
+      padding: EdgeInsets.only(left: 16, right: 16),
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -50,7 +52,7 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
               appLocaleRepo.$l('discovery_list', 'header'),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 14,
+                fontSize: fontSizeP,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -60,13 +62,13 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
             child: Text(
               appLocaleRepo.$l('discovery_list', 'title'),
               style: TextStyle(
-                  color: dark, fontSize: 20, fontWeight: FontWeight.bold),
+                  color: dark, fontSize: fontSizeH3, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
           Expanded(
             child: Container(
-              margin: EdgeInsets.all(16),
+              margin: EdgeInsets.only(top: 16, bottom: 16),
               child: ListView.builder(
                 itemCount: this.mockItems.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -75,7 +77,7 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
                       this
                           .discoveryWidgetRepository
                           .addAliasToList(this.mockItems[index].alias);
-                      this.widgetSliderRepository.nextPage();
+                      this.widgetSliderRepository.nextWidget();
                     },
                     child: Card(
                       child: Row(
@@ -92,10 +94,11 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
                           ),
                           Expanded(
                             child: Container(
+                              padding: EdgeInsets.only(right: 16),
                               child: Text(
                                 this.mockItems[index].title,
                                 style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: fontSizeH5,
                                     color: dark,
                                     fontWeight: FontWeight.bold),
                               ),

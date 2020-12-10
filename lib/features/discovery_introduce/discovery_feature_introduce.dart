@@ -1,24 +1,43 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
+import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
-import 'package:o_learning/pages/discovery_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
-import 'package:o_learning/utils/page_helper.dart';
+import 'package:o_learning/repository/page_slider_repository.dart';
+import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
 class DiscoveryIntroduceFeature extends StatefulWidget {
+  final PageSliderRepository pageSliderRepository;
+
+  DiscoveryIntroduceFeature({@required this.pageSliderRepository});
+
   @override
-  _DiscoveryIntroduceFeature createState() => _DiscoveryIntroduceFeature();
+  _DiscoveryIntroduceFeature createState() => _DiscoveryIntroduceFeature(
+      pageSliderRepository: this.pageSliderRepository);
 }
 
 class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
+  final PageSliderRepository pageSliderRepository;
+  WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
+
+  _DiscoveryIntroduceFeature({@required this.pageSliderRepository});
+
+
+  @override
+  void initState() {
+    this.widgetSliderRepository.initial(pageSliderRepo: this.pageSliderRepository);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
 
     return Container(
+      padding: EdgeInsets.only(left: 16, right: 16),
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
@@ -28,7 +47,7 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
               appLocaleRepo.$l('discovery_intro', 'header'),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 18,
+                fontSize: fontSizeP,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -38,7 +57,9 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
             child: Text(
               appLocaleRepo.$l('discovery_intro', 'title'),
               style: TextStyle(
-                  color: dark, fontSize: 20, fontWeight: FontWeight.bold),
+                  color: dark,
+                  fontSize: fontSizeH3,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           Container(
@@ -46,7 +67,9 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
             child: Text(
               appLocaleRepo.$l('discovery_intro', 'description'),
               style: TextStyle(
-                  color: gray, fontSize: 16, fontWeight: FontWeight.w300),
+                  color: gray,
+                  fontSize: fontSizeP,
+                  fontWeight: FontWeight.w300),
               textAlign: TextAlign.center,
             ),
           ),
@@ -63,7 +86,7 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
           CurveButton(
             title: appLocaleRepo.$l('discovery_intro', 'let_go_button'),
             onPressed: () {
-              pageLauncher(DiscoveryPage(), context);
+              this.widgetSliderRepository.nextPage();
             },
           ),
         ],

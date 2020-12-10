@@ -14,3 +14,11 @@ class IDiscoveryCourseItem {
 
   IDiscoveryCourseItem({this.id, this.image, this.title, this.description});
 }
+
+class IDiscoveryGoalItem {
+  final int minute;
+  final String name;
+  final String spendTitle;
+
+  IDiscoveryGoalItem({this.minute, this.name, this.spendTitle});
+}

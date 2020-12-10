@@ -15,6 +15,7 @@ class AppThemeData {
       errorColor: errorColor,
       dividerColor: dividerColor,
       cursorColor: Colors.black,
+      disabledColor: grayLight,
       fontFamily: lang == Config.defaultLang ? GoogleFonts
           .sarabun()
           .fontFamily : GoogleFonts

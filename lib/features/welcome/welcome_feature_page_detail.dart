@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
+import 'package:o_learning/assets/variables.dart';
 
 class WelcomePageDetail extends StatefulWidget {
   final String logoImage;
@@ -35,6 +36,7 @@ class _WelcomePageDetail extends State<WelcomePageDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(left: 16, right: 16),
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -50,14 +52,14 @@ class _WelcomePageDetail extends State<WelcomePageDetail> {
             padding: EdgeInsets.all(8),
             child: Text(
               this.title,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: fontSizeH3, fontWeight: FontWeight.w600),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(bottom: 32),
+            margin: EdgeInsets.only(bottom: 32, left: 16, right: 16),
             child: Text(
               this.description,
-              style: TextStyle(fontSize: 16, color: gray),
+              style: TextStyle(fontSize: fontSizeP, color: gray),
               textAlign: TextAlign.center,
             ),
           ),

@@ -1,23 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
+import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
-import 'package:o_learning/features/welcome/welcome_page_detail.dart';
-import 'package:o_learning/pages/discovery_introduce_page.dart';
+import 'package:o_learning/features/welcome/welcome_feature_page_detail.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
-import 'package:o_learning/utils/page_helper.dart';
 import 'package:provider/provider.dart';
 
 class WelcomeFeature extends StatefulWidget {
+  final PageSliderRepository pageSliderRepository;
+
+  WelcomeFeature({@required this.pageSliderRepository});
+
   @override
-  _WelcomeFeature createState() => _WelcomeFeature();
+  _WelcomeFeature createState() => _WelcomeFeature(pageSliderRepository: this.pageSliderRepository);
 }
 
 class _WelcomeFeature extends State<WelcomeFeature> {
+  final PageSliderRepository pageSliderRepository;
   WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
+
+  _WelcomeFeature({@required this.pageSliderRepository});
+
+  @override
+  void initState() {
+    this.widgetSliderRepository.initial(pageSliderRepo: this.pageSliderRepository);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +38,7 @@ class _WelcomeFeature extends State<WelcomeFeature> {
         Provider.of<AppLocaleRepository>(context);
 
     return Container(
+      width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
           Container(
@@ -36,7 +50,11 @@ class _WelcomeFeature extends State<WelcomeFeature> {
                 Container(
                   child: Text(
                     appLocaleRepo.$l('welcome', 'login_button'),
-                    style: TextStyle(color: gray, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: gray,
+                        fontSize: fontSizeP,
+                        fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -49,34 +67,38 @@ class _WelcomeFeature extends State<WelcomeFeature> {
                 IWidgetSlider(
                     component: WelcomePageDetail(
                       logoImage: 'lib/statics/mock_logo.png',
-                      title: 'Learn to code',
-                      description:
-                          'Master the skills to read and write code,\nbuild apps and games, and advance\n your career',
+                      title: appLocaleRepo.$l('welcome', 'learn_to_code_title'),
+                      description: appLocaleRepo.$l(
+                          'welcome', 'learn_to_code_description'),
                     ),
-                    buttonTitle: appLocaleRepo.$l('welcome', 'get_started_button')),
+                    buttonTitle:
+                        appLocaleRepo.$l('welcome', 'get_started_button')),
                 IWidgetSlider(
                     component: WelcomePageDetail(
                       logoImage: 'lib/statics/mock_logo.png',
-                      title: 'Build projects',
-                      description:
-                          'Make apps, games, websites, and more\nwith step-by-step guidance',
+                      title: appLocaleRepo.$l('welcome', 'build_project_title'),
+                      description: appLocaleRepo.$l(
+                          'welcome', 'build_project_description'),
                     ),
-                    buttonTitle: appLocaleRepo.$l('welcome', 'get_started_button')),
+                    buttonTitle:
+                        appLocaleRepo.$l('welcome', 'get_started_button')),
                 IWidgetSlider(
                     component: WelcomePageDetail(
                       logoImage: 'lib/statics/mock_logo.png',
-                      title: 'Join the community',
-                      description:
-                          'Get advice and inspiration from more\nthan 5 million learners',
+                      title: appLocaleRepo.$l('welcome', 'join_community_title'),
+                      description: appLocaleRepo.$l(
+                          'welcome', 'join_community_description'),
                     ),
-                    buttonTitle: appLocaleRepo.$l('welcome', 'get_started_button')),
+                    buttonTitle:
+                        appLocaleRepo.$l('welcome', 'get_started_button')),
               ],
             ),
           ),
           CurveButton(
+            margin: EdgeInsets.only(left: 16, right: 16),
             title: appLocaleRepo.$l('welcome', 'get_started_button'),
             onPressed: () {
-              pageLauncher(DiscoveryIntroducePage(), context);
+              this.widgetSliderRepository.nextPage();
             },
           ),
         ],

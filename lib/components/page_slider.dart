@@ -1,24 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/components/types.dart';
+import 'package:o_learning/repository/page_slider_repository.dart';
 
 class PageSlider extends StatefulWidget {
-  final List<Widget> components;
+  final List<IPageSlider> components;
+  final PageSliderRepository pageSliderRepository;
 
-  PageSlider({@required this.components});
+  PageSlider({@required this.components, @required this.pageSliderRepository});
 
   @override
-  _PageSlider createState() => _PageSlider(components: this.components);
+  _PageSlider createState() => _PageSlider(
+      components: this.components,
+      pageSliderRepository: this.pageSliderRepository);
 }
 
 class _PageSlider extends State<PageSlider> {
-  final List<Widget> components;
-  ScrollController scrollController;
+  final List<IPageSlider> components;
+  final PageSliderRepository pageSliderRepository;
+  PageController pageController;
 
-  _PageSlider({@required this.components});
+  _PageSlider({@required this.components, @required this.pageSliderRepository});
 
   @override
   void initState() {
-    this.scrollController = ScrollController();
+    this.pageController = PageController(initialPage: 0);
+    this.pageSliderRepository.initial(pageController: pageController, components: this.components);
     super.initState();
   }
 
@@ -47,10 +54,8 @@ class _PageSlider extends State<PageSlider> {
   }
 
   toPagePosition(int position) {
-    this.scrollController.animateTo(
-        MediaQuery.of(context).size.width * position,
-        duration: Duration(milliseconds: 250),
-        curve: Curves.ease);
+    this.pageController.animateTo(MediaQuery.of(context).size.width * position,
+        duration: Duration(milliseconds: 250), curve: Curves.ease);
   }
 
   @override
@@ -59,14 +64,12 @@ class _PageSlider extends State<PageSlider> {
       children: [
         Expanded(
           child: Container(
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              controller: scrollController,
+            child: PageView.builder(
+              controller: pageController,
               physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
               itemCount: this.components.length,
               itemBuilder: (BuildContext context, int index) {
-                return this.components[index];
+                return this.components[index].component;
               },
             ),
           ),

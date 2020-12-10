@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
+import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
-import 'package:o_learning/states/discovery_data_types.dart';
 import 'package:provider/provider.dart';
 
 class DiscoveryExperienceFeature extends StatefulWidget {
@@ -38,7 +38,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
 
   @override
   void initState() {
-    this.experienceValue = new StreamController<double>();
+    this.experienceValue = StreamController<double>();
     this.experienceValue.add(0);
     this._experienceValue = 0;
     super.initState();
@@ -61,6 +61,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
         Provider.of<AppLocaleRepository>(context);
 
     return Container(
+      padding: EdgeInsets.only(left: 16, right: 16),
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +72,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
               appLocaleRepo.$l('discovery_list', 'header'),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 14,
+                fontSize: fontSizeP,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -81,7 +82,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
             child: Text(
               appLocaleRepo.$l('discovery_list', 'title'),
               style: TextStyle(
-                  color: dark, fontSize: 20, fontWeight: FontWeight.bold),
+                  color: dark, fontSize: fontSizeH3, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -98,6 +99,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                   Container(
                     height: 300,
                     child: Stack(
+                      alignment: Alignment.center,
                       children: [
                         Positioned(
                           bottom: 100,
@@ -142,7 +144,6 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 16, right: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -155,7 +156,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                             child: Text(
                               appLocaleRepo.$l('discovery_list', 'experience_none'),
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: fontSizeH4,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -170,7 +171,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                             child: Text(
                               appLocaleRepo.$l('discovery_list', 'experience_little'),
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: fontSizeH4,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -183,7 +184,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                             child: Text(
                               appLocaleRepo.$l('discovery_list', 'experience_a_lot'),
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: fontSizeH4,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -197,7 +198,6 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 8, right: 8),
                           width: MediaQuery.of(context).size.width,
                           child: CupertinoSlider(
                             min: 0,
@@ -232,7 +232,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                                   padding: EdgeInsets.all(8),
                                   child: Text(
                                       appLocaleRepo.$l('discovery_list', 'experience_a_lot_description'),
-                                    style: TextStyle(fontSize: 16, color: gray),
+                                    style: TextStyle(fontSize: fontSizeP, color: gray),
                                   ),
                                 ),
                               ),
@@ -247,7 +247,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                                   padding: EdgeInsets.all(8),
                                   child: Text(
                                     appLocaleRepo.$l('discovery_list', 'experience_little_description'),
-                                    style: TextStyle(fontSize: 16, color: gray),
+                                    style: TextStyle(fontSize: fontSizeP, color: gray),
                                   ),
                                 ),
                               ),
@@ -262,7 +262,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                                   padding: EdgeInsets.all(8),
                                   child: Text(
                                     appLocaleRepo.$l('discovery_list', 'experience_none_description'),
-                                    style: TextStyle(fontSize: 16, color: gray),
+                                    style: TextStyle(fontSize: fontSizeP, color: gray),
                                   ),
                                 ),
                               ),
@@ -277,10 +277,10 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
             },
           ),
           CurveButton(
-            title: 'CONTINUE',
+            title: appLocaleRepo.$l('discovery_list', 'continue_button'),
             onPressed: () {
-              this.discoveryWidgetRepository.addAliasToList(_experienceValue.toString());
-              this.widgetSliderRepository.nextPage();
+              this.discoveryWidgetRepository.addExperience(this._experienceValue);
+              this.widgetSliderRepository.nextWidget();
             },
           ),
         ],

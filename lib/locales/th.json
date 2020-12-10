@@ -1,23 +1,64 @@
 {
   "welcome": {
-    "login_button": "LOG IN",
-    "get_started_button": "GET STARTED"
+    "login_button": "เข้าสู่ระบบ",
+    "get_started_button": "เริ่มต้นใช้งาน",
+    "learn_to_code_title": "เรียนเขียนโค้ด",
+    "learn_to_code_description": "สามารถอ่าน และเขียนโค้ดได้,\nสร้างแอพหรือเกมของตัวเอง\nเสริมสร้างประกบการณ์ที่สามารถเอาไปใช้ได้จริง",
+    "build_project_title": "สร้างผลงาน",
+    "build_project_description": "สอนวิธีสร้างแอพ เกม เว็บไซด์\nทุกขั้นตอน ไม่ยุ่งยากสำหรับผู้เริ่มต้น",
+    "join_community_title": "ศึกษาไปพร้อมกับเพื่อน",
+    "join_community_description": "สามารถพูดคุย และเปลี่ยนมุมมองกับเพื่อน"
   },
   "discovery_intro": {
-    "header": "INTRODUCTION",
-    "title": "Welcome to OLearning!",
-    "description": "Before you get started, we'll ask you a few\nquestions to create your personalized\ncurriculum. Are you ready?",
-    "let_go_button": "LET'S GO"
+    "header": "ฮาโย๋ๆ",
+    "title": "ยินดีต้อนรับสู่ O-Learning",
+    "description": "ก่อนเริ้มต้นใช้งาน กรุณาทำแบบสอบถามเบื้องต้น เผื่อให้เราเลือกหลักสูตรที่เหมาะสมสำหรับคุณ",
+    "let_go_button": "เริ่มกันเลย!"
   },
   "discovery_list": {
-    "header": "MOTIVE",
-    "title": "Why are you learning\nto code?",
-    "experience_none": "NONE",
-    "experience_little": "A LITTLE",
-    "experience_a_lot": "A LOT",
-    "experience_none_description": "You're about to write your first line of code",
-    "experience_little_description": "You've written small programs or webpages",
-    "experience_a_lot_description": "You've worked on larger projects",
-    "continue_button": "CONTINUE"
+    "header": "เหตุผล",
+    "title": "ทำไมถึงสนใจศึกษาในเรื่องนี้?",
+    "experience_none": "มือใหม่",
+    "experience_little": "มีความรู้",
+    "experience_a_lot": "มืออาชีพ",
+    "experience_none_description": "คุณเพิ่งเริ่มต้นที่จะศึกษาการเขียนโค้ด",
+    "experience_little_description": "คุณเคยผ่านการเขียนโค้ดมาแล้วบ้าง",
+    "experience_a_lot_description": "คุณมีความรู้ และเคยสร้างโปรเจคใหญ่มาแล้ว",
+    "continue_button": "ไปต่อ"
+  },
+  "discovery_course": {
+    "header": "บทเรียน",
+    "title": "อยากเริ่มต้นศึกษาบทเรียนไหน?",
+    "description": "คุณสามารถเปลี่ยนบทเรียนได้ในภายหลัง",
+    "continue_button": "ไปต่อ"
+  },
+  "discovery_goal": {
+    "header": "เป้าหมาย",
+    "title": "คุณอยากใช้เวลากับแอพนี้\nเท่าไหร่ต่อวัน",
+    "note": "กำหนดเวลาที่ต้องใช้",
+    "minute": "นาที",
+    "casual": "เบื้องต้น",
+    "regular": "พอดี",
+    "serious": "เข้มงวด",
+    "continue_button": "ไปต่อ"
+  },
+  "discovery_notification": {
+    "header": "แจ้งเตือน",
+    "title": "ต้องการให้เราแจ้งเตือน\nคุณหรือไม่",
+    "note": "กำหนดเวลา",
+    "enable_notification_button": "เปิดการแจ้งเตือน",
+    "not_now": "ไม่ใช่ตอนนี้"
+  },
+  "authentication_login": {
+    "sign_up": "สมัครสมาชิก",
+    "title": "เข้าสู่ระบบเพื่อ\nเริ่มต้นใช้งาน",
+    "terms_and_conditions": "ฉันยอมรับ เงื่อนไข และ นโยบายรักษาข้อมูลส่วนบุคคล",
+    "login_button": "เข้าสู่ระบบ",
+    "back": "กลับ",
+    "continue_button": "ไปต่อ",
+    "email_title": "Enter your email address",
+    "email_placeholder": "Email address"
+  },
+  "authentication_register": {
   }
 }
