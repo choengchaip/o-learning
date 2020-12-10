@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/pages/discovery_page.dart';
+import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/utils/page_helper.dart';
+import 'package:provider/provider.dart';
 
 class DiscoveryIntroduceFeature extends StatefulWidget {
   @override
@@ -13,6 +15,9 @@ class DiscoveryIntroduceFeature extends StatefulWidget {
 class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
   @override
   Widget build(BuildContext context) {
+    AppLocaleRepository appLocaleRepo =
+        Provider.of<AppLocaleRepository>(context);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -20,10 +25,10 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
           Container(
             padding: EdgeInsets.only(top: 24, bottom: 8),
             child: Text(
-              'INTRODUCTION',
+              appLocaleRepo.$l('discovery_intro', 'header'),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 14,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -31,23 +36,22 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
           Container(
             padding: EdgeInsets.all(8),
             child: Text(
-              'Welcome to OLearning!',
+              appLocaleRepo.$l('discovery_intro', 'title'),
               style: TextStyle(
                   color: dark, fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
             child: Text(
-              'Before you get started, we\'ll ask you a few\nquestions to create your personalized\ncurriculum. Are you ready?',
+              appLocaleRepo.$l('discovery_intro', 'description'),
               style: TextStyle(
-                  color: gray, fontSize: 14, fontWeight: FontWeight.w300),
+                  color: gray, fontSize: 16, fontWeight: FontWeight.w300),
               textAlign: TextAlign.center,
             ),
           ),
           Expanded(
             child: Container(
-              // margin: EdgeInsets.only(left: 16, right: 16),
               padding: EdgeInsets.all(64),
               width: MediaQuery.of(context).size.width,
               child: Container(
@@ -57,7 +61,7 @@ class _DiscoveryIntroduceFeature extends State<DiscoveryIntroduceFeature> {
             ),
           ),
           CurveButton(
-            title: 'LET\'S GO',
+            title: appLocaleRepo.$l('discovery_intro', 'let_go_button'),
             onPressed: () {
               pageLauncher(DiscoveryPage(), context);
             },

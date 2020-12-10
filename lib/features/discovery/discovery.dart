@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
-import 'package:o_learning/datas/discovery_data.dart';
 import 'package:o_learning/features/discovery/discovert_list.dart';
+import 'package:o_learning/features/discovery/discovery_course.dart';
 import 'package:o_learning/features/discovery/discovery_experience.dart';
+import 'package:o_learning/mocks/discovery_data.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
@@ -49,6 +50,13 @@ class _DiscoveryFeature extends State<DiscoveryFeature> {
                     widgetSliderRepository: this.widgetSliderRepository,
                     discoveryWidgetRepository: this.discoveryWidgetRepository,
                   )
+                ),
+                IWidgetSlider(
+                    component: DiscoveryCourse(
+                      widgetSliderRepository: this.widgetSliderRepository,
+                      discoveryWidgetRepository: this.discoveryWidgetRepository,
+                      mockItems: mockDiscoveryCourseItems,
+                    )
                 ),
               ],
             ),

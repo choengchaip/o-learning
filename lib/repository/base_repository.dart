@@ -1,13 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
+import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/states/object.dart';
 import 'package:o_learning/states/types.dart';
 
 class BaseRepository<T, L> extends ChangeNotifier {
   IStatus<T, L> object = commonObject;
   BuildContext context;
+  StreamController<String> lang;
 
-  init({BuildContext context}) {
+  initContext({BuildContext context}) {
     this.context = context;
+  }
+
+  initLang({StreamController<String> lang}) {
+    this.lang = lang;
+    this.lang.add(Config.defaultLang);
   }
 
   toLoadingStatus() {

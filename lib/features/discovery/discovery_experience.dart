@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/components/curve_button.dart';
+import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:o_learning/states/discovery_data_types.dart';
+import 'package:provider/provider.dart';
 
 class DiscoveryExperienceFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
@@ -27,7 +29,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
   final WidgetSliderRepository widgetSliderRepository;
   final DiscoveryWidgetRepository discoveryWidgetRepository;
   StreamController<double> experienceValue;
-  StreamController<double> _experienceValue;
+  double _experienceValue;
 
   _DiscoveryExperienceFeature({
     @required this.widgetSliderRepository,
@@ -37,26 +39,27 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
   @override
   void initState() {
     this.experienceValue = new StreamController<double>();
-    this._experienceValue = new StreamController<double>();
     this.experienceValue.add(0);
-    this._experienceValue.add(0);
+    this._experienceValue = 0;
     super.initState();
   }
 
   @override
   void dispose() {
     this.experienceValue.close();
-    this._experienceValue.close();
     super.dispose();
   }
 
   updateExperienceValue(double value) {
-    this._experienceValue.add(value);
     this.experienceValue.add(value);
+    this._experienceValue = value;
   }
 
   @override
   Widget build(BuildContext context) {
+    AppLocaleRepository appLocaleRepo =
+        Provider.of<AppLocaleRepository>(context);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -65,7 +68,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
           Container(
             padding: EdgeInsets.only(top: 24, bottom: 8),
             child: Text(
-              'MOTIVE',
+              appLocaleRepo.$l('discovery_list', 'header'),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 14,
@@ -76,7 +79,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
           Container(
             padding: EdgeInsets.only(top: 8, bottom: 32, left: 8, right: 8),
             child: Text(
-              'Why are you learning\nto code?',
+              appLocaleRepo.$l('discovery_list', 'title'),
               style: TextStyle(
                   color: dark, fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
@@ -84,7 +87,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
           ),
           Spacer(),
           StreamBuilder(
-            stream: _experienceValue.stream,
+            stream: experienceValue.stream,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (!snapshot.hasData) {
                 return Container();
@@ -105,7 +108,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                             child: Container(
                               width: 150,
                               child: Image.asset(
-                                  'lib/statics/experience_book_a_alot.png'),
+                                  'lib/statics/experience_book_a_lot.png'),
                             ),
                           ),
                         ),
@@ -144,11 +147,13 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AnimatedOpacity(
-                          opacity: (snapshot.data >= 0 && snapshot.data < 49) ? 1 : 0.25,
+                          opacity: (snapshot.data >= 0 && snapshot.data < 49)
+                              ? 1
+                              : 0.25,
                           duration: Duration(milliseconds: 250),
                           child: Container(
                             child: Text(
-                              'NONE',
+                              appLocaleRepo.$l('discovery_list', 'experience_none'),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -157,11 +162,13 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                           ),
                         ),
                         AnimatedOpacity(
-                          opacity: (snapshot.data >= 50 && snapshot.data < 100) ? 1 : 0.25,
+                          opacity: (snapshot.data >= 50 && snapshot.data < 100)
+                              ? 1
+                              : 0.25,
                           duration: Duration(milliseconds: 250),
                           child: Container(
                             child: Text(
-                              'A LITTLE',
+                              appLocaleRepo.$l('discovery_list', 'experience_little'),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -174,7 +181,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                           duration: Duration(milliseconds: 250),
                           child: Container(
                             child: Text(
-                              'A LOT',
+                              appLocaleRepo.$l('discovery_list', 'experience_a_lot'),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -224,7 +231,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'You\'ve worked on larger projects',
+                                      appLocaleRepo.$l('discovery_list', 'experience_a_lot_description'),
                                     style: TextStyle(fontSize: 16, color: gray),
                                   ),
                                 ),
@@ -239,7 +246,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'You\'ve written small programs or webpages',
+                                    appLocaleRepo.$l('discovery_list', 'experience_little_description'),
                                     style: TextStyle(fontSize: 16, color: gray),
                                   ),
                                 ),
@@ -254,7 +261,7 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
                                   alignment: Alignment.center,
                                   padding: EdgeInsets.all(8),
                                   child: Text(
-                                    'You\'re about to write your first line of code',
+                                    appLocaleRepo.$l('discovery_list', 'experience_none_description'),
                                     style: TextStyle(fontSize: 16, color: gray),
                                   ),
                                 ),
@@ -271,7 +278,10 @@ class _DiscoveryExperienceFeature extends State<DiscoveryExperienceFeature> {
           ),
           CurveButton(
             title: 'CONTINUE',
-            onPressed: () {},
+            onPressed: () {
+              this.discoveryWidgetRepository.addAliasToList(_experienceValue.toString());
+              this.widgetSliderRepository.nextPage();
+            },
           ),
         ],
       ),

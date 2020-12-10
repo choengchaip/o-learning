@@ -5,6 +5,8 @@ import 'package:o_learning/repository/base_repository.dart';
 import 'package:o_learning/states/types.dart';
 
 class AppLocaleRepository extends BaseRepository<dynamic, dynamic> {
+  String get locale => this.object.data['lang'];
+
   Future<void> loadAsset() async {
     this.toLoadingStatus();
 
@@ -25,7 +27,7 @@ class AppLocaleRepository extends BaseRepository<dynamic, dynamic> {
     this.toCompleteStatus();
   }
 
-  Future<void> locale({String lang}) async {
+  Future<void> switchLocale({String lang}) async {
     this.toLoadingStatus();
 
     try {
@@ -34,6 +36,8 @@ class AppLocaleRepository extends BaseRepository<dynamic, dynamic> {
       }
 
       this.object.data['lang'] = lang;
+      this.lang.add(lang);
+
       this.toSuccessDataStatus();
     } catch (e) {
       this.toErrorStatus();
@@ -43,4 +47,15 @@ class AppLocaleRepository extends BaseRepository<dynamic, dynamic> {
   }
 
   IStatus get status => this.object;
+
+  String $l(String base, String path) {
+    String word =
+        this.object.data['data_${this.object.data['lang']}'][base][path];
+
+    if (word == null) {
+      word = this.object.data['data_th'][base][path];
+    }
+
+    return word;
+  }
 }

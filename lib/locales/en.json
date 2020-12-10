@@ -1,0 +1,29 @@
+{
+  "welcome": {
+    "login_button": "LOG IN",
+    "get_started_button": "GET STARTED"
+  },
+  "discovery_intro": {
+    "header": "INTRODUCTION",
+    "title": "Welcome to O-Learning!",
+    "description": "Before you get started, we'll ask you a few\nquestions to create your personalized\ncurriculum. Are you ready?",
+    "let_go_button": "LET'S GO"
+  },
+  "discovery_list": {
+    "header": "MOTIVE",
+    "title": "Why are you learning\nto code?",
+    "experience_none": "NONE",
+    "experience_little": "A LITTLE",
+    "experience_a_lot": "A LOT",
+    "experience_none_description": "You're about to write your first line of code",
+    "experience_little_description": "You've written small programs or webpages",
+    "experience_a_lot_description": "You've worked on larger projects",
+    "continue_button": "CONTINUE"
+  },
+  "discovery_course": {
+    "header": "PATH",
+    "title": "Why do you want to learn?",
+    "description": "You can always switch paths later on",
+    "continue_button": "CONTINUE"
+  }
+}

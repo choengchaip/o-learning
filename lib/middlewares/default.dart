@@ -30,9 +30,18 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
         Provider.of<AppLocaleRepository>(this.context);
     AuthRepository authRepo = Provider.of<AuthRepository>(this.context);
 
-    await appLocaleRepo.init(context: this.context);
+    await appLocaleRepo.initContext(context: this.context);
     await appLocaleRepo.loadAsset();
-    await appLocaleRepo.locale();
+    await appLocaleRepo.switchLocale(lang: 'en');
+
+    await precacheImage(Image.asset('lib/statics/experience_book_a_lot.png').image, context);
+    await precacheImage(Image.asset('lib/statics/experience_book_base.png').image, context);
+    await precacheImage(Image.asset('lib/statics/experience_book_little.png').image, context);
+    await precacheImage(Image.asset('lib/statics/mock_logo.png').image, context);
+
+    // Mocks
+    await precacheImage(Image.asset('lib/statics/mocks/course_web_development.png').image, context);
+    await precacheImage(Image.asset('lib/statics/mocks/course_python.png').image, context);
 
     if (authRepo.isNotAuth) {
       pageLauncher(WelcomePage(), context);
@@ -44,7 +53,11 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Container(),
+          child: Container(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+            ),
+          ),
         ),
       ),
     );

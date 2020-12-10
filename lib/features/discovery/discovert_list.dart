@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
+import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:o_learning/states/discovery_data_types.dart';
+import 'package:provider/provider.dart';
 
 class DiscoveryListFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
@@ -34,6 +36,9 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocaleRepository appLocaleRepo =
+        Provider.of<AppLocaleRepository>(context);
+
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -42,7 +47,7 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
           Container(
             padding: EdgeInsets.only(top: 24, bottom: 8),
             child: Text(
-              'MOTIVE',
+              appLocaleRepo.$l('discovery_list', 'header'),
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 14,
@@ -53,7 +58,7 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
           Container(
             padding: EdgeInsets.only(top: 8, bottom: 32, left: 8, right: 8),
             child: Text(
-              'Why are you learning\nto code?',
+              appLocaleRepo.$l('discovery_list', 'title'),
               style: TextStyle(
                   color: dark, fontSize: 20, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
@@ -61,12 +66,15 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
           ),
           Expanded(
             child: Container(
+              margin: EdgeInsets.all(16),
               child: ListView.builder(
                 itemCount: this.mockItems.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: (){
-                      this.discoveryWidgetRepository.addAliasToList(this.mockItems[index].alias);
+                    onTap: () {
+                      this
+                          .discoveryWidgetRepository
+                          .addAliasToList(this.mockItems[index].alias);
                       this.widgetSliderRepository.nextPage();
                     },
                     child: Card(
@@ -74,10 +82,10 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
                         children: [
                           Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.all(20),
                             margin: EdgeInsets.only(right: 8),
-                            height: 60,
-                            width: 60,
+                            height: 85,
+                            width: 85,
                             child: Container(
                                 decoration: BoxDecoration(
                                     color: Colors.red, shape: BoxShape.circle)),
@@ -87,7 +95,9 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
                               child: Text(
                                 this.mockItems[index].title,
                                 style: TextStyle(
-                                    color: dark, fontWeight: FontWeight.bold),
+                                    fontSize: 16,
+                                    color: dark,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           )
