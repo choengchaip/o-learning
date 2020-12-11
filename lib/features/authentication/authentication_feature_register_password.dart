@@ -164,7 +164,7 @@ class _AuthenticationRegisterPasswordFeature
                           Container(
                             margin: EdgeInsets.only(top: 16),
                             child: Text(
-                              'Logging in ...',
+                              appLocaleRepo.$l('status', 'signing_up'),
                               style: TextStyle(
                                 fontSize: fontSizeP,
                               ),

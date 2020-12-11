@@ -86,5 +86,10 @@
   },
   "course_item": {
     "completed": "COMPLETE"
+  },
+  "status": {
+    "logging_in": "Logging in ...",
+    "signing_up": "Signing in ...",
+    "loading": "Loading ..."
   }
 }
