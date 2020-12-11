@@ -6,11 +6,11 @@ import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/components/radio_button.dart';
+import 'package:o_learning/mocks/discovery_goal_data.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:o_learning/states/discovery_data_types.dart';
-import 'file:///C:/Users/singh/Desktop/Projects/o_learning/lib/mocks/discovery_goal_data.dart';
 import 'package:provider/provider.dart';
 
 class DiscoveryGoal extends StatefulWidget {
