@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/course_item.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/states/discovery_data_types.dart';
@@ -29,10 +30,10 @@ class MainCourseSelectFeature extends StatelessWidget {
         return AnimatedPositioned(
           duration: Duration(milliseconds: 250),
           curve: Curves.ease,
-          top: this.isExpand ? 74 : -300,
+          top: this.isExpand ? 50 + MediaQuery.of(context).padding.top : -300,
           child: Container(
             width: MediaQuery.of(context).size.width,
-            height: 300,
+            height: MediaQuery.of(context).size.width * 0.85,
             color: Colors.white,
             child: ListView.builder(
               padding: EdgeInsets.all(16),
