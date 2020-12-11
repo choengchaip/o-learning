@@ -65,38 +65,16 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                       child: ListView(
                         padding: EdgeInsets.zero,
                         children: [
-                          Container(
-                            color: grayLighter,
-                            padding: EdgeInsets.only(bottom: 16),
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: [
-                                Container(
-                                  height: 350,
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Image.asset(
-                                    'lib/statics/course_background.jpg',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Container(
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                    gradient: new LinearGradient(
-                                        colors: [
-                                          Colors.white.withOpacity(0),
-                                          grayLighter,
-                                        ],
-                                        begin: FractionalOffset(0, 0.5),
-                                        end: FractionalOffset(0, 1),
-                                        stops: [0.0, 1.0],
-                                        tileMode: TileMode.clamp),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                           MainCourseSectionFeature(
+                            topWidget: Container(
+                              margin: EdgeInsets.only(bottom: 20),
+                              height: 350,
+                              width: MediaQuery.of(context).size.width,
+                              child: Image.asset(
+                                'lib/statics/course_background.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             course: mockHtml,
                           ),
                           MainCourseSectionFeature(

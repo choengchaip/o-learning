@@ -6,8 +6,14 @@ import 'package:o_learning/states/course_data_types.dart';
 
 class MainCourseSectionFeature extends StatelessWidget {
   final ICourseItem course;
+  Widget topWidget;
 
-  MainCourseSectionFeature({Key key, @required this.course}) : super(key: key);
+  MainCourseSectionFeature({Key key, @required this.course, this.topWidget})
+      : super(key: key) {
+    if (this.topWidget == null) {
+      this.topWidget = Container();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +23,34 @@ class MainCourseSectionFeature extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(bottom: 32),
-            height: 40,
             child: Stack(
-              alignment: Alignment.center,
+              alignment: Alignment.bottomCenter,
               children: [
+                this.topWidget,
                 Container(
-                  height: 10,
-                  color: Colors.white,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(32),
-                    ),
-                  ),
-                  padding:
-                      EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
-                  child: Text(
-                    this.course.title,
-                    style: TextStyle(
-                        fontSize: fontSizeP, fontWeight: FontWeight.bold),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        height: 10,
+                        color: Colors.white,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(32),
+                          ),
+                        ),
+                        padding: EdgeInsets.only(
+                            top: 8, bottom: 8, left: 16, right: 16),
+                        child: Text(
+                          this.course.title,
+                          style: TextStyle(
+                              fontSize: fontSizeP, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ],
@@ -56,7 +69,9 @@ class MainCourseSectionFeature extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                     boxShadow: [
                       BoxShadow(
-                          color: this.course.chapters[index].canLearn ? Colors.black12 : Colors.transparent,
+                          color: this.course.chapters[index].canLearn
+                              ? Colors.black12
+                              : Colors.transparent,
                           offset: Offset(0, 3),
                           blurRadius: 1,
                           spreadRadius: 0),
@@ -80,7 +95,8 @@ class MainCourseSectionFeature extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            padding: EdgeInsets.only(top: 8, left: 12, right: 12),
+                            padding:
+                                EdgeInsets.only(top: 8, left: 12, right: 12),
                             margin: EdgeInsets.only(bottom: 4),
                             child: Icon(
                               this.course.chapters[index].icon,
@@ -105,10 +121,11 @@ class MainCourseSectionFeature extends StatelessWidget {
                             ),
                           ),
                           Opacity(
-                            opacity: this.course.chapters[index].canLearn ? 1 : 0,
+                            opacity:
+                                this.course.chapters[index].canLearn ? 1 : 0,
                             child: Container(
-                              padding:
-                                  EdgeInsets.only(bottom: 8, left: 12, right: 12),
+                              padding: EdgeInsets.only(
+                                  bottom: 8, left: 12, right: 12),
                               child: Icon(
                                 Icons.star,
                                 size: fontSizeH3,
@@ -119,7 +136,8 @@ class MainCourseSectionFeature extends StatelessWidget {
                             ),
                           ),
                           Opacity(
-                            opacity: this.course.chapters[index].canLearn ? 1 : 0,
+                            opacity:
+                                this.course.chapters[index].canLearn ? 1 : 0,
                             child: Container(
                               child: Row(
                                 children: [
