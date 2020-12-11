@@ -50,7 +50,7 @@ class _AuthenticationBackgroundFeature
                 alignment: Alignment.center,
                 children: [
                   AnimatedPositioned(
-                    top: snapshot.data ? 110 : 105,
+                    top: snapshot.data ? (MediaQuery.of(context).size.height / 7) : (MediaQuery.of(context).size.height / 7)-5,
                     right: MediaQuery.of(context).size.width / 1.75,
                     duration: Duration(milliseconds: 1500),
                     curve: Curves.easeIn,
@@ -59,7 +59,7 @@ class _AuthenticationBackgroundFeature
                     ),
                   ),
                   AnimatedPositioned(
-                    top: snapshot.data ? 110 : 105,
+                    top: snapshot.data ? (MediaQuery.of(context).size.height / 7) : (MediaQuery.of(context).size.height / 7)-5,
                     left: MediaQuery.of(context).size.width / 1.75,
                     duration: Duration(milliseconds: 1500),
                     curve: Curves.easeIn,
@@ -70,7 +70,7 @@ class _AuthenticationBackgroundFeature
                   AnimatedPositioned(
                     top: snapshot.data
                         ? MediaQuery.of(context).size.height / 7
-                        : 90,
+                        : (MediaQuery.of(context).size.height / 7)-10,
                     duration: Duration(milliseconds: 1500),
                     curve: Curves.easeIn,
                     child: Container(

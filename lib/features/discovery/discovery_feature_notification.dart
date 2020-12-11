@@ -108,7 +108,7 @@ class _DiscoveryNotification extends State<DiscoveryNotification> {
                       style: TextStyle(fontSize: fontSizeP, color: gray),
                     ),
                   ),
-                  StreamBuilder(
+                  StreamBuilder<DateTime>(
                     stream: dateTime.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (!snapshot.hasData) {
@@ -150,7 +150,7 @@ class _DiscoveryNotification extends State<DiscoveryNotification> {
                               Container(
                                 margin: EdgeInsets.only(right: 8),
                                 child: Text(
-                                  '${snapshot.data.hour}:${snapshot.data.minute}',
+                                  '${snapshot.data.hour}:${snapshot.data.minute < 10 ? '0${snapshot.data.minute}' : snapshot.data.minute}',
                                   style: TextStyle(fontSize: fontSizeH5),
                                 ),
                               ),
