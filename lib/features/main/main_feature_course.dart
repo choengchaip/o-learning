@@ -28,7 +28,9 @@ class _MainCourseFeature extends State<MainCourseFeature> {
 
   @override
   void initState() {
-    this.widgetSliderRepository.initial(pageSliderRepo: this.pageSliderRepository);
+    this
+        .widgetSliderRepository
+        .initial(pageSliderRepo: this.pageSliderRepository);
     this.transparentBackground.add(0);
     super.initState();
   }
@@ -50,10 +52,11 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                         if (transparent > 1) {
                           transparent = 1;
                         }
-                        if (transparent != 1) {
-                          this
-                              .transparentBackground
-                              .add(notification.metrics.pixels / 200);
+                        if (transparent <= 0) {
+                          transparent = 0;
+                        }
+                        if (transparent <= 1) {
+                          this.transparentBackground.add(transparent);
                         }
 
                         return true;
@@ -94,7 +97,7 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                         color: Theme.of(context)
                             .primaryColor
                             .withOpacity(snapshot.data),
-                        height: 85,
+                        height: 50 + MediaQuery.of(context).padding.top,
                         padding: EdgeInsets.only(
                             left: 16,
                             right: 16,
@@ -140,13 +143,15 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                         top: 4, bottom: 4, left: 6, right: 8),
                                     margin: EdgeInsets.only(right: 8),
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColorLight,
+                                      color:
+                                          Theme.of(context).primaryColorLight,
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(32),
                                       ),
                                     ),
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           margin: EdgeInsets.only(right: 2),
@@ -158,12 +163,11 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                         Container(
                                           padding: EdgeInsets.only(top: 4),
                                           child: Text(
-                                              '13',
+                                            '13',
                                             style: TextStyle(
-                                              fontSize: fontSizeP,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white
-                                            ),
+                                                fontSize: fontSizeP,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
                                           ),
                                         ),
                                       ],
@@ -173,13 +177,15 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                     padding: EdgeInsets.only(
                                         top: 4, bottom: 4, left: 6, right: 8),
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColorLight,
+                                      color:
+                                          Theme.of(context).primaryColorLight,
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(32),
                                       ),
                                     ),
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Container(
                                           margin: EdgeInsets.only(right: 2),
@@ -195,8 +201,7 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                             style: TextStyle(
                                                 fontSize: fontSizeP,
                                                 fontWeight: FontWeight.bold,
-                                                color: Colors.white
-                                            ),
+                                                color: Colors.white),
                                           ),
                                         ),
                                       ],
