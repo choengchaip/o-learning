@@ -36,6 +36,8 @@ class BottomMenu extends StatelessWidget {
               this.onChanged(this.menuItems[index].menuType);
             },
             child: Container(
+              alignment: Alignment.center,
+              color: Colors.white,
               padding: EdgeInsets.only(left: 8, right: 8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

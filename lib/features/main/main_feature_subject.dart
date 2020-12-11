@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/components/types.dart';
+import 'package:o_learning/components/widget_slider.dart';
+import 'package:o_learning/features/main/main_feature_subject_categories.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
@@ -26,15 +29,28 @@ class _MainSubjectFeature extends State<MainSubjectFeature> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Expanded(
-            child: Container(
-              child: Text('Course Page'),
+    return SafeArea(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: WidgetSlider(
+                widgetSliderRepository: this.widgetSliderRepository,
+                scrollable: false,
+                showDot: false,
+                components: [
+                  IWidgetSlider(
+                    component: MainSubjectCategoriesFeature(
+                      widgetSliderRepository: this.widgetSliderRepository,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
