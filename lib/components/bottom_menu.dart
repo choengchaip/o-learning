@@ -5,8 +5,13 @@ import 'package:o_learning/states/types.dart';
 class BottomMenu extends StatelessWidget {
   final List<IBottomMenuType> menuItems;
   final Function(BottomMenuType) onChanged;
+  final BottomMenuType currentMenu;
 
-  BottomMenu({@required this.menuItems, @required this.onChanged});
+  BottomMenu({
+    @required this.menuItems,
+    @required this.onChanged,
+    @required this.currentMenu,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +41,23 @@ class BottomMenu extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: Icon(this.menuItems[index].icon),
+                    child: Icon(
+                      this.menuItems[index].icon,
+                      color: this.currentMenu == this.menuItems[index].menuType
+                          ? Theme.of(context).primaryColor
+                          : Colors.black87,
+                    ),
                   ),
                   Container(
-                    child: Text(this.menuItems[index].title),
+                    child: Text(
+                      this.menuItems[index].title,
+                      style: TextStyle(
+                        color:
+                            this.currentMenu == this.menuItems[index].menuType
+                                ? Theme.of(context).primaryColor
+                                : Colors.black87,
+                      ),
+                    ),
                   ),
                 ],
               ),

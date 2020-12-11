@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
@@ -20,6 +22,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPage extends State<MainPage> {
   PageSliderRepository pageSliderRepository = new PageSliderRepository();
+  StreamController<BottomMenuType> currentMenu = StreamController<BottomMenuType>();
 
   @override
   Widget build(BuildContext context) {
@@ -63,48 +66,55 @@ class _MainPage extends State<MainPage> {
                   ),
                   SafeArea(
                     top: false,
-                    child: BottomMenu(
-                      onChanged: (BottomMenuType menu) {
-                        switch (menu) {
-                          case BottomMenuType.COURSE:
-                            this.pageSliderRepository.toPage(0);
-                            break;
-                          case BottomMenuType.SUBJECT:
-                            this.pageSliderRepository.toPage(1);
-                            break;
-                          case BottomMenuType.LEADER_BOARD:
-                            this.pageSliderRepository.toPage(2);
-                            break;
-                          case BottomMenuType.ACCOUNT:
-                            this.pageSliderRepository.toPage(3);
-                            break;
-                          default:
-                            this.pageSliderRepository.toPage(0);
-                        }
+                    child: StreamBuilder<BottomMenuType>(
+                      stream: currentMenu.stream,
+                      builder: (BuildContext context, snapshot){
+                        return BottomMenu(
+                          currentMenu: snapshot.data,
+                          onChanged: (BottomMenuType menu) {
+                            this.currentMenu.add(menu);
+                            switch (menu) {
+                              case BottomMenuType.COURSE:
+                                this.pageSliderRepository.toPage(0);
+                                break;
+                              case BottomMenuType.SUBJECT:
+                                this.pageSliderRepository.toPage(1);
+                                break;
+                              case BottomMenuType.LEADER_BOARD:
+                                this.pageSliderRepository.toPage(2);
+                                break;
+                              case BottomMenuType.ACCOUNT:
+                                this.pageSliderRepository.toPage(3);
+                                break;
+                              default:
+                                this.pageSliderRepository.toPage(0);
+                            }
+                          },
+                          menuItems: [
+                            IBottomMenuType(
+                              icon: Icons.flag,
+                              title: appLocaleRepo.$l('main_page', 'course_menu'),
+                              menuType: BottomMenuType.COURSE,
+                            ),
+                            IBottomMenuType(
+                              icon: Icons.book_rounded,
+                              title: appLocaleRepo.$l('main_page', 'subject_menu'),
+                              menuType: BottomMenuType.SUBJECT,
+                            ),
+                            IBottomMenuType(
+                              icon: Icons.stars,
+                              title: appLocaleRepo.$l(
+                                  'main_page', 'leader_board_menu'),
+                              menuType: BottomMenuType.LEADER_BOARD,
+                            ),
+                            IBottomMenuType(
+                              icon: Icons.person,
+                              title: appLocaleRepo.$l('main_page', 'account_menu'),
+                              menuType: BottomMenuType.ACCOUNT,
+                            )
+                          ],
+                        );
                       },
-                      menuItems: [
-                        IBottomMenuType(
-                          icon: Icons.flag,
-                          title: appLocaleRepo.$l('main_page', 'course_menu'),
-                          menuType: BottomMenuType.COURSE,
-                        ),
-                        IBottomMenuType(
-                          icon: Icons.book_rounded,
-                          title: appLocaleRepo.$l('main_page', 'subject_menu'),
-                          menuType: BottomMenuType.SUBJECT,
-                        ),
-                        IBottomMenuType(
-                          icon: Icons.stars,
-                          title: appLocaleRepo.$l(
-                              'main_page', 'leader_board_menu'),
-                          menuType: BottomMenuType.LEADER_BOARD,
-                        ),
-                        IBottomMenuType(
-                          icon: Icons.person,
-                          title: appLocaleRepo.$l('main_page', 'account_menu'),
-                          menuType: BottomMenuType.ACCOUNT,
-                        )
-                      ],
                     ),
                   ),
                 ],
