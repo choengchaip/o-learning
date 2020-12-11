@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
@@ -39,12 +39,19 @@ class _MainCourseFeature extends State<MainCourseFeature> {
         .widgetSliderRepository
         .initial(pageSliderRepo: this.pageSliderRepository);
     this.transparentBackground = StreamController<double>();
-    this.courseExpand = StreamController<bool>();
+    this.courseExpand = StreamController<bool>.broadcast();
     this.transparentBackground.add(0);
     this._oldTransparentBackground = 0;
     this._courseExpand = false;
     this.courseExpand.add(this._courseExpand);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    this.transparentBackground.close();
+    this.courseExpand.close();
+    super.dispose();
   }
 
   @override
@@ -169,11 +176,31 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                       ),
                                     ),
                                     Container(
-                                      child: Icon(
-                                        Icons.keyboard_arrow_down,
-                                        color: Colors.white,
+                                      child: Stack(
+                                        children: [
+                                          AnimatedOpacity(
+                                            opacity: this._courseExpand ? 1 : 0,
+                                            duration: Duration(milliseconds: 250),
+                                            child: Container(
+                                              child: Icon(
+                                                Icons.keyboard_arrow_up,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          AnimatedOpacity(
+                                            opacity: this._courseExpand ? 0 : 1,
+                                            duration: Duration(milliseconds: 250),
+                                            child: Container(
+                                              child: Icon(
+                                                Icons.keyboard_arrow_down,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
