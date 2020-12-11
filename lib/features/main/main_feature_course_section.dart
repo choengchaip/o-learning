@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/states/course_data_types.dart';
 
@@ -11,7 +12,7 @@ class MainCourseSectionFeature extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black.withOpacity(0.085),
+      color: grayLighter,
       child: Column(
         children: [
           Container(

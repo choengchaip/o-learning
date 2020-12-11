@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/features/main/main_feature_course_section.dart';
 import 'package:o_learning/mocks/course_data.dart';
@@ -62,13 +63,37 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                         return true;
                       },
                       child: ListView(
+                        padding: EdgeInsets.zero,
                         children: [
                           Container(
-                            height: 275,
-                            color: Colors.black.withOpacity(0.085),
-                            child: Image.asset(
-                              'lib/statics/course_background.jpg',
-                              filterQuality: FilterQuality.low,
+                            color: grayLighter,
+                            padding: EdgeInsets.only(bottom: 16),
+                            child: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                Container(
+                                  height: 350,
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Image.asset(
+                                    'lib/statics/course_background.jpg',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    gradient: new LinearGradient(
+                                        colors: [
+                                          Colors.white.withOpacity(0),
+                                          grayLighter,
+                                        ],
+                                        begin: FractionalOffset(0, 0.5),
+                                        end: FractionalOffset(0, 1),
+                                        stops: [0.0, 1.0],
+                                        tileMode: TileMode.clamp),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           MainCourseSectionFeature(
