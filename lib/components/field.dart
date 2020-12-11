@@ -9,13 +9,21 @@ class Field extends StatelessWidget {
   final FocusNode focusNode;
   final String placeholder;
   final Function(String) onChanged;
+  final TextInputType textInputType;
+  final bool obscureText;
+  String initialValue;
 
   Field(
       {@required this.controller,
-      @required this.validator,
+      this.validator,
+      this.textInputType,
       this.focusNode,
       this.placeholder,
-      this.onChanged});
+      this.obscureText,
+      this.onChanged,
+      this.initialValue}) {
+    this.controller.text = this.initialValue;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +49,8 @@ class Field extends StatelessWidget {
         hintText: this.placeholder,
       ),
       style: TextStyle(fontSize: fontSizeH4),
-      keyboardType: TextInputType.emailAddress,
+      obscureText: this.obscureText,
+      keyboardType: this.textInputType,
     );
   }
 }

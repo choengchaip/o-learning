@@ -29,6 +29,7 @@ dependencies:
   provider: ^4.3.2+3
   notification_permissions: ^0.4.8
   flutter_datetime_picker: ^1.4.0
+  flushbar: ^1.10.4
 
 
   # The following adds the Cupertino Icons font to your application.

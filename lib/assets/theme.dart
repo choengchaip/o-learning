@@ -17,7 +17,7 @@ class AppThemeData {
       cursorColor: Colors.black,
       disabledColor: grayLight,
       fontFamily: lang == Config.defaultLang ? GoogleFonts
-          .sarabun()
+          .prompt()
           .fontFamily : GoogleFonts
           .quicksand()
           .fontFamily,
@@ -27,6 +27,7 @@ class AppThemeData {
         ),
       ),
       visualDensity: VisualDensity.adaptivePlatformDensity,
+      pageTransitionsTheme: PageTransitionsTheme(builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder(),}),
     ).copyWith(
       pageTransitionsTheme:
       PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{

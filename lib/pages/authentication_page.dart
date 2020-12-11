@@ -2,17 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/page_slider.dart';
 import 'package:o_learning/components/types.dart';
-import 'package:o_learning/features/discovery/discovery_feature.dart';
-import 'package:o_learning/features/discovery_introduce/discovery_feature_introduce.dart';
-import 'package:o_learning/features/welcome/welcome_feature.dart';
+import 'package:o_learning/features/authentication/authentication_feature_login.dart';
+import 'package:o_learning/features/authentication/authentication_feature_register.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 
-class WelcomePage extends StatefulWidget {
+class AuthenticationPage extends StatefulWidget {
   @override
-  _WelcomePage createState() => _WelcomePage();
+  _AuthenticationPage createState() => _AuthenticationPage();
 }
 
-class _WelcomePage extends State<WelcomePage> {
+class _AuthenticationPage extends State<AuthenticationPage> {
   PageSliderRepository pageSliderRepository = new PageSliderRepository();
 
   @override
@@ -28,17 +27,12 @@ class _WelcomePage extends State<WelcomePage> {
                     pageSliderRepository: this.pageSliderRepository,
                     components: [
                       IPageSlider(
-                        component: WelcomeFeature(
+                        component: AuthenticationLoginFeature(
                           pageSliderRepository: this.pageSliderRepository,
                         ),
                       ),
                       IPageSlider(
-                        component: DiscoveryIntroduceFeature(
-                          pageSliderRepository: this.pageSliderRepository,
-                        ),
-                      ),
-                      IPageSlider(
-                        component: DiscoveryFeature(
+                        component: AuthenticationRegisterFeature(
                           pageSliderRepository: this.pageSliderRepository,
                         ),
                       ),

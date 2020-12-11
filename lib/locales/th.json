@@ -56,9 +56,24 @@
     "login_button": "เข้าสู่ระบบ",
     "back": "กลับ",
     "continue_button": "ไปต่อ",
-    "email_title": "Enter your email address",
-    "email_placeholder": "Email address"
+    "email_title": "กรุณากรอกอีเมล",
+    "email_placeholder": "กรอกอีเมล",
+    "password_title": "กรุณากรอกรหัสผ่าน",
+    "password_placeholder": "กรอกรหัสผ่าน",
+    "forget_password_title": "ลืมรหัสผ่าน"
   },
   "authentication_register": {
+    "login": "เข้าสู่ระบบ",
+    "title": "สมัตรสมาชิกเพื่อ\nเริ่มต้นใช้งาน",
+    "terms_and_conditions": "ฉันยอมรับ เงื่อนไข และ นโยบายรักษาข้อมูลส่วนบุคคล",
+    "sign_in_button": "สมัครสมาชิก",
+    "back": "กลับ",
+    "continue_button": "ไปต่อ",
+    "name_title": "กรุณากรอกชื่อ",
+    "name_placeholder": "กรอกชื่อ",
+    "email_title": "กรุณากรอกอีเมล",
+    "email_placeholder": "กรอกอีเมล",
+    "password_title": "กรุณากรอกรหัสผ่าน",
+    "password_placeholder": "กรอกรหัสผ่าน"
   }
 }

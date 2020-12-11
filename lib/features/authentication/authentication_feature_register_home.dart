@@ -10,25 +10,25 @@ import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
-class AuthenticationLoginHomeFeature extends StatefulWidget {
+class AuthenticationRegisterHomeFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
 
-  AuthenticationLoginHomeFeature({@required this.widgetSliderRepository});
+  AuthenticationRegisterHomeFeature({@required this.widgetSliderRepository});
 
   @override
-  _AuthenticationLoginHomeFeature createState() =>
-      _AuthenticationLoginHomeFeature(
+  _AuthenticationRegisterHomeFeature createState() =>
+      _AuthenticationRegisterHomeFeature(
           widgetSliderRepository: this.widgetSliderRepository);
 }
 
-class _AuthenticationLoginHomeFeature
-    extends State<AuthenticationLoginHomeFeature> {
+class _AuthenticationRegisterHomeFeature
+    extends State<AuthenticationRegisterHomeFeature> {
   final WidgetSliderRepository widgetSliderRepository;
   Timer animatedCounter;
   StreamController<bool> animatedTicker;
   bool _animatedTicker;
 
-  _AuthenticationLoginHomeFeature({@required this.widgetSliderRepository});
+  _AuthenticationRegisterHomeFeature({@required this.widgetSliderRepository});
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _AuthenticationLoginHomeFeature
   @override
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
-        Provider.of<AppLocaleRepository>(context);
+    Provider.of<AppLocaleRepository>(context);
     AuthRepository authRepo = Provider.of<AuthRepository>(context);
 
     authRepo.reset();
@@ -71,11 +71,11 @@ class _AuthenticationLoginHomeFeature
               children: [
                 GestureDetector(
                   onTap: (){
-                    this.widgetSliderRepository.nextPage();
+                    this.widgetSliderRepository.prevPage();
                   },
                   child: Container(
                     child: Text(
-                      appLocaleRepo.$l('authentication_login', 'sign_up'),
+                      appLocaleRepo.$l('authentication_register', 'login'),
                       style: TextStyle(
                         color: gray,
                         fontSize: fontSizeP,
@@ -90,7 +90,7 @@ class _AuthenticationLoginHomeFeature
           Container(
             padding: EdgeInsets.only(top: 8, bottom: 32, left: 8, right: 8),
             child: Text(
-              appLocaleRepo.$l('authentication_login', 'title'),
+              appLocaleRepo.$l('authentication_register', 'title'),
               style: TextStyle(
                   color: dark,
                   fontSize: fontSizeH3,
@@ -145,7 +145,7 @@ class _AuthenticationLoginHomeFeature
           Container(
             padding: EdgeInsets.only(top: 8, bottom: 8),
             child: Text(
-              appLocaleRepo.$l('authentication_login', 'terms_and_conditions'),
+              appLocaleRepo.$l('authentication_register', 'terms_and_conditions'),
               style: TextStyle(
                 color: Colors.black,
                 fontSize: fontSizeS1,
@@ -154,7 +154,7 @@ class _AuthenticationLoginHomeFeature
             ),
           ),
           CurveButton(
-            title: appLocaleRepo.$l('authentication_login', 'login_button'),
+            title: appLocaleRepo.$l('authentication_register', 'sign_in_button'),
             onPressed: () {
               this.widgetSliderRepository.nextWidget();
             },

@@ -98,9 +98,10 @@ class _DiscoveryListFeature extends State<DiscoveryListFeature> {
                               child: Text(
                                 this.mockItems[index].title,
                                 style: TextStyle(
-                                    fontSize: fontSizeH5,
+                                    fontSize: fontSizeP,
                                     color: dark,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           )

@@ -3,51 +3,51 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
-import 'package:o_learning/components/field_email.dart';
+import 'package:o_learning/components/field_text.dart';
 import 'package:o_learning/components/header_back_button.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
-class AuthenticationLoginEmailFeature extends StatefulWidget {
+class AuthenticationRegisterNameFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
 
-  AuthenticationLoginEmailFeature({@required this.widgetSliderRepository});
+  AuthenticationRegisterNameFeature({@required this.widgetSliderRepository});
 
   @override
-  _AuthenticationLoginEmailFeature createState() =>
-      _AuthenticationLoginEmailFeature(
+  _AuthenticationRegisterNameFeature createState() =>
+      _AuthenticationRegisterNameFeature(
           widgetSliderRepository: this.widgetSliderRepository);
 }
 
-class _AuthenticationLoginEmailFeature
-    extends State<AuthenticationLoginEmailFeature> {
+class _AuthenticationRegisterNameFeature
+    extends State<AuthenticationRegisterNameFeature> {
   final WidgetSliderRepository widgetSliderRepository;
   final formKey = GlobalKey<FormState>();
-  StreamController<bool> emailValid;
-  TextEditingController emailText = TextEditingController(text: '');
-  FocusNode emailFocus;
+  StreamController<bool> nameValid;
+  TextEditingController nameText = TextEditingController(text: '');
+  FocusNode nameFocus;
 
-  _AuthenticationLoginEmailFeature({@required this.widgetSliderRepository});
+  _AuthenticationRegisterNameFeature({@required this.widgetSliderRepository});
 
   @override
   void initState() {
-    this.emailValid = StreamController<bool>();
-    this.emailValid.add(false);
-    this.emailFocus = FocusNode();
-    this.emailFocus.requestFocus();
+    this.nameValid = StreamController<bool>();
+    this.nameValid.add(false);
+    this.nameFocus = FocusNode();
+    this.nameFocus.requestFocus();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
-        Provider.of<AppLocaleRepository>(context);
+    Provider.of<AppLocaleRepository>(context);
     AuthRepository authRepo = Provider.of<AuthRepository>(context);
 
-    if(authRepo.emailText.isNotEmpty){
-      this.emailValid.add(true);
+    if(authRepo.nameText.isNotEmpty){
+      this.nameValid.add(true);
     }
 
     return Container(
@@ -58,10 +58,10 @@ class _AuthenticationLoginEmailFeature
           HeaderBackButton(
             backTitle: appLocaleRepo.$l('authentication_login', 'back'),
             onBack: () {
-              this.emailFocus.unfocus();
+              this.nameFocus.unfocus();
               this.widgetSliderRepository.prevWidget();
             },
-            tailTitle: '1/2',
+            tailTitle: '1/3',
           ),
           Expanded(
             child: Container(
@@ -71,7 +71,7 @@ class _AuthenticationLoginEmailFeature
                   Container(
                     margin: EdgeInsets.only(bottom: 48),
                     child: Text(
-                      appLocaleRepo.$l('authentication_login', 'email_title'),
+                      appLocaleRepo.$l('authentication_register', 'name_title'),
                       style: TextStyle(
                           fontSize: fontSizeH3, fontWeight: FontWeight.bold),
                     ),
@@ -79,22 +79,22 @@ class _AuthenticationLoginEmailFeature
                   Container(
                     child: Form(
                       key: formKey,
-                      child: FieldEmail(
-                        initialValue: authRepo.emailText,
-                        controller: this.emailText,
-                        focusNode: emailFocus,
+                      child: FieldText(
+                        initialValue: authRepo.nameText,
+                        controller: this.nameText,
+                        focusNode: nameFocus,
                         placeholder: appLocaleRepo.$l(
-                            'authentication_login', 'email_placeholder'),
+                            'authentication_register', 'name_placeholder'),
                         onChanged: (String value) {
                           this
-                              .emailValid
+                              .nameValid
                               .add(this.formKey.currentState.validate());
                         },
                       ),
                     ),
                   ),
                   StreamBuilder(
-                    stream: emailValid.stream,
+                    stream: nameValid.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
@@ -104,9 +104,9 @@ class _AuthenticationLoginEmailFeature
                         isDisabled: !snapshot.data,
                         margin: EdgeInsets.only(top: 12, bottom: 12),
                         title: appLocaleRepo.$l(
-                            'authentication_login', 'continue_button'),
+                            'authentication_register', 'continue_button'),
                         onPressed: () {
-                          authRepo.setEmail(this.emailText.text);
+                          authRepo.setName(this.nameText.text);
                           this.widgetSliderRepository.nextWidget();
                         },
                       );

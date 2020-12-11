@@ -1,42 +1,46 @@
 import 'dart:async';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
-import 'package:o_learning/components/field_email.dart';
+import 'package:o_learning/components/field_password.dart';
 import 'package:o_learning/components/header_back_button.dart';
+import 'package:o_learning/pages/main_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
+import 'package:o_learning/utils/page_helper.dart';
 import 'package:provider/provider.dart';
 
-class AuthenticationLoginEmailFeature extends StatefulWidget {
+class AuthenticationRegisterPasswordFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
 
-  AuthenticationLoginEmailFeature({@required this.widgetSliderRepository});
+  AuthenticationRegisterPasswordFeature(
+      {@required this.widgetSliderRepository});
 
   @override
-  _AuthenticationLoginEmailFeature createState() =>
-      _AuthenticationLoginEmailFeature(
+  _AuthenticationRegisterPasswordFeature createState() =>
+      _AuthenticationRegisterPasswordFeature(
           widgetSliderRepository: this.widgetSliderRepository);
 }
 
-class _AuthenticationLoginEmailFeature
-    extends State<AuthenticationLoginEmailFeature> {
+class _AuthenticationRegisterPasswordFeature
+    extends State<AuthenticationRegisterPasswordFeature> {
   final WidgetSliderRepository widgetSliderRepository;
   final formKey = GlobalKey<FormState>();
-  StreamController<bool> emailValid;
-  TextEditingController emailText = TextEditingController(text: '');
-  FocusNode emailFocus;
+  StreamController<bool> passwordValid;
+  TextEditingController passwordText = TextEditingController();
+  FocusNode passwordFocus = FocusNode();
 
-  _AuthenticationLoginEmailFeature({@required this.widgetSliderRepository});
+  _AuthenticationRegisterPasswordFeature(
+      {@required this.widgetSliderRepository});
 
   @override
   void initState() {
-    this.emailValid = StreamController<bool>();
-    this.emailValid.add(false);
-    this.emailFocus = FocusNode();
-    this.emailFocus.requestFocus();
+    this.passwordValid = StreamController<bool>();
+    this.passwordValid.add(false);
+    this.passwordFocus.requestFocus();
     super.initState();
   }
 
@@ -46,8 +50,8 @@ class _AuthenticationLoginEmailFeature
         Provider.of<AppLocaleRepository>(context);
     AuthRepository authRepo = Provider.of<AuthRepository>(context);
 
-    if(authRepo.emailText.isNotEmpty){
-      this.emailValid.add(true);
+    if (authRepo.passwordText.isNotEmpty) {
+      this.passwordValid.add(true);
     }
 
     return Container(
@@ -56,12 +60,11 @@ class _AuthenticationLoginEmailFeature
       child: Column(
         children: [
           HeaderBackButton(
-            backTitle: appLocaleRepo.$l('authentication_login', 'back'),
+            backTitle: appLocaleRepo.$l('authentication_register', 'back'),
             onBack: () {
-              this.emailFocus.unfocus();
               this.widgetSliderRepository.prevWidget();
             },
-            tailTitle: '1/2',
+            tailTitle: '3/3',
           ),
           Expanded(
             child: Container(
@@ -71,7 +74,8 @@ class _AuthenticationLoginEmailFeature
                   Container(
                     margin: EdgeInsets.only(bottom: 48),
                     child: Text(
-                      appLocaleRepo.$l('authentication_login', 'email_title'),
+                      appLocaleRepo.$l(
+                          'authentication_login', 'password_title'),
                       style: TextStyle(
                           fontSize: fontSizeH3, fontWeight: FontWeight.bold),
                     ),
@@ -79,22 +83,22 @@ class _AuthenticationLoginEmailFeature
                   Container(
                     child: Form(
                       key: formKey,
-                      child: FieldEmail(
-                        initialValue: authRepo.emailText,
-                        controller: this.emailText,
-                        focusNode: emailFocus,
+                      child: FieldPassword(
+                        initialValue: authRepo.passwordText,
+                        controller: this.passwordText,
+                        focusNode: passwordFocus,
                         placeholder: appLocaleRepo.$l(
-                            'authentication_login', 'email_placeholder'),
+                            'authentication_login', 'password_placeholder'),
                         onChanged: (String value) {
                           this
-                              .emailValid
+                              .passwordValid
                               .add(this.formKey.currentState.validate());
                         },
                       ),
                     ),
                   ),
                   StreamBuilder(
-                    stream: emailValid.stream,
+                    stream: passwordValid.stream,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (!snapshot.hasData) {
                         return Container();
@@ -105,9 +109,21 @@ class _AuthenticationLoginEmailFeature
                         margin: EdgeInsets.only(top: 12, bottom: 12),
                         title: appLocaleRepo.$l(
                             'authentication_login', 'continue_button'),
-                        onPressed: () {
-                          authRepo.setEmail(this.emailText.text);
-                          this.widgetSliderRepository.nextWidget();
+                        onPressed: () async {
+                          authRepo.setPassword(this.passwordText.text);
+                          this.passwordFocus.unfocus();
+                          await authRepo.login(isErrorMock: false);
+                          if (authRepo.status.isError) {
+                            Flushbar(
+                              flushbarPosition: FlushbarPosition.TOP,
+                              title: 'Login failed',
+                              message: 'please try again later.',
+                              backgroundColor: Theme.of(context).primaryColor,
+                              duration: Duration(seconds: 2),
+                            )..show(context);
+                          }
+
+                          pageLauncher(MainPage(), context);
                         },
                       );
                     },

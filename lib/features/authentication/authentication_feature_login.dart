@@ -4,6 +4,7 @@ import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
 import 'package:o_learning/features/authentication/authentication_feature_login_email.dart';
 import 'package:o_learning/features/authentication/authentication_feature_login_home.dart';
+import 'package:o_learning/features/authentication/authentication_feature_login_password.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
@@ -51,6 +52,11 @@ class _AuthenticationLoginFeature extends State<AuthenticationLoginFeature> {
                 ),
                 IWidgetSlider(
                   component: AuthenticationLoginEmailFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
+                  ),
+                ),
+                IWidgetSlider(
+                  component: AuthenticationLoginPasswordFeature(
                     widgetSliderRepository: this.widgetSliderRepository,
                   ),
                 ),

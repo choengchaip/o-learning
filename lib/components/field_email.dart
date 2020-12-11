@@ -8,17 +8,21 @@ class FieldEmail extends StatelessWidget {
   final FocusNode focusNode;
   final String placeholder;
   final Function(String) onChanged;
+  final String initialValue;
 
   FieldEmail(
       {@required this.controller,
       this.focusNode,
       this.placeholder,
-      this.onChanged});
+      this.onChanged,
+      this.initialValue});
 
   @override
   Widget build(BuildContext context) {
     return Field(
+      initialValue: this.initialValue,
       controller: this.controller,
+      textInputType: TextInputType.emailAddress,
       focusNode: this.focusNode,
       placeholder: this.placeholder,
       validator: (String value) {
@@ -29,6 +33,7 @@ class FieldEmail extends StatelessWidget {
         return '';
       },
       onChanged: this.onChanged,
+      obscureText: false,
     );
   }
 }

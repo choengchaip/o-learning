@@ -10,6 +10,8 @@ class BaseRepository<T, L> extends ChangeNotifier {
   BuildContext context;
   StreamController<String> lang;
 
+  IStatus get status => this.object;
+
   initContext({BuildContext context}) {
     this.context = context;
   }
@@ -24,22 +26,31 @@ class BaseRepository<T, L> extends ChangeNotifier {
     this.object.isLoaded = false;
     this.object.isSuccess = false;
     this.object.isError = false;
+    this.notifyListeners();
   }
 
   toSuccessDataStatus() {
     this.object.isSuccess = true;
+    this.notifyListeners();
   }
 
   toSuccessItemsStatus() {
     this.object.isSuccess = true;
+    this.notifyListeners();
   }
 
   toErrorStatus() {
     this.object.isError = true;
+    this.notifyListeners();
   }
 
   toCompleteStatus() {
     this.object.isLoaded = true;
     this.object.isLoading = false;
+    this.notifyListeners();
+  }
+
+  void notifyListeners() {
+    super.notifyListeners();
   }
 }

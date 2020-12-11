@@ -7,9 +7,11 @@ import 'package:notification_permissions/notification_permissions.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
+import 'package:o_learning/pages/authentication_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
+import 'package:o_learning/utils/page_helper.dart';
 import 'package:provider/provider.dart';
 
 class DiscoveryNotification extends StatefulWidget {
@@ -53,7 +55,7 @@ class _DiscoveryNotification extends State<DiscoveryNotification> {
   }
 
   void proceed() {
-    this.widgetSliderRepository.nextPage();
+    pageLauncher(AuthenticationPage(), context);
   }
 
   @override

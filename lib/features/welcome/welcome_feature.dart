@@ -5,10 +5,13 @@ import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
+import 'package:o_learning/features/authentication/authentication_feature_login.dart';
 import 'package:o_learning/features/welcome/welcome_feature_page_detail.dart';
+import 'package:o_learning/pages/authentication_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
+import 'package:o_learning/utils/page_helper.dart';
 import 'package:provider/provider.dart';
 
 class WelcomeFeature extends StatefulWidget {
@@ -47,13 +50,18 @@ class _WelcomeFeature extends State<WelcomeFeature> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  child: Text(
-                    appLocaleRepo.$l('welcome', 'login_button'),
-                    style: TextStyle(
-                        color: gray,
-                        fontSize: fontSizeP,
-                        fontWeight: FontWeight.bold,
+                GestureDetector(
+                  onTap: (){
+                    pageLauncher(AuthenticationPage(), context);
+                  },
+                  child: Container(
+                    child: Text(
+                      appLocaleRepo.$l('welcome', 'login_button'),
+                      style: TextStyle(
+                          color: gray,
+                          fontSize: fontSizeP,
+                          fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
