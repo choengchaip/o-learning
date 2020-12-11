@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/course_item.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
@@ -123,91 +124,13 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                                 curve: Curves.ease);
                             this.selectedCourse.add(this.mockItems[index].id);
                           },
-                          child: Container(
+                          child: CourseItem(
+                            appLocaleRepository: appLocaleRepo,
                             margin: EdgeInsets.only(left: 8, right: 16),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.75,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    boxShadow: [
-                                      snapshot.data == this.mockItems[index].id
-                                          ? BoxShadow(
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              blurRadius: 0,
-                                              spreadRadius: 3)
-                                          : BoxShadow(
-                                              color: Colors.black12,
-                                              offset: Offset(0.0, 1),
-                                              blurRadius: 6,
-                                              spreadRadius: 1)
-                                    ]),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Column(
-                                    children: [
-                                      Flexible(
-                                        flex: 8,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          padding: EdgeInsets.all(16),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                          ),
-                                          child: Image.asset(
-                                              this.mockItems[index].image),
-                                        ),
-                                      ),
-                                      Flexible(
-                                        flex: 7,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          padding: EdgeInsets.all(16),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(bottom: 8),
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  mockItems[index].title,
-                                                  style: TextStyle(
-                                                      color: dark,
-                                                      fontSize: fontSizeH4,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  alignment: Alignment.topLeft,
-                                                  child: Text(
-                                                    mockItems[index]
-                                                        .description,
-                                                    style: TextStyle(
-                                                        color: gray,
-                                                        fontSize: fontSizeS1,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
+                            image: this.mockItems[index].image,
+                            title: this.mockItems[index].title,
+                            description: this.mockItems[index].description,
+                            isActive: this.mockItems[index].id == snapshot.data,
                           ),
                         );
                       },

@@ -32,7 +32,7 @@ class _WidgetSlider extends State<WidgetSlider> {
   bool scrollable;
 
   PageController widgetController;
-  StreamController<int> activeIndex = StreamController<int>();
+  StreamController<int> activeIndex;
 
   _WidgetSlider(
       {@required this.widgetSliderRepository,
@@ -49,6 +49,7 @@ class _WidgetSlider extends State<WidgetSlider> {
 
   @override
   void initState() {
+    this.activeIndex = StreamController<int>();
     this.activeIndex.add(0);
     this.widgetController = PageController(initialPage: 0);
     this.widgetSliderRepository.initial(

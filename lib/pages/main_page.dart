@@ -22,7 +22,14 @@ class MainPage extends StatefulWidget {
 
 class _MainPage extends State<MainPage> {
   PageSliderRepository pageSliderRepository = new PageSliderRepository();
-  StreamController<BottomMenuType> currentMenu = StreamController<BottomMenuType>();
+  StreamController<BottomMenuType> currentMenu;
+
+  @override
+  void initState() {
+    this.currentMenu = StreamController<BottomMenuType>();
+    this.currentMenu.add(BottomMenuType.COURSE);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

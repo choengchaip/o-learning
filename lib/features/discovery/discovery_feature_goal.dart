@@ -101,7 +101,7 @@ class _DiscoveryGoal extends State<DiscoveryGoal> {
                     ),
                   ),
                   Container(
-                    height: 250,
+                    height: 200,
                     child: Image.asset('lib/statics/discovery_goal.png'),
                   ),
                   Container(

@@ -81,5 +81,8 @@
     "subject_menu": "รายวิชา",
     "leader_board_menu": "คะแนน",
     "account_menu": "บัญชี"
+  },
+  "course_item": {
+    "completed": "สำเร็จแล้ว"
   }
 }
