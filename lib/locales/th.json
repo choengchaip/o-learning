@@ -75,5 +75,11 @@
     "email_placeholder": "กรอกอีเมล",
     "password_title": "กรุณากรอกรหัสผ่าน",
     "password_placeholder": "กรอกรหัสผ่าน"
+  },
+  "main_page": {
+    "course_menu": "บทเรียน",
+    "subject_menu": "รายวิชา",
+    "leader_board_menu": "คะแนน",
+    "account_menu": "บัญชี"
   }
 }

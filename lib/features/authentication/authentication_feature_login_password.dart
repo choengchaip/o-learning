@@ -61,7 +61,10 @@ class _AuthenticationLoginPasswordFeature
           child: Container(
             color: Colors.black12,
             alignment: Alignment.center,
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                  Theme.of(context).primaryColor),
+            ),
           ),
         ),
         IgnorePointer(

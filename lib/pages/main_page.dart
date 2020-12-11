@@ -1,6 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/bottom_menu.dart';
+import 'package:o_learning/components/page_slider.dart';
+import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/page_slider_repository.dart';
+import 'package:o_learning/states/types.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -8,112 +14,76 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPage extends State<MainPage> {
+  PageSliderRepository pageSliderRepository = new PageSliderRepository();
+
   @override
   Widget build(BuildContext context) {
+    AppLocaleRepository appLocaleRepo =
+        Provider.of<AppLocaleRepository>(context);
+
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Stack(
-            children: [
-              Container(),
-              Container(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        child: Center(
-                          child: Container(
-                            child: Text(
-                              'Main Page',
-                              style: TextStyle(
-                                fontSize: fontSizeH1,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+      body: Container(
+        child: Stack(
+          children: [
+            Container(),
+            Container(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageSlider(
+                      pageSliderRepository: this.pageSliderRepository,
+                      components: [],
+                    ),
+                  ),
+                  SafeArea(
+                    child: BottomMenu(
+                      onChanged: (BottomMenuType menu) {
+                        switch (menu) {
+                          case BottomMenuType.COURSE:
+                            this.pageSliderRepository.toPage(0);
+                            break;
+                          case BottomMenuType.SUBJECT:
+                            this.pageSliderRepository.toPage(1);
+                            break;
+                          case BottomMenuType.LEADER_BOARD:
+                            this.pageSliderRepository.toPage(2);
+                            break;
+                          case BottomMenuType.PROFILE:
+                            this.pageSliderRepository.toPage(3);
+                            break;
+                          default:
+                            this.pageSliderRepository.toPage(0);
+                        }
+                      },
+                      menuItems: [
+                        IBottomMenuType(
+                          icon: Icons.flag,
+                          title: appLocaleRepo.$l('main_page', 'course_menu'),
+                          menuType: null,
                         ),
-                      ),
+                        IBottomMenuType(
+                          icon: Icons.book_rounded,
+                          title: appLocaleRepo.$l('main_page', 'subject_menu'),
+                          menuType: null,
+                        ),
+                        IBottomMenuType(
+                          icon: Icons.stars,
+                          title: appLocaleRepo.$l(
+                              'main_page', 'leader_board_menu'),
+                          menuType: null,
+                        ),
+                        IBottomMenuType(
+                          icon: Icons.person,
+                          title: appLocaleRepo.$l('main_page', 'account_menu'),
+                          menuType: null,
+                        )
+                      ],
                     ),
-                    Container(
-                      height: 60,
-                      padding: EdgeInsets.only(left: 16, right: 16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black12,
-                              offset: Offset(0, -0.5),
-                              blurRadius: 6,
-                              spreadRadius: 1),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(left: 8, right: 8),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Icon(Icons.flag),
-                                ),
-                                Container(
-                                  child: Text('Path'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 8, right: 8),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Icon(Icons.menu_book_rounded),
-                                ),
-                                Container(
-                                  child: Text('Browse'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 8, right: 8),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Icon(Icons.stars),
-                                ),
-                                Container(
-                                  child: Text('Leaderboard'),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 8, right: 8),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  child: Icon(Icons.account_circle_rounded),
-                                ),
-                                Container(
-                                  child: Text('Profile'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
