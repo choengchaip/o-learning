@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/bottom_menu.dart';
 import 'package:o_learning/components/page_slider.dart';
+import 'package:o_learning/components/types.dart';
+import 'package:o_learning/features/main/main_feature_account.dart';
+import 'package:o_learning/features/main/main_feature_course.dart';
+import 'package:o_learning/features/main/main_feature_leader_board.dart';
+import 'package:o_learning/features/main/main_feature_subject.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/states/types.dart';
@@ -32,7 +37,28 @@ class _MainPage extends State<MainPage> {
                   Expanded(
                     child: PageSlider(
                       pageSliderRepository: this.pageSliderRepository,
-                      components: [],
+                      components: [
+                        IPageSlider(
+                          component: MainCourseFeature(
+                            pageSliderRepository: this.pageSliderRepository,
+                          ),
+                        ),
+                        IPageSlider(
+                          component: MainSubjectFeature(
+                            pageSliderRepository: this.pageSliderRepository,
+                          ),
+                        ),
+                        IPageSlider(
+                          component: MainLeaderBoardFeature(
+                            pageSliderRepository: this.pageSliderRepository,
+                          ),
+                        ),
+                        IPageSlider(
+                          component: MainAccountFeature(
+                            pageSliderRepository: this.pageSliderRepository,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SafeArea(
