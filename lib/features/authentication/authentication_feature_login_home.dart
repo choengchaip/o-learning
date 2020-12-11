@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
+import 'package:o_learning/features/authentication/authentication_feature_background.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -24,31 +23,8 @@ class AuthenticationLoginHomeFeature extends StatefulWidget {
 class _AuthenticationLoginHomeFeature
     extends State<AuthenticationLoginHomeFeature> {
   final WidgetSliderRepository widgetSliderRepository;
-  Timer animatedCounter;
-  StreamController<bool> animatedTicker;
-  bool _animatedTicker;
 
   _AuthenticationLoginHomeFeature({@required this.widgetSliderRepository});
-
-  @override
-  void initState() {
-    this.animatedTicker = StreamController<bool>();
-    this._animatedTicker = true;
-    this.animatedTicker.add(this._animatedTicker);
-    this.animatedCounter = Timer.periodic(Duration(milliseconds: 1500), (_) {
-      this._animatedTicker = !this._animatedTicker;
-      this.animatedTicker.add(this._animatedTicker);
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    this.animatedTicker.close();
-    this.animatedCounter.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +46,7 @@ class _AuthenticationLoginHomeFeature
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     this.widgetSliderRepository.nextPage();
                   },
                   child: Container(
@@ -98,50 +74,7 @@ class _AuthenticationLoginHomeFeature
               textAlign: TextAlign.center,
             ),
           ),
-          Expanded(
-            child: Container(
-              child: StreamBuilder(
-                stream: animatedTicker.stream,
-                builder: (BuildContext context, AsyncSnapshot snapshot){
-                  if(!snapshot.hasData){
-                    return Container();
-                  }
-
-                  return Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      AnimatedPositioned(
-                        top: snapshot.data ? 110 : 105,
-                        right: 200,
-                        duration: Duration(milliseconds: 1500),
-                        curve: Curves.easeIn,
-                        child: Container(
-                          child: Image.asset('lib/statics/login_man.png'),
-                        ),
-                      ),
-                      AnimatedPositioned(
-                        top: snapshot.data ? 110 : 105,
-                        left: 200,
-                        duration: Duration(milliseconds: 1500),
-                        curve: Curves.easeIn,
-                        child: Container(
-                          child: Image.asset('lib/statics/login_girl.png'),
-                        ),
-                      ),
-                      AnimatedPositioned(
-                        top: snapshot.data ? 100 : 90,
-                        duration: Duration(milliseconds: 1500),
-                        curve: Curves.easeIn,
-                        child: Container(
-                          child: Image.asset('lib/statics/login_old_man.png'),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
+          AuthenticationBackgroundFeature(),
           Container(
             padding: EdgeInsets.only(top: 8, bottom: 8),
             child: Text(
