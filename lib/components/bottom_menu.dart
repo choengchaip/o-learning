@@ -18,9 +18,9 @@ class BottomMenu extends StatelessWidget {
         boxShadow: [
           BoxShadow(
               color: Colors.black12,
-              offset: Offset(0, -0.5),
+              offset: Offset(0, -5),
               blurRadius: 6,
-              spreadRadius: 1),
+              spreadRadius: 0),
         ],
       ),
       child: Row(

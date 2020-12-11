@@ -89,8 +89,8 @@ class _DiscoveryGoal extends State<DiscoveryGoal> {
           ),
           Expanded(
             child: Container(
+              alignment: Alignment.center,
               child: ListView(
-                padding: EdgeInsets.zero,
                 children: [
                   Container(
                     child: Text(
