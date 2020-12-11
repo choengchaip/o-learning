@@ -62,6 +62,7 @@ class _MainPage extends State<MainPage> {
                     ),
                   ),
                   SafeArea(
+                    top: false,
                     child: BottomMenu(
                       onChanged: (BottomMenuType menu) {
                         switch (menu) {
@@ -74,7 +75,7 @@ class _MainPage extends State<MainPage> {
                           case BottomMenuType.LEADER_BOARD:
                             this.pageSliderRepository.toPage(2);
                             break;
-                          case BottomMenuType.PROFILE:
+                          case BottomMenuType.ACCOUNT:
                             this.pageSliderRepository.toPage(3);
                             break;
                           default:
@@ -85,23 +86,23 @@ class _MainPage extends State<MainPage> {
                         IBottomMenuType(
                           icon: Icons.flag,
                           title: appLocaleRepo.$l('main_page', 'course_menu'),
-                          menuType: null,
+                          menuType: BottomMenuType.COURSE,
                         ),
                         IBottomMenuType(
                           icon: Icons.book_rounded,
                           title: appLocaleRepo.$l('main_page', 'subject_menu'),
-                          menuType: null,
+                          menuType: BottomMenuType.SUBJECT,
                         ),
                         IBottomMenuType(
                           icon: Icons.stars,
                           title: appLocaleRepo.$l(
                               'main_page', 'leader_board_menu'),
-                          menuType: null,
+                          menuType: BottomMenuType.LEADER_BOARD,
                         ),
                         IBottomMenuType(
                           icon: Icons.person,
                           title: appLocaleRepo.$l('main_page', 'account_menu'),
-                          menuType: null,
+                          menuType: BottomMenuType.ACCOUNT,
                         )
                       ],
                     ),

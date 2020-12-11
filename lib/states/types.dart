@@ -17,7 +17,7 @@ class IStatus<T, L> {
       this.items});
 }
 
-enum BottomMenuType { COURSE, SUBJECT, LEADER_BOARD, PROFILE }
+enum BottomMenuType { COURSE, SUBJECT, LEADER_BOARD, ACCOUNT }
 
 class IBottomMenuType {
   IconData icon;

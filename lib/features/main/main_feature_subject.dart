@@ -27,7 +27,15 @@ class _MainSubjectFeature extends State<MainSubjectFeature> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(),
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              child: Text('Course Page'),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

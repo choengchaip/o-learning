@@ -8,6 +8,7 @@ import 'package:o_learning/components/widget_slider.dart';
 import 'package:o_learning/features/authentication/authentication_feature_login.dart';
 import 'package:o_learning/features/welcome/welcome_feature_page_detail.dart';
 import 'package:o_learning/pages/authentication_page.dart';
+import 'package:o_learning/pages/main_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -52,7 +53,8 @@ class _WelcomeFeature extends State<WelcomeFeature> {
               children: [
                 GestureDetector(
                   onTap: (){
-                    pageLauncher(AuthenticationPage(), context);
+                    // pageLauncher(AuthenticationPage(), context);
+                    pageLauncher(MainPage(), context);
                   },
                   child: Container(
                     child: Text(
