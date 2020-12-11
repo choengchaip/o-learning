@@ -19,11 +19,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  StreamController lang = StreamController<String>();
+  StreamController lang;
   AppLocaleRepository appLocaleRepository = new AppLocaleRepository();
 
   @override
   void initState() {
+    this.lang = StreamController<String>();
     this.appLocaleRepository.initLang(lang: lang);
     this.appLocaleRepository.switchLocale(lang: Config.defaultLang);
     super.initState();
