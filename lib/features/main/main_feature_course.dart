@@ -66,48 +66,63 @@ class _MainCourseFeature extends State<MainCourseFeature> {
             child: Container(
               child: Stack(
                 children: [
-                  Container(
-                    color: Colors.white,
-                    child: NotificationListener<ScrollUpdateNotification>(
-                      onNotification: (notification) {
-                        double transparent = notification.metrics.pixels / 200;
-                        if (transparent > 1) {
-                          transparent = 1;
-                        }
-                        if (transparent <= 0) {
-                          transparent = 0;
-                        }
-                        if (transparent <= 1) {
-                          this._oldTransparentBackground = transparent;
-                          this.transparentBackground.add(transparent);
-                        }
+                  StreamBuilder(
+                    stream: this.courseExpand.stream,
+                    builder: (BuildContext context, snapshot) {
+                      if (!snapshot.hasData) {
+                        this.courseExpand.add(false);
+                        return Container();
+                      }
 
-                        return true;
-                      },
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        children: [
-                          MainCourseSectionFeature(
-                            topWidget: Container(
-                              margin: EdgeInsets.only(bottom: 20),
-                              height: 350,
-                              width: MediaQuery.of(context).size.width,
-                              child: Image.asset(
-                                'lib/statics/course_background.jpg',
-                                fit: BoxFit.cover,
-                              ),
+                      return AnimatedOpacity(
+                        opacity: snapshot.data ? 0.5 : 1,
+                        duration: Duration(milliseconds: 250),
+                        child: Container(
+                          color: Colors.white,
+                          child: NotificationListener<ScrollUpdateNotification>(
+                            onNotification: (notification) {
+                              double transparent =
+                                  notification.metrics.pixels / 200;
+                              if (transparent > 1) {
+                                transparent = 1;
+                              }
+                              if (transparent <= 0) {
+                                transparent = 0;
+                              }
+                              if (transparent <= 1) {
+                                this._oldTransparentBackground = transparent;
+                                this.transparentBackground.add(transparent);
+                              }
+
+                              return true;
+                            },
+                            child: ListView(
+                              padding: EdgeInsets.zero,
+                              children: [
+                                MainCourseSectionFeature(
+                                  topWidget: Container(
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    height: 350,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Image.asset(
+                                      'lib/statics/course_background.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  course: mockHtml,
+                                ),
+                                MainCourseSectionFeature(
+                                  course: mockHtmlIntermediate,
+                                ),
+                                MainCourseSectionFeature(
+                                  course: mockCss,
+                                ),
+                              ],
                             ),
-                            course: mockHtml,
                           ),
-                          MainCourseSectionFeature(
-                            course: mockHtmlIntermediate,
-                          ),
-                          MainCourseSectionFeature(
-                            course: mockCss,
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   ),
                   StreamBuilder(
                     stream: this.courseExpand.stream,
@@ -133,9 +148,8 @@ class _MainCourseFeature extends State<MainCourseFeature> {
 
                       return AnimatedContainer(
                         duration: Duration(milliseconds: 250),
-                        color: Theme.of(context)
-                            .primaryColor
-                            .withOpacity(this._courseExpand ? 1 : snapshot.data),
+                        color: Theme.of(context).primaryColor.withOpacity(
+                            this._courseExpand ? 1 : snapshot.data),
                         height: 50 + MediaQuery.of(context).padding.top,
                         padding: EdgeInsets.only(
                             left: 16,
@@ -151,7 +165,9 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                 if (this._courseExpand) {
                                   this.transparentBackground.add(1);
                                 } else {
-                                  this.transparentBackground.add(this._oldTransparentBackground);
+                                  this
+                                      .transparentBackground
+                                      .add(this._oldTransparentBackground);
                                 }
                               },
                               child: Container(
@@ -180,7 +196,8 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                         children: [
                                           AnimatedOpacity(
                                             opacity: this._courseExpand ? 1 : 0,
-                                            duration: Duration(milliseconds: 250),
+                                            duration:
+                                                Duration(milliseconds: 250),
                                             child: Container(
                                               child: Icon(
                                                 Icons.keyboard_arrow_up,
@@ -190,7 +207,8 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                           ),
                                           AnimatedOpacity(
                                             opacity: this._courseExpand ? 0 : 1,
-                                            duration: Duration(milliseconds: 250),
+                                            duration:
+                                                Duration(milliseconds: 250),
                                             child: Container(
                                               child: Icon(
                                                 Icons.keyboard_arrow_down,

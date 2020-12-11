@@ -30,11 +30,24 @@ class MainCourseSelectFeature extends StatelessWidget {
         return AnimatedPositioned(
           duration: Duration(milliseconds: 250),
           curve: Curves.ease,
-          top: this.isExpand ? 50 + MediaQuery.of(context).padding.top : -(MediaQuery.of(context).size.width * 0.85) - (MediaQuery.of(context).padding.top),
+          top: this.isExpand
+              ? 50 + MediaQuery.of(context).padding.top
+              : -(MediaQuery.of(context).size.width * 0.85) -
+                  (MediaQuery.of(context).padding.top),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width * 0.85,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, 1),
+                  color: Colors.black12,
+                  blurRadius: 3,
+                  spreadRadius: 3
+                ),
+              ],
+            ),
             child: ListView.builder(
               padding: EdgeInsets.all(16),
               controller: this.scrollController,

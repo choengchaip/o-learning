@@ -74,7 +74,8 @@
     "email_title": "กรุณากรอกอีเมล",
     "email_placeholder": "กรอกอีเมล",
     "password_title": "กรุณากรอกรหัสผ่าน",
-    "password_placeholder": "กรอกรหัสผ่าน"
+    "password_placeholder": "กรอกรหัสผ่าน",
+    "get_started": "เริ่มต้นใช้งาน"
   },
   "main_page": {
     "course_menu": "บทเรียน",

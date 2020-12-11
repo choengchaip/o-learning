@@ -150,7 +150,7 @@ class _DiscoveryNotification extends State<DiscoveryNotification> {
                               Container(
                                 margin: EdgeInsets.only(right: 8),
                                 child: Text(
-                                  '${snapshot.data.hour}:${snapshot.data.minute < 10 ? '0${snapshot.data.minute}' : snapshot.data.minute}',
+                                  '${snapshot.data.hour < 10 ? '0${snapshot.data.hour}' : snapshot.data.hour}:${snapshot.data.minute < 10 ? '0${snapshot.data.minute}' : snapshot.data.minute}',
                                   style: TextStyle(fontSize: fontSizeH5),
                                 ),
                               ),

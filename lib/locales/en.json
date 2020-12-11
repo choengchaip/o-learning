@@ -48,5 +48,43 @@
     "note": "SET DAILY REMINDER",
     "enable_notification_button": "ENABLED NOTIFICATIONS",
     "not_now": "NOT NOW"
+  },
+  "authentication_login": {
+    "sign_up": "SIGN UP",
+    "title": "Login to access your\npersonal curriculum",
+    "terms_and_conditions": "By signing up, you accept our Terms and Privacy Policy",
+    "login_button": "LOG IN",
+    "back": "Back",
+    "continue_button": "CONTINUE",
+    "email_title": "Enter your email address",
+    "email_placeholder": "Email address",
+    "password_title": "Enter your password",
+    "password_placeholder": "Password (min. 6 characters)",
+    "forget_password_title": "Forget Password"
+  },
+  "authentication_register": {
+    "login": "LOG IN",
+    "title": "Create a profile to save your\npersonal curriculum",
+    "terms_and_conditions": "By signing up, you accept our Terms and Privacy Policy",
+    "sign_in_button": "SIGN UP",
+    "back": "Back",
+    "continue_button": "CONTINUE",
+    "name_title": "What's your name?",
+    "name_placeholder": "Name",
+    "email_title": "Enter your email address",
+    "email_placeholder": "Email address",
+    "password_title": "Enter your password",
+    "password_placeholder": "Password (min. 6 characters)",
+    "forget_password_title": "Forget Password",
+    "get_started": "GET STARTED"
+  },
+  "main_page": {
+    "course_menu": "Path",
+    "subject_menu": "Browse",
+    "leader_board_menu": "Leaderboard",
+    "account_menu": "Profile"
+  },
+  "course_item": {
+    "completed": "COMPLETE"
   }
 }

@@ -80,8 +80,8 @@ class _AuthenticationLoginHomeFeature
             child: Text(
               appLocaleRepo.$l('authentication_login', 'terms_and_conditions'),
               style: TextStyle(
-                color: Colors.black,
-                fontSize: fontSizeS1,
+                color: gray,
+                fontSize: fontSizeS2,
                 fontWeight: FontWeight.bold,
               ),
             ),

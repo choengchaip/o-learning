@@ -32,6 +32,7 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
 
     await appLocaleRepo.initContext(context: this.context);
     await appLocaleRepo.loadAsset();
+    await appLocaleRepo.switchLocale(lang: 'en');
 
     await precacheImage(Image.asset('lib/statics/experience_book_a_lot.png').image, context);
     await precacheImage(Image.asset('lib/statics/experience_book_base.png').image, context);

@@ -179,7 +179,10 @@ class _AuthenticationLoginPasswordFeature
                           Container(
                             margin: EdgeInsets.only(top: 16),
                             child: Text(
-                                'Logging in ...'
+                              'Logging in ...',
+                              style: TextStyle(
+                                fontSize: fontSizeP,
+                              ),
                             ),
                           )
                         ],
