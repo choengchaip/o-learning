@@ -30,7 +30,7 @@ class MainCourseSelectFeature extends StatelessWidget {
         return AnimatedPositioned(
           duration: Duration(milliseconds: 250),
           curve: Curves.ease,
-          top: this.isExpand ? 50 + MediaQuery.of(context).padding.top : -300,
+          top: this.isExpand ? 50 + MediaQuery.of(context).padding.top : -(MediaQuery.of(context).size.width * 0.85) - (MediaQuery.of(context).padding.top),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.width * 0.85,
