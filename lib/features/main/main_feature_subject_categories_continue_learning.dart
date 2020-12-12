@@ -28,7 +28,7 @@ class MainSubjectCategoriesContinueLearningFeature extends StatelessWidget {
             child: Text(
               this.title,
               style: TextStyle(
-                fontSize: fontSizeH5,
+                fontSize: fontSizeP,
                 fontWeight: FontWeight.bold,
               ),
             ),

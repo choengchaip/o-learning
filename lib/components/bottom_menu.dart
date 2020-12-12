@@ -47,7 +47,7 @@ class BottomMenu extends StatelessWidget {
                       this.menuItems[index].icon,
                       color: this.currentMenu == this.menuItems[index].menuType
                           ? Theme.of(context).primaryColor
-                          : Colors.black87,
+                          : Colors.black38,
                     ),
                   ),
                   Container(
@@ -57,7 +57,7 @@ class BottomMenu extends StatelessWidget {
                         color:
                             this.currentMenu == this.menuItems[index].menuType
                                 ? Theme.of(context).primaryColor
-                                : Colors.black87,
+                                : Colors.black38,
                       ),
                     ),
                   ),

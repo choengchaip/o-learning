@@ -37,6 +37,7 @@ class _MainPage extends State<MainPage> {
         Provider.of<AppLocaleRepository>(context);
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
         child: Stack(
           children: [
