@@ -128,7 +128,7 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                     stream: this.courseExpand.stream,
                     builder: (BuildContext context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Container();
+                        this.courseExpand.add(false);
                       }
 
                       return MainCourseSelectFeature(
