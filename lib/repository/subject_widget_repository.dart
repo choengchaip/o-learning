@@ -1,8 +1,8 @@
 import 'package:o_learning/repository/base_repository.dart';
 import 'package:o_learning/states/subject_data_types.dart';
 
-class SubjectWidgetRepository extends BaseRepository {
-  SubjectWidgetRepository() {
+class SubjectRepository extends BaseRepository {
+  SubjectRepository() {
     this.object.data['course_id'] = '';
     this.object.data['course_detail'] = {};
     notifyListeners();

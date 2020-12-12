@@ -91,7 +91,8 @@ class MainSubjectCategoriesListFeature extends StatelessWidget {
                           color: secondaryColor,
                           child: Row(
                             children: [
-                              Container(
+                              AnimatedContainer(
+                                duration: Duration(seconds: 2),
                                 margin: EdgeInsets.only(right: 16),
                                 width: 8,
                                 color: Color((Random().nextDouble() * 0xFFFFFF)

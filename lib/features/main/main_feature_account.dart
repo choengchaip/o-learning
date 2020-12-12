@@ -31,7 +31,8 @@ class _MainAccountFeature extends State<MainAccountFeature> {
         children: [
           Expanded(
             child: Container(
-              child: Text('Course Page'),
+              alignment: Alignment.center,
+              child: Text('Account Page'),
             ),
           )
         ],

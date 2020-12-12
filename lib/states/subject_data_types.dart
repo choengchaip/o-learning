@@ -39,3 +39,19 @@ class ICategoryItem {
     this.image,
   });
 }
+
+class IQuizItem {
+  final String id;
+  final String no;
+  final String title;
+  final int progress;
+  final int totalChoice;
+
+  IQuizItem({
+    @required this.id,
+    @required this.no,
+    @required this.title,
+    @required this.progress,
+    @required this.totalChoice,
+  });
+}

@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
@@ -10,6 +8,7 @@ import 'package:o_learning/features/main/main_feature_subject_categories_continu
 import 'package:o_learning/features/main/main_feature_subject_categories_list.dart';
 import 'package:o_learning/features/main/main_feature_subject_categories_recommend.dart';
 import 'package:o_learning/mocks/subject_data_types.dart';
+import 'package:o_learning/pages/subject_detail_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -17,24 +16,20 @@ import 'package:provider/provider.dart';
 
 class MainSubjectCategoriesFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
-  final SubjectWidgetRepository subjectWidgetRepository;
 
   MainSubjectCategoriesFeature({
     @required this.widgetSliderRepository,
-    @required this.subjectWidgetRepository,
   });
 
   @override
   _MainSubjectCategoriesFeature createState() => _MainSubjectCategoriesFeature(
         widgetSliderRepository: this.widgetSliderRepository,
-        subjectWidgetRepository: this.subjectWidgetRepository,
       );
 }
 
 class _MainSubjectCategoriesFeature
     extends State<MainSubjectCategoriesFeature> {
   final WidgetSliderRepository widgetSliderRepository;
-  final SubjectWidgetRepository subjectWidgetRepository;
 
   StreamController<bool> searchExpand;
   TextEditingController searchController;
@@ -42,7 +37,6 @@ class _MainSubjectCategoriesFeature
 
   _MainSubjectCategoriesFeature({
     @required this.widgetSliderRepository,
-    @required this.subjectWidgetRepository,
   });
 
   @override
@@ -58,6 +52,8 @@ class _MainSubjectCategoriesFeature
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
+    SubjectRepository subjectRepository =
+        Provider.of<SubjectRepository>(context);
 
     return StreamBuilder<bool>(
       stream: searchExpand.stream,
@@ -88,24 +84,27 @@ class _MainSubjectCategoriesFeature
                         title: 'Continue Learning',
                         items: mockContinueLearning,
                         onClick: (String id) {
-                          this.subjectWidgetRepository.setCourseId(id);
+                          subjectRepository.setCourseId(id);
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
                         },
                       ),
                       MainSubjectCategoriesRecommendFeature(
                         title: 'Recommend Courses',
                         items: mockRecommend,
                         onClick: (String id) {
-                          this.subjectWidgetRepository.setCourseId(id);
+                          subjectRepository.setCourseId(id);
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
                         },
                       ),
                       MainSubjectCategoriesListFeature(
                         title: 'Browse Categories',
                         items: mockCategories,
                         onClick: (String id) {
-                          this.subjectWidgetRepository.setCourseId(id);
-                          this.subjectWidgetRepository.setCourseDetail(
-                            mockCategories.singleWhere((element) => element.id == id),
-                          );
+                          subjectRepository.setCourseId(id);
+                          subjectRepository.setCourseDetail(
+                                mockCategories
+                                    .singleWhere((element) => element.id == id),
+                              );
                           this.widgetSliderRepository.nextWidget();
                         },
                         onSearch: () {

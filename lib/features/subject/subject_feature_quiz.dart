@@ -1,33 +1,30 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/header_back_button_center.dart';
-import 'package:o_learning/features/main/main_feature_subject_chapter_list.dart';
-import 'package:o_learning/mocks/subject_data_types.dart';
-import 'package:o_learning/pages/subject_detail_page.dart';
+import 'package:o_learning/features/subject/subject_feature_quiz_item.dart';
+import 'package:o_learning/mocks/main_data.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
-class MainSubjectCategoriesChapterFeature extends StatefulWidget {
+class SubjectQuizFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
 
-  MainSubjectCategoriesChapterFeature({
+  SubjectQuizFeature({
     @required this.widgetSliderRepository,
   });
 
   @override
-  _MainSubjectCategoriesChapterFeature createState() =>
-      _MainSubjectCategoriesChapterFeature(
+  _SubjectQuizFeature createState() => _SubjectQuizFeature(
         widgetSliderRepository: this.widgetSliderRepository,
       );
 }
 
-class _MainSubjectCategoriesChapterFeature
-    extends State<MainSubjectCategoriesChapterFeature> {
+class _SubjectQuizFeature extends State<SubjectQuizFeature> {
   final WidgetSliderRepository widgetSliderRepository;
 
-  _MainSubjectCategoriesChapterFeature({
+  _SubjectQuizFeature({
     @required this.widgetSliderRepository,
   });
 
@@ -47,17 +44,29 @@ class _MainSubjectCategoriesChapterFeature
       child: Column(
         children: [
           HeaderBackButtonCenter(
-            headerTitle: subjectRepository.categoryItem.title,
+            headerTitle: subjectRepository.categoryItem.title + ' detail',
             backTitle: 'Back',
             onBack: () {
-              this.widgetSliderRepository.prevWidget();
+              Navigator.of(context).pop();
             },
           ),
-          MainSubjectChapterListFeature(
-            items: mockCategoryChapters,
-            onClick: (String id) {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
-            },
+          Expanded(
+            child: Container(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Container(
+                    height: 250,
+                    color: Colors.black38,
+                  ),
+                  SubjectQuizItemFeature(
+                    title: 'Command Line',
+                    onClick: (String id) {},
+                    items: mockQuizItems,
+                  )
+                ],
+              ),
+            ),
           ),
         ],
       ),

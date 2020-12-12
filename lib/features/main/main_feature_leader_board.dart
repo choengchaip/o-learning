@@ -31,7 +31,8 @@ class _MainLeaderBoardFeature extends State<MainLeaderBoardFeature> {
         children: [
           Expanded(
             child: Container(
-              child: Text('Course Page'),
+              alignment: Alignment.center,
+              child: Text('Score Page'),
             ),
           )
         ],
