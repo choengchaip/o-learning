@@ -27,9 +27,6 @@ class MainCourseSelectFeature extends StatelessWidget {
     return StreamBuilder<String>(
       stream: selectedCourse.stream,
       builder: (BuildContext context, snapshot) {
-        if (!snapshot.hasData) {
-          return Container();
-        }
 
         return AnimatedPositioned(
           duration: Duration(milliseconds: 250),

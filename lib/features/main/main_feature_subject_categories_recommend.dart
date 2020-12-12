@@ -7,10 +7,12 @@ import 'package:o_learning/states/subject_data_types.dart';
 class MainSubjectCategoriesRecommendFeature extends StatelessWidget {
   final String title;
   final List<IRecommendItem> items;
+  final Function(String id) onClick;
 
   MainSubjectCategoriesRecommendFeature({
     @required this.title,
     @required this.items,
+    this.onClick,
   });
 
   @override
@@ -45,9 +47,14 @@ class MainSubjectCategoriesRecommendFeature extends StatelessWidget {
               padding: EdgeInsets.only(left: 16, right: 16),
               itemCount: this.items.length,
               itemBuilder: (BuildContext context, int index) {
-                return MainSubjectCategoriesRecommendItemFeature(
-                  title: this.items[index].title,
-                  image: this.items[index].image,
+                return GestureDetector(
+                  onTap: () {
+                    this.onClick(this.items[index].id);
+                  },
+                  child: MainSubjectCategoriesRecommendItemFeature(
+                    title: this.items[index].title,
+                    image: this.items[index].image,
+                  ),
                 );
               },
             ),

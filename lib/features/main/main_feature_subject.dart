@@ -4,7 +4,9 @@ import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
 import 'package:o_learning/features/main/main_feature_subject_categories.dart';
+import 'package:o_learning/features/main/main_feature_subject_chapter.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
+import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
 class MainSubjectFeature extends StatefulWidget {
@@ -13,18 +15,22 @@ class MainSubjectFeature extends StatefulWidget {
   MainSubjectFeature({@required this.pageSliderRepository});
 
   @override
-  _MainSubjectFeature createState() => _MainSubjectFeature(pageSliderRepository: this.pageSliderRepository);
+  _MainSubjectFeature createState() =>
+      _MainSubjectFeature(pageSliderRepository: this.pageSliderRepository);
 }
 
 class _MainSubjectFeature extends State<MainSubjectFeature> {
   final PageSliderRepository pageSliderRepository;
-  WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
+  WidgetSliderRepository widgetSliderRepository = WidgetSliderRepository();
+  SubjectWidgetRepository subjectWidgetRepository = SubjectWidgetRepository();
 
   _MainSubjectFeature({@required this.pageSliderRepository});
 
   @override
   void initState() {
-    this.widgetSliderRepository.initial(pageSliderRepo: this.pageSliderRepository);
+    this
+        .widgetSliderRepository
+        .initial(pageSliderRepo: this.pageSliderRepository);
     super.initState();
   }
 
@@ -45,6 +51,13 @@ class _MainSubjectFeature extends State<MainSubjectFeature> {
                 IWidgetSlider(
                   component: MainSubjectCategoriesFeature(
                     widgetSliderRepository: this.widgetSliderRepository,
+                    subjectWidgetRepository: this.subjectWidgetRepository,
+                  ),
+                ),
+                IWidgetSlider(
+                  component: MainSubjectCategoriesChapterFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
+                    subjectWidgetRepository: this.subjectWidgetRepository,
                   ),
                 ),
               ],

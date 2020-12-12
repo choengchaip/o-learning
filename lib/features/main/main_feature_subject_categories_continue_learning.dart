@@ -7,10 +7,12 @@ import 'package:o_learning/states/subject_data_types.dart';
 class MainSubjectCategoriesContinueLearningFeature extends StatelessWidget {
   final String title;
   final List<IContinueLearningItem> items;
+  final Function(String id) onClick;
 
   MainSubjectCategoriesContinueLearningFeature({
     @required this.title,
     @required this.items,
+    this.onClick,
   });
 
   @override
@@ -45,11 +47,16 @@ class MainSubjectCategoriesContinueLearningFeature extends StatelessWidget {
               ),
               itemCount: this.items.length,
               itemBuilder: (BuildContext context, int index) {
-                return MainSubjectCategoriesContinueLearningItemFeature(
-                  title: this.items[index].title,
-                  image: this.items[index].image,
-                  progress: this.items[index].progress,
-                  totalChoice: this.items[index].totalChoice,
+                return GestureDetector(
+                  onTap: (){
+                    this.onClick(this.items[index].id);
+                  },
+                  child: MainSubjectCategoriesContinueLearningItemFeature(
+                    title: this.items[index].title,
+                    image: this.items[index].image,
+                    progress: this.items[index].progress,
+                    totalChoice: this.items[index].totalChoice,
+                  ),
                 );
               },
             ),
