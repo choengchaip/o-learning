@@ -34,10 +34,15 @@ class MainSubjectCategoriesContinueLearningFeature extends StatelessWidget {
             ),
           ),
           Container(
-            height: 185,
+            height: 193,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.only(left: 16, right: 16),
+              padding: EdgeInsets.only(
+                top: 8,
+                bottom: 8,
+                left: 16,
+                right: 16,
+              ),
               itemCount: this.items.length,
               itemBuilder: (BuildContext context, int index) {
                 return MainSubjectCategoriesContinueLearningItemFeature(

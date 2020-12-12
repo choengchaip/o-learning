@@ -70,7 +70,7 @@ class MainSubjectCategoriesContinueLearningItemFeature extends StatelessWidget {
               flex: 7,
               child: Container(
                 padding: EdgeInsets.only(left: 12, right: 12),
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.topLeft,
                 color: Colors.white,
                 child: Text(
                   this.title,
