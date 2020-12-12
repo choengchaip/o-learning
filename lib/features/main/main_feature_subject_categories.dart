@@ -69,7 +69,7 @@ class _MainSubjectCategoriesFeature
                   margin: EdgeInsets.only(
                     top: snapshot.data
                         ? 80 + (MediaQuery.of(context).padding.top)
-                        : 0,
+                        : MediaQuery.of(context).padding.top,
                   ),
                   duration: Duration(milliseconds: 250),
                   color: grayLighter,
@@ -213,93 +213,98 @@ class _MainSubjectCategoriesFeature
             AnimatedPositioned(
               top: snapshot.data
                   ? 0
-                  : -80 - (-MediaQuery.of(context).padding.top),
+                  : -130 - (-MediaQuery.of(context).padding.top),
               width: MediaQuery.of(context).size.width,
               duration: Duration(milliseconds: 250),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                      top: 16,
-                      bottom: 16,
-                      left: 16,
-                      right: 16,
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    color: Theme.of(context).primaryColorLight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            child: Container(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.5),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                      left: 4,
-                                      right: 4,
-                                    ),
-                                    child: Icon(
-                                      Icons.search,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      child: FieldText(
-                                        padding: EdgeInsets.only(
-                                          top: 0,
-                                          bottom: 0,
-                                          right: 16,
-                                        ),
-                                        fontStyle: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: fontSizeP,
-                                        ),
-                                        autofocus: false,
-                                        controller: this.searchController,
-                                        focusNode: this.searchNode,
-                                        borderColor: Colors.transparent,
-                                        backgroundColor:
-                                            Theme.of(context).primaryColorLight,
-                                        placeholder: appLocaleRepo.$l(
-                                            'authentication_register',
-                                            'name_placeholder'),
-                                        onChanged: (String value) {},
+              child: Container(
+                color: Theme.of(context).primaryColorLight,
+                padding: EdgeInsets.only(top: snapshot.data
+                    ? MediaQuery.of(context).padding.top
+                    : 0),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(
+                        top: 16,
+                        bottom: 16,
+                        left: 16,
+                        right: 16,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                              child: Container(
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        left: 4,
+                                        right: 4,
+                                      ),
+                                      child: Icon(
+                                        Icons.search,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Expanded(
+                                      child: Container(
+                                        child: FieldText(
+                                          padding: EdgeInsets.only(
+                                            top: 0,
+                                            bottom: 0,
+                                            right: 16,
+                                          ),
+                                          fontStyle: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: fontSizeP,
+                                          ),
+                                          autofocus: false,
+                                          controller: this.searchController,
+                                          focusNode: this.searchNode,
+                                          borderColor: Colors.transparent,
+                                          backgroundColor:
+                                              Theme.of(context).primaryColorLight,
+                                          placeholder: appLocaleRepo.$l(
+                                              'authentication_register',
+                                              'name_placeholder'),
+                                          onChanged: (String value) {},
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            this.searchExpand.add(false);
-                            this.searchNode.unfocus();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.only(
-                              left: 8,
-                            ),
-                            child: Text(
-                              'Cancel',
-                              style: TextStyle(
-                                fontSize: fontSizeP,
-                                color: Colors.white,
+                          GestureDetector(
+                            onTap: () {
+                              this.searchExpand.add(false);
+                              this.searchNode.unfocus();
+                            },
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                left: 8,
+                              ),
+                              child: Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  fontSize: fontSizeP,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
