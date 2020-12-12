@@ -27,6 +27,10 @@ class MainCourseSelectFeature extends StatelessWidget {
     return StreamBuilder<String>(
       stream: selectedCourse.stream,
       builder: (BuildContext context, snapshot) {
+        if (!snapshot.hasData) {
+          return Container();
+        }
+
         return AnimatedPositioned(
           duration: Duration(milliseconds: 250),
           curve: Curves.ease,
@@ -41,11 +45,10 @@ class MainCourseSelectFeature extends StatelessWidget {
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  offset: Offset(0, 1),
-                  color: Colors.black12,
-                  blurRadius: 3,
-                  spreadRadius: 3
-                ),
+                    offset: Offset(0, 1),
+                    color: Colors.black12,
+                    blurRadius: 3,
+                    spreadRadius: 3),
               ],
             ),
             child: ListView.builder(
