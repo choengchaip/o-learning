@@ -36,7 +36,7 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
     await precacheImage(Image.asset('lib/statics/experience_book_a_lot.png').image, context);
     await precacheImage(Image.asset('lib/statics/experience_book_base.png').image, context);
     await precacheImage(Image.asset('lib/statics/experience_book_little.png').image, context);
-    await precacheImage(Image.asset('lib/statics/mock_logo.png').image, context);
+    await precacheImage(Image.asset('lib/statics/logo.png').image, context);
     await precacheImage(Image.asset('lib/statics/discovery_goal.png').image, context);
     await precacheImage(Image.asset('lib/statics/discovery_notification.png').image, context);
     await precacheImage(Image.asset('lib/statics/login_old_man.png').image, context);

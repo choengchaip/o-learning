@@ -76,7 +76,7 @@ class _WelcomeFeature extends State<WelcomeFeature> {
               components: [
                 IWidgetSlider(
                     component: WelcomePageDetail(
-                      logoImage: 'lib/statics/mock_logo.png',
+                      logoImage: 'lib/statics/logo.png',
                       title: appLocaleRepo.$l('welcome', 'learn_to_code_title'),
                       description: appLocaleRepo.$l(
                           'welcome', 'learn_to_code_description'),
@@ -85,7 +85,7 @@ class _WelcomeFeature extends State<WelcomeFeature> {
                         appLocaleRepo.$l('welcome', 'get_started_button')),
                 IWidgetSlider(
                     component: WelcomePageDetail(
-                      logoImage: 'lib/statics/mock_logo.png',
+                      logoImage: 'lib/statics/logo.png',
                       title: appLocaleRepo.$l('welcome', 'build_project_title'),
                       description: appLocaleRepo.$l(
                           'welcome', 'build_project_description'),
@@ -94,7 +94,7 @@ class _WelcomeFeature extends State<WelcomeFeature> {
                         appLocaleRepo.$l('welcome', 'get_started_button')),
                 IWidgetSlider(
                     component: WelcomePageDetail(
-                      logoImage: 'lib/statics/mock_logo.png',
+                      logoImage: 'lib/statics/logo.png',
                       title: appLocaleRepo.$l('welcome', 'join_community_title'),
                       description: appLocaleRepo.$l(
                           'welcome', 'join_community_description'),
