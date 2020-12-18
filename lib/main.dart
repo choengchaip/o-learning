@@ -6,6 +6,7 @@ import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/pages/index.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
+import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +38,8 @@ class _MyApp extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => appLocaleRepository),
         ChangeNotifierProvider(create: (_) => AuthRepository()),
-        ChangeNotifierProvider(create: (_) => SubjectRepository())
+        ChangeNotifierProvider(create: (_) => SubjectRepository()),
+        ChangeNotifierProvider(create: (_) => QuizRepository()),
       ],
       child: StreamBuilder(
         stream: lang.stream,

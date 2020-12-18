@@ -8,21 +8,26 @@ import 'package:o_learning/mocks/course_data.dart';
 import 'package:o_learning/mocks/main_data.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
+import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
 class CourseFeature extends StatefulWidget {
   final PageSliderRepository pageSliderRepository;
 
-  CourseFeature({@required this.pageSliderRepository});
+  CourseFeature({
+    @required this.pageSliderRepository,
+  });
 
   @override
-  _CourseFeature createState() =>
-      _CourseFeature(pageSliderRepository: this.pageSliderRepository);
+  _CourseFeature createState() => _CourseFeature(
+        pageSliderRepository: this.pageSliderRepository,
+      );
 }
 
 class _CourseFeature extends State<CourseFeature> {
   final PageSliderRepository pageSliderRepository;
+
   WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
   ScrollController mainScrollController = ScrollController();
   StreamController<double> transparentBackground;
@@ -30,7 +35,9 @@ class _CourseFeature extends State<CourseFeature> {
   bool _courseExpand;
   double _oldTransparentBackground;
 
-  _CourseFeature({@required this.pageSliderRepository});
+  _CourseFeature({
+    @required this.pageSliderRepository,
+  });
 
   @override
   void initState() {
@@ -57,6 +64,7 @@ class _CourseFeature extends State<CourseFeature> {
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
+    QuizRepository quizRepository = Provider.of<QuizRepository>(context);
 
     return Container(
       child: Column(
@@ -109,12 +117,21 @@ class _CourseFeature extends State<CourseFeature> {
                                     ),
                                   ),
                                   course: mockHtml,
+                                  onClick: (String id){
+                                    quizRepository.expandQuizFeature();
+                                  },
                                 ),
                                 CourseSectionFeature(
                                   course: mockHtmlIntermediate,
+                                  onClick: (String id){
+                                    quizRepository.expandQuizFeature();
+                                  },
                                 ),
                                 CourseSectionFeature(
                                   course: mockCss,
+                                  onClick: (String id){
+                                    quizRepository.expandQuizFeature();
+                                  },
                                 ),
                               ],
                             ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/components/page_slider.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/features/subject/subject_feature.dart';
-import 'package:o_learning/features/welcome/welcome_feature.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 
 class SubjectDetailPage extends StatefulWidget {

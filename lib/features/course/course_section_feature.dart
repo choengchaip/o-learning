@@ -7,9 +7,11 @@ import 'package:o_learning/states/course_data_types.dart';
 
 class CourseSectionFeature extends StatelessWidget {
   final ICourseItem course;
+  final Function(String id) onClick;
   Widget topWidget;
 
-  CourseSectionFeature({Key key, @required this.course, this.topWidget})
+  CourseSectionFeature(
+      {Key key, @required this.course, @required this.onClick, this.topWidget})
       : super(key: key) {
     if (this.topWidget == null) {
       this.topWidget = Container();
@@ -71,6 +73,7 @@ class CourseSectionFeature extends StatelessWidget {
                   canLearn: this.course.chapters[index].canLearn,
                   isPassed: this.course.chapters[index].isPassed,
                   progress: this.course.chapters[index].progress,
+                  onClick: this.onClick,
                 ),
               );
             }),

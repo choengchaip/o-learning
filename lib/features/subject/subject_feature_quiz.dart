@@ -4,6 +4,7 @@ import 'package:o_learning/components/header_back_button_center.dart';
 import 'package:o_learning/features/subject/subject_feature_quiz_item.dart';
 import 'package:o_learning/mocks/main_data.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,7 @@ class _SubjectQuizFeature extends State<SubjectQuizFeature> {
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
+    QuizRepository quizRepository = Provider.of<QuizRepository>(context);
     SubjectRepository subjectRepository =
         Provider.of<SubjectRepository>(context);
 
@@ -61,7 +63,9 @@ class _SubjectQuizFeature extends State<SubjectQuizFeature> {
                   ),
                   SubjectQuizItemFeature(
                     title: 'Command Line',
-                    onClick: (String id) {},
+                    onClick: (String id) {
+                      quizRepository.expandQuizFeature();
+                    },
                     items: mockQuizItems,
                   )
                 ],
