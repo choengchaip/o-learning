@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/components/types.dart';
+import 'package:o_learning/components/widget_slider.dart';
+import 'package:o_learning/features/account/account_feature_home.dart';
+import 'package:o_learning/mocks/account_data.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
@@ -30,9 +34,18 @@ class _AccountFeature extends State<AccountFeature> {
       child: Column(
         children: [
           Expanded(
-            child: Container(
-              alignment: Alignment.center,
-              child: Text('Account Page'),
+            child: WidgetSlider(
+              widgetSliderRepository: this.widgetSliderRepository,
+              scrollable: false,
+              showDot: false,
+              components: [
+                IWidgetSlider(
+                  component: AccountHomeFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
+                    mockAccountItem: mockAccountItem,
+                  ),
+                ),
+              ],
             ),
           )
         ],

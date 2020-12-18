@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/features/leader_board/leader_board_feature_friend_list.dart';
+import 'package:o_learning/mocks/leader_board_data.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
 class LeaderBoardFriendFeature extends StatefulWidget {
@@ -24,6 +26,14 @@ class _LeaderBoardFriendFeature extends State<LeaderBoardFriendFeature> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Column(
+        children: [
+          LeaderBoardFriendListFeature(
+            mockItems: mockLeaderBoardFriendItems,
+          )
+        ],
+      ),
+    );
   }
 }
