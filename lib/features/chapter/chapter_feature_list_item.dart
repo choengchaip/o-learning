@@ -3,13 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 
-class MainSubjectChapterListItemFeature extends StatelessWidget {
+class ChapterListItemFeature extends StatelessWidget {
   final String id;
   final String title;
   final String description;
   final String image;
 
-  MainSubjectChapterListItemFeature({
+  ChapterListItemFeature({
     @required this.id,
     @required this.title,
     @required this.description,

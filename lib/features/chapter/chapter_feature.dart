@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/header_back_button_center.dart';
-import 'package:o_learning/features/main/main_feature_subject_chapter_list.dart';
+import 'package:o_learning/features/chapter/chapter_feature_list.dart';
 import 'package:o_learning/mocks/subject_data_types.dart';
 import 'package:o_learning/pages/subject_detail_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
@@ -9,10 +9,10 @@ import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
-class MainSubjectCategoriesChapterFeature extends StatefulWidget {
+class ChapterFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
 
-  MainSubjectCategoriesChapterFeature({
+  ChapterFeature({
     @required this.widgetSliderRepository,
   });
 
@@ -24,7 +24,7 @@ class MainSubjectCategoriesChapterFeature extends StatefulWidget {
 }
 
 class _MainSubjectCategoriesChapterFeature
-    extends State<MainSubjectCategoriesChapterFeature> {
+    extends State<ChapterFeature> {
   final WidgetSliderRepository widgetSliderRepository;
 
   _MainSubjectCategoriesChapterFeature({
@@ -53,7 +53,7 @@ class _MainSubjectCategoriesChapterFeature
               this.widgetSliderRepository.prevWidget();
             },
           ),
-          MainSubjectChapterListFeature(
+          ChapterListFeature(
             items: mockCategoryChapters,
             onClick: (String id) {
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));

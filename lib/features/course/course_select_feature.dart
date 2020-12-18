@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/course_item.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/states/discovery_data_types.dart';
 
-class MainCourseSelectFeature extends StatelessWidget {
+class CourseSelectFeature extends StatelessWidget {
   final bool isExpand;
   final List<IDiscoveryCourseItem> items;
   final Function(String id) onChanged;
@@ -15,7 +14,7 @@ class MainCourseSelectFeature extends StatelessWidget {
   StreamController<String> selectedCourse = StreamController<String>();
   ScrollController scrollController = ScrollController();
 
-  MainCourseSelectFeature({
+  CourseSelectFeature({
     @required this.isExpand,
     @required this.items,
     @required this.onChanged,

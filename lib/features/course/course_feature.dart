@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
-import 'package:o_learning/features/main/main_feature_course_section.dart';
-import 'package:o_learning/features/main/main_feature_course_select.dart';
+import 'package:o_learning/features/course/course_section_feature.dart';
+import 'package:o_learning/features/course/course_select_feature.dart';
 import 'package:o_learning/mocks/course_data.dart';
 import 'package:o_learning/mocks/main_data.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
@@ -12,17 +11,17 @@ import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
-class MainCourseFeature extends StatefulWidget {
+class CourseFeature extends StatefulWidget {
   final PageSliderRepository pageSliderRepository;
 
-  MainCourseFeature({@required this.pageSliderRepository});
+  CourseFeature({@required this.pageSliderRepository});
 
   @override
-  _MainCourseFeature createState() =>
-      _MainCourseFeature(pageSliderRepository: this.pageSliderRepository);
+  _CourseFeature createState() =>
+      _CourseFeature(pageSliderRepository: this.pageSliderRepository);
 }
 
-class _MainCourseFeature extends State<MainCourseFeature> {
+class _CourseFeature extends State<CourseFeature> {
   final PageSliderRepository pageSliderRepository;
   WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
   ScrollController mainScrollController = ScrollController();
@@ -31,7 +30,7 @@ class _MainCourseFeature extends State<MainCourseFeature> {
   bool _courseExpand;
   double _oldTransparentBackground;
 
-  _MainCourseFeature({@required this.pageSliderRepository});
+  _CourseFeature({@required this.pageSliderRepository});
 
   @override
   void initState() {
@@ -99,7 +98,7 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                             child: ListView(
                               padding: EdgeInsets.zero,
                               children: [
-                                MainCourseSectionFeature(
+                                CourseSectionFeature(
                                   topWidget: Container(
                                     margin: EdgeInsets.only(bottom: 20),
                                     height: 350,
@@ -111,10 +110,10 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                                   ),
                                   course: mockHtml,
                                 ),
-                                MainCourseSectionFeature(
+                                CourseSectionFeature(
                                   course: mockHtmlIntermediate,
                                 ),
-                                MainCourseSectionFeature(
+                                CourseSectionFeature(
                                   course: mockCss,
                                 ),
                               ],
@@ -132,7 +131,7 @@ class _MainCourseFeature extends State<MainCourseFeature> {
                         return Container();
                       }
 
-                      return MainCourseSelectFeature(
+                      return CourseSelectFeature(
                         isExpand: snapshot.data,
                         appLocaleRepository: appLocaleRepo,
                         items: mockMainCourseItems,

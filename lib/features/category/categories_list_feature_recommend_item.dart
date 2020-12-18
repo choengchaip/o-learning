@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 
-class MainSubjectCategoriesRecommendItemFeature extends StatelessWidget {
+class CategoriesListRecommendItemFeature extends StatelessWidget {
   final String image;
   final String title;
 
-  MainSubjectCategoriesRecommendItemFeature({
+  CategoriesListRecommendItemFeature({
     @required this.image,
     @required this.title,
   });

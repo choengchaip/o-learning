@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
-import 'package:o_learning/features/main/main_feature_subject_categories_continue_learning_item.dart';
+import 'package:o_learning/features/category/categories_list_feature_recommend_item.dart';
 import 'package:o_learning/states/subject_data_types.dart';
 
-class MainSubjectCategoriesContinueLearningFeature extends StatelessWidget {
+class CategoriesListRecommendFeature extends StatelessWidget {
   final String title;
-  final List<IContinueLearningItem> items;
+  final List<IRecommendItem> items;
   final Function(String id) onClick;
 
-  MainSubjectCategoriesContinueLearningFeature({
+  CategoriesListRecommendFeature({
     @required this.title,
     @required this.items,
     this.onClick,
@@ -18,15 +18,20 @@ class MainSubjectCategoriesContinueLearningFeature extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.only(
-        top: 16,
-        bottom: 32,
+        bottom: 16,
       ),
       child: Column(
         children: [
           Container(
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.only(bottom: 16, left: 16, right: 16),
+            padding: EdgeInsets.only(
+              top: 16,
+              bottom: 16,
+              left: 16,
+              right: 16,
+            ),
             child: Text(
               this.title,
               style: TextStyle(
@@ -36,26 +41,19 @@ class MainSubjectCategoriesContinueLearningFeature extends StatelessWidget {
             ),
           ),
           Container(
-            height: 193,
+            height: 125,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.only(
-                top: 8,
-                bottom: 8,
-                left: 16,
-                right: 16,
-              ),
+              padding: EdgeInsets.only(left: 16, right: 16),
               itemCount: this.items.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     this.onClick(this.items[index].id);
                   },
-                  child: MainSubjectCategoriesContinueLearningItemFeature(
+                  child: CategoriesListRecommendItemFeature(
                     title: this.items[index].title,
                     image: this.items[index].image,
-                    progress: this.items[index].progress,
-                    totalChoice: this.items[index].totalChoice,
                   ),
                 );
               },

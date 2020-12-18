@@ -3,27 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
-import 'package:o_learning/features/main/main_feature_subject_categories.dart';
-import 'package:o_learning/features/main/main_feature_subject_chapter.dart';
+import 'package:o_learning/features/category/categories_list_feature.dart';
+import 'package:o_learning/features/chapter/chapter_feature.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
-import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
-class MainSubjectFeature extends StatefulWidget {
+class CategoriesFeature extends StatefulWidget {
   final PageSliderRepository pageSliderRepository;
 
-  MainSubjectFeature({@required this.pageSliderRepository});
+  CategoriesFeature({@required this.pageSliderRepository});
 
   @override
-  _MainSubjectFeature createState() =>
-      _MainSubjectFeature(pageSliderRepository: this.pageSliderRepository);
+  _SubjectFeature createState() =>
+      _SubjectFeature(pageSliderRepository: this.pageSliderRepository);
 }
 
-class _MainSubjectFeature extends State<MainSubjectFeature> {
+class _SubjectFeature extends State<CategoriesFeature> {
   final PageSliderRepository pageSliderRepository;
   WidgetSliderRepository widgetSliderRepository = WidgetSliderRepository();
 
-  _MainSubjectFeature({@required this.pageSliderRepository});
+  _SubjectFeature({@required this.pageSliderRepository});
 
   @override
   void initState() {
@@ -48,12 +47,12 @@ class _MainSubjectFeature extends State<MainSubjectFeature> {
               showDot: false,
               components: [
                 IWidgetSlider(
-                  component: MainSubjectCategoriesFeature(
+                  component: CategoriesListFeature(
                     widgetSliderRepository: this.widgetSliderRepository,
                   ),
                 ),
                 IWidgetSlider(
-                  component: MainSubjectCategoriesChapterFeature(
+                  component: ChapterFeature(
                     widgetSliderRepository: this.widgetSliderRepository,
                   ),
                 )

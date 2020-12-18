@@ -3,20 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
-class MainAccountFeature extends StatefulWidget {
+class AccountFeature extends StatefulWidget {
   final PageSliderRepository pageSliderRepository;
 
-  MainAccountFeature({@required this.pageSliderRepository});
+  AccountFeature({@required this.pageSliderRepository});
 
   @override
-  _MainAccountFeature createState() => _MainAccountFeature(pageSliderRepository: this.pageSliderRepository);
+  _AccountFeature createState() => _AccountFeature(pageSliderRepository: this.pageSliderRepository);
 }
 
-class _MainAccountFeature extends State<MainAccountFeature> {
+class _AccountFeature extends State<AccountFeature> {
   final PageSliderRepository pageSliderRepository;
   WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
 
-  _MainAccountFeature({@required this.pageSliderRepository});
+  _AccountFeature({@required this.pageSliderRepository});
 
   @override
   void initState() {

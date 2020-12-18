@@ -19,6 +19,7 @@ class WidgetSliderRepository extends ChangeNotifier {
     if (pageSliderRepo != null) {
       this.pageSliderRepo = pageSliderRepo;
     }
+    notifyListeners();
   }
 
   nextPage() {
@@ -50,5 +51,6 @@ class WidgetSliderRepository extends ChangeNotifier {
       this.widgetController.animateToPage(position,
           duration: Duration(milliseconds: 250), curve: Curves.ease);
     }
+    notifyListeners();
   }
 }

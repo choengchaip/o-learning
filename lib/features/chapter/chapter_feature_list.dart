@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:o_learning/features/main/main_feature_subject_chapter_list_item.dart';
+import 'package:o_learning/features/chapter/chapter_feature_list_item.dart';
 import 'package:o_learning/states/course_data_types.dart';
 
-class MainSubjectChapterListFeature extends StatelessWidget {
+class ChapterListFeature extends StatelessWidget {
   final List<IChapterItem> items;
   final Function(String id) onClick;
 
-  MainSubjectChapterListFeature({
+  ChapterListFeature({
     @required this.items,
     @required this.onClick,
   });
@@ -24,7 +24,7 @@ class MainSubjectChapterListFeature extends StatelessWidget {
               onTap: () {
                 this.onClick(this.items[index].id);
               },
-              child: MainSubjectChapterListItemFeature(
+              child: ChapterListItemFeature(
                 id: this.items[index].id,
                 title: this.items[index].title,
                 description: this.items[index].description,

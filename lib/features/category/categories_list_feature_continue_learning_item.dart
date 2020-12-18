@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 
-class MainSubjectCategoriesContinueLearningItemFeature extends StatelessWidget {
+class CategoriesListContinueLearningItemFeature extends StatelessWidget {
   final String image;
   final String title;
   final int progress;
   final int totalChoice;
 
-  MainSubjectCategoriesContinueLearningItemFeature({
+  CategoriesListContinueLearningItemFeature({
     @required this.image,
     @required this.title,
     @required this.progress,

@@ -1,15 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/bottom_menu.dart';
 import 'package:o_learning/components/page_slider.dart';
 import 'package:o_learning/components/types.dart';
-import 'package:o_learning/features/main/main_feature_account.dart';
-import 'package:o_learning/features/main/main_feature_course.dart';
-import 'package:o_learning/features/main/main_feature_leader_board.dart';
-import 'package:o_learning/features/main/main_feature_subject.dart';
+import 'package:o_learning/features/account/account_feature.dart';
+import 'package:o_learning/features/category/categories_feature.dart';
+import 'package:o_learning/features/course/course_feature.dart';
+import 'package:o_learning/features/leader_board/leader_board_feature.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/states/types.dart';
@@ -50,22 +48,22 @@ class _MainPage extends State<MainPage> {
                       pageSliderRepository: this.pageSliderRepository,
                       components: [
                         IPageSlider(
-                          component: MainCourseFeature(
+                          component: CourseFeature(
                             pageSliderRepository: this.pageSliderRepository,
                           ),
                         ),
                         IPageSlider(
-                          component: MainSubjectFeature(
+                          component: CategoriesFeature(
                             pageSliderRepository: this.pageSliderRepository,
                           ),
                         ),
                         IPageSlider(
-                          component: MainLeaderBoardFeature(
+                          component: LeaderBoardFeature(
                             pageSliderRepository: this.pageSliderRepository,
                           ),
                         ),
                         IPageSlider(
-                          component: MainAccountFeature(
+                          component: AccountFeature(
                             pageSliderRepository: this.pageSliderRepository,
                           ),
                         ),

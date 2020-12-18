@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/field_text.dart';
-import 'package:o_learning/features/main/main_feature_subject_categories_continue_learning.dart';
-import 'package:o_learning/features/main/main_feature_subject_categories_list.dart';
-import 'package:o_learning/features/main/main_feature_subject_categories_recommend.dart';
+import 'package:o_learning/features/category/categories_list_feature_continue_learning.dart';
+import 'package:o_learning/features/category/categories_list_feature_recommend.dart';
+import 'package:o_learning/features/category/categories_list_feature_search.dart';
 import 'package:o_learning/mocks/subject_data_types.dart';
 import 'package:o_learning/pages/subject_detail_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
@@ -14,28 +14,28 @@ import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
-class MainSubjectCategoriesFeature extends StatefulWidget {
+class CategoriesListFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
 
-  MainSubjectCategoriesFeature({
+  CategoriesListFeature({
     @required this.widgetSliderRepository,
   });
 
   @override
-  _MainSubjectCategoriesFeature createState() => _MainSubjectCategoriesFeature(
+  _CategoriesListFeature createState() => _CategoriesListFeature(
         widgetSliderRepository: this.widgetSliderRepository,
       );
 }
 
-class _MainSubjectCategoriesFeature
-    extends State<MainSubjectCategoriesFeature> {
+class _CategoriesListFeature
+    extends State<CategoriesListFeature> {
   final WidgetSliderRepository widgetSliderRepository;
 
   StreamController<bool> searchExpand;
   TextEditingController searchController;
   FocusNode searchNode;
 
-  _MainSubjectCategoriesFeature({
+  _CategoriesListFeature({
     @required this.widgetSliderRepository,
   });
 
@@ -80,23 +80,31 @@ class _MainSubjectCategoriesFeature
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
-                      MainSubjectCategoriesContinueLearningFeature(
+                      CategoriesListContinueLearningFeature(
                         title: 'Continue Learning',
                         items: mockContinueLearning,
                         onClick: (String id) {
                           subjectRepository.setCourseId(id);
+                          subjectRepository.setCourseDetail(
+                            mockCategories
+                                .singleWhere((element) => element.id == id),
+                          );
                           Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
                         },
                       ),
-                      MainSubjectCategoriesRecommendFeature(
+                      CategoriesListRecommendFeature(
                         title: 'Recommend Courses',
                         items: mockRecommend,
                         onClick: (String id) {
                           subjectRepository.setCourseId(id);
+                          subjectRepository.setCourseDetail(
+                            mockCategories
+                                .singleWhere((element) => element.id == id),
+                          );
                           Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
                         },
                       ),
-                      MainSubjectCategoriesListFeature(
+                      CategoriesListSearchFeature(
                         title: 'Browse Categories',
                         items: mockCategories,
                         onClick: (String id) {

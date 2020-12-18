@@ -1,18 +1,17 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/states/subject_data_types.dart';
 
-class MainSubjectCategoriesListFeature extends StatelessWidget {
+class CategoriesListSearchFeature extends StatelessWidget {
   final String title;
   final List<ICategoryItem> items;
   final Function onSearch;
   final Function(String id) onClick;
 
-  MainSubjectCategoriesListFeature({
+  CategoriesListSearchFeature({
     @required this.title,
     @required this.items,
     this.onSearch,
