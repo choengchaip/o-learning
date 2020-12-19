@@ -102,9 +102,10 @@ class IQuestionItem {
     if (listRawJson == null) {
       return <IQuestionItem>[].toList();
     }
-    // return listRawJson.map((rawJson) {
-    //   return IQuestionItem.fromJson(rawJson);
-    // }).toList();
+
+    return listRawJson.map((rawJson) {
+      return IQuestionItem.fromJson(rawJson);
+    }).toList();
   }
 
   factory IQuestionItem.fromJson(Map<String, dynamic> rawJson) {
