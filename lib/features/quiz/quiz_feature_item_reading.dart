@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:o_learning/states/quiz_data_types.dart';
 
-class QuizItemFeature extends StatelessWidget {
+class QuizItemReadingFeature extends StatelessWidget {
   final IQuestionItem questionItem;
 
-  QuizItemFeature({
+  QuizItemReadingFeature({
     @required this.questionItem,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text(this.questionItem.toString()),
+    return Center(
+      child: Container(
+        child: Text(this.questionItem.question),
+      ),
     );
   }
 }

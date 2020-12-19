@@ -1,7 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/repository/widget_slider_repository.dart';
 
 class QuizBottomFeature extends StatelessWidget {
+  final WidgetSliderRepository widgetSliderRepository;
+
+  QuizBottomFeature({
+    @required this.widgetSliderRepository,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,16 +43,21 @@ class QuizBottomFeature extends StatelessWidget {
                     size: 32,
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.arrow_right,
-                    color: Colors.white,
-                    size: 32,
+                GestureDetector(
+                  onTap: () {
+                    this.widgetSliderRepository.nextWidget();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.arrow_right,
+                      color: Colors.white,
+                      size: 32,
+                    ),
                   ),
                 ),
               ],

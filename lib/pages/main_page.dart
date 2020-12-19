@@ -36,8 +36,7 @@ class _MainPage extends State<MainPage> {
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
-    QuizRepository quizRepository =
-    Provider.of<QuizRepository>(context);
+    QuizRepository quizRepository = Provider.of<QuizRepository>(context);
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -109,14 +108,14 @@ class _MainPage extends State<MainPage> {
                               menuItems: [
                                 IBottomMenuType(
                                   icon: Icons.flag,
-                                  title:
-                                      appLocaleRepo.$l('main_page', 'course_menu'),
+                                  title: appLocaleRepo.$l(
+                                      'main_page', 'course_menu'),
                                   menuType: BottomMenuType.COURSE,
                                 ),
                                 IBottomMenuType(
                                   icon: Icons.book_rounded,
-                                  title:
-                                      appLocaleRepo.$l('main_page', 'subject_menu'),
+                                  title: appLocaleRepo.$l(
+                                      'main_page', 'subject_menu'),
                                   menuType: BottomMenuType.SUBJECT,
                                 ),
                                 IBottomMenuType(
@@ -127,8 +126,8 @@ class _MainPage extends State<MainPage> {
                                 ),
                                 IBottomMenuType(
                                   icon: Icons.person,
-                                  title:
-                                      appLocaleRepo.$l('main_page', 'account_menu'),
+                                  title: appLocaleRepo.$l(
+                                      'main_page', 'account_menu'),
                                   menuType: BottomMenuType.ACCOUNT,
                                 )
                               ],
