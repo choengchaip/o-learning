@@ -140,7 +140,7 @@ class _MainPage extends State<MainPage> {
                 ],
               ),
             ),
-            QuizFeature(),
+            quizRepository.expandQuiz ? QuizFeature(): Container(),
           ],
         ),
       ),

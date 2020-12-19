@@ -5,6 +5,12 @@ import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:provider/provider.dart';
 
 class QuizNavBarFeature extends StatelessWidget {
+  final Function onClose;
+
+  QuizNavBarFeature({
+    @required this.onClose,
+  });
+
   @override
   Widget build(BuildContext context) {
     QuizRepository quizRepository = Provider.of<QuizRepository>(context);
@@ -22,7 +28,7 @@ class QuizNavBarFeature extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              quizRepository.hideQuizFeature();
+              this.onClose();
             },
             child: Container(
               child: Icon(

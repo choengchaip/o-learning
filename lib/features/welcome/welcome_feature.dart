@@ -49,12 +49,28 @@ class _WelcomeFeature extends State<WelcomeFeature> {
             padding: EdgeInsets.all(16),
             width: MediaQuery.of(context).size.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
                   onTap: (){
-                    // pageLauncher(AuthenticationPage(), context);
                     pageLauncher(MainPage(), context);
+                  },
+                  child: Container(
+                    child: Text(
+                      'คลิกเพื่อข้ามขั้นตอน (ทดสอบ)',
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: fontSizeP,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: (){
+                    // pageLauncher(MainPage(), context);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => AuthenticationPage()));
                   },
                   child: Container(
                     child: Text(

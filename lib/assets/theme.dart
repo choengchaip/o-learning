@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/cores/config.dart';
 
@@ -16,26 +15,24 @@ class AppThemeData {
       dividerColor: dividerColor,
       cursorColor: Colors.black,
       disabledColor: grayLight,
-      fontFamily: lang == Config.defaultLang ? GoogleFonts
-          .prompt()
-          .fontFamily : GoogleFonts
-          .quicksand()
-          .fontFamily,
+      fontFamily: lang == Config.defaultLang ? 'ThaiFont' : 'EngFont',
       textTheme: TextTheme(
         button: TextStyle(
           color: Color(0xFFFF3D00),
         ),
       ),
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      pageTransitionsTheme: PageTransitionsTheme(builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder(),}),
-    ).copyWith(
-      pageTransitionsTheme:
-      PageTransitionsTheme(builders: <TargetPlatform, PageTransitionsBuilder>{
-        TargetPlatform.android: ZoomPageTransitionsBuilder(),
-        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
-        TargetPlatform.linux: ZoomPageTransitionsBuilder(),
-        TargetPlatform.macOS: ZoomPageTransitionsBuilder(),
+      pageTransitionsTheme: PageTransitionsTheme(builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
       }),
+    ).copyWith(
+      pageTransitionsTheme: PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.linux: ZoomPageTransitionsBuilder(),
+            TargetPlatform.macOS: ZoomPageTransitionsBuilder(),
+          }),
     );
   }
 }

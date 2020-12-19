@@ -44,9 +44,10 @@ class IChoiceItem {
     if (listRawJson == null) {
       return <IChoiceItem>[].toList();
     }
-    // return listRawJson.map((rawJson) {
-    //   return IChoiceItem.fromJson(rawJson);
-    // }).toList();
+
+    return listRawJson.map((rawJson) {
+      return IChoiceItem.fromJson(rawJson);
+    }).toList();
   }
 
   factory IChoiceItem.fromJson(Map<String, dynamic> rawJson) {
@@ -65,7 +66,8 @@ class IQuestionItem {
   final String note;
   final String code;
   final List<IChoiceItem> choices;
-  final String correctAnswerId;
+  final String correctChoiceId;
+  final Map<String, String> correctChoiceIds;
   final String answerWrongMessage;
   final int score;
 
@@ -77,7 +79,8 @@ class IQuestionItem {
     this.note,
     this.code,
     this.choices,
-    this.correctAnswerId,
+    this.correctChoiceId,
+    this.correctChoiceIds,
     this.answerWrongMessage,
     this.score,
   });
@@ -117,7 +120,8 @@ class IQuestionItem {
       note: rawJson['note'],
       code: rawJson['code'],
       choices: IChoiceItem.fromListJson(rawJson['choices']),
-      correctAnswerId: rawJson['correct_answer_id'],
+      correctChoiceId: rawJson['correct_answer_id'],
+      correctChoiceIds: rawJson['correct_answer_ids'],
       answerWrongMessage: rawJson['answer_wrong_message'],
       score: rawJson['score'],
     );
