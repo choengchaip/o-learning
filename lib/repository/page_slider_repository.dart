@@ -1,14 +1,17 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:o_learning/components/types.dart';
 
-class PageSliderRepository extends ChangeNotifier {
+class PageSliderRepository {
   PageController pageController;
   List<IPageSlider> components;
+  StreamController pageStreamController;
   int activeIndex;
 
-  initial({PageController pageController, List<IPageSlider> components}) {
+  initial({PageController pageController, List<IPageSlider> components, StreamController pagerStreamController}) {
     this.pageController = pageController;
     this.components = components;
+    this.pageStreamController = pagerStreamController;
     this.activeIndex = 0;
   }
 
@@ -28,6 +31,9 @@ class PageSliderRepository extends ChangeNotifier {
       this.activeIndex = position;
       this.pageController.animateToPage(position,
           duration: Duration(milliseconds: 250), curve: Curves.ease);
+      if(this.pageStreamController != null){
+        this.pageStreamController.add(position);
+      }
     }
   }
 }

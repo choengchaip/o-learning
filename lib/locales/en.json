@@ -91,5 +91,25 @@
     "logging_in": "Logging in ...",
     "signing_up": "Signing in ...",
     "loading": "Loading ..."
+  },
+  "account": {
+    "title": "Account",
+    "change_password_button": "เปลี่ยนรหัสผ่าน",
+    "star_description": "Earn stars for doing well on your Quiz.\nYou can use stars to redeem coupon.",
+    "score_description": "All score you earned\ncompared to your friends.",
+    "quiz_button": "Do your quiz",
+    "coupon_shop_button": "Coupon",
+    "score_button": "Leaderboard"
+  },
+  "change_password": {
+    "back": "Back",
+    "password_title": "Enter your current password",
+    "password_placeholder": "Password (min. 6 characters)",
+    "new_password_title": "Enter your new password",
+    "new_password_placeholder": "Password (min. 6 characters)",
+    "confirm_password_title": "Confirm your new password",
+    "confirm_password_placeholder": "Password (min. 6 characters)",
+    "continue_button": "CONTINUE",
+    "change_password_button": "CHANGE PASSWORD"
   }
 }

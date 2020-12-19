@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/types.dart';
@@ -6,26 +8,42 @@ import 'package:o_learning/repository/page_slider_repository.dart';
 class PageSlider extends StatefulWidget {
   final List<IPageSlider> components;
   final PageSliderRepository pageSliderRepository;
+  final StreamController pagerStreamController;
 
-  PageSlider({@required this.components, @required this.pageSliderRepository});
+  PageSlider({
+    @required this.components,
+    @required this.pageSliderRepository,
+    this.pagerStreamController,
+  });
 
   @override
   _PageSlider createState() => _PageSlider(
-      components: this.components,
-      pageSliderRepository: this.pageSliderRepository);
+        components: this.components,
+        pageSliderRepository: this.pageSliderRepository,
+        pagerStreamController: this.pagerStreamController,
+      );
 }
 
 class _PageSlider extends State<PageSlider> {
   final List<IPageSlider> components;
   final PageSliderRepository pageSliderRepository;
+  final StreamController pagerStreamController;
   PageController pageController;
 
-  _PageSlider({@required this.components, @required this.pageSliderRepository});
+  _PageSlider({
+    @required this.components,
+    @required this.pageSliderRepository,
+    this.pagerStreamController,
+  });
 
   @override
   void initState() {
     this.pageController = PageController(initialPage: 0);
-    this.pageSliderRepository.initial(pageController: pageController, components: this.components);
+    this.pageSliderRepository.initial(
+          pageController: pageController,
+          components: this.components,
+          pagerStreamController: this.pagerStreamController,
+        );
     super.initState();
   }
 

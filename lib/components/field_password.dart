@@ -10,12 +10,13 @@ class FieldPassword extends StatelessWidget {
   final Function(String) onChanged;
   final String initialValue;
 
-  FieldPassword(
-      {@required this.controller,
-      this.focusNode,
-      this.placeholder,
-      this.onChanged,
-      this.initialValue});
+  FieldPassword({
+    @required this.controller,
+    this.focusNode,
+    this.placeholder,
+    this.onChanged,
+    this.initialValue,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +26,13 @@ class FieldPassword extends StatelessWidget {
       focusNode: this.focusNode,
       placeholder: this.placeholder,
       onChanged: this.onChanged,
+      validator: (String value) {
+        if (ValidateHelper.isPasswordValid(value)) {
+          return null;
+        }
+
+        return '';
+      },
       obscureText: true,
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/pages/change_password_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -53,7 +54,7 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
             ),
             color: Theme.of(context).primaryColorLight,
             child: Text(
-              'Profile',
+              appLocaleRepo.$l('account', 'title'),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: fontSizeP,
@@ -108,12 +109,19 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                             ),
                           ),
                         ),
-                        Container(
-                          child: Text(
-                            'change password',
-                            style: TextStyle(
-                              fontSize: fontSizeP,
-                              color: Theme.of(context).primaryColor,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => ChangePasswordPage()));
+                          },
+                          child: Container(
+                            child: Text(
+                              appLocaleRepo.$l(
+                                  'account', 'change_password_button'),
+                              style: TextStyle(
+                                fontSize: fontSizeP,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                           ),
                         ),
@@ -179,7 +187,7 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                           ),
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'เรียน และทำแบบฝึกหัด เพื่อรับดาวเพิ่ม\nดาวสามารถนำไปและของรางวัลได้มากมาย',
+                            appLocaleRepo.$l('account', 'star_description'),
                             style: TextStyle(
                               color: gray,
                               fontSize: fontSizeS1,
@@ -190,25 +198,30 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Container(
-                                margin: EdgeInsets.only(
-                                  right: 16,
-                                ),
-                                child: Text(
-                                  'ทำแบบฝึกหัด',
-                                  style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                              GestureDetector(
+                                onTap: () {
+                                  this.widgetSliderRepository.toPage(1);
+                                },
+                                child: Container(
+                                  // margin: EdgeInsets.only(
+                                  //   right: 16,
+                                  // ),
+                                  child: Text(
+                                    appLocaleRepo.$l('account', 'quiz_button'),
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                   ),
                                 ),
                               ),
-                              Container(
-                                child: Text(
-                                  'แลกของรางวัล',
-                                  style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   child: Text(
+                              //     appLocaleRepo.$l('account', 'coupon_shop_button'),
+                              //     style: TextStyle(
+                              //       color: Theme.of(context).primaryColor,
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -264,26 +277,31 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                           ),
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'คะแนนสะสมที่คุณทำได้\nเปลี่ยนเทียบกับผู้เล่นคนอื่น',
+                            appLocaleRepo.$l('account', 'score_description'),
                             style: TextStyle(
                               color: gray,
                               fontSize: fontSizeS1,
                             ),
                           ),
                         ),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Container(
-                                child: Text(
-                                  'ดูตารางคะแนน',
-                                  style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                        GestureDetector(
+                          onTap: () {
+                            this.widgetSliderRepository.toPage(2);
+                          },
+                          child: Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    appLocaleRepo.$l('account', 'score_button'),
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],

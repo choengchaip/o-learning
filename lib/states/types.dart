@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class IStatus<T, L> {
+class IStatus {
   bool isLoading;
   bool isLoaded;
   bool isSuccess;
   bool isError;
-  T data;
-  List<L> items = [];
+  Map<String, dynamic> data;
+  List<Map<String, dynamic>> items = [];
 
   IStatus(
       {this.isLoading,

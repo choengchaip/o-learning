@@ -2,25 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/components/widget_slider.dart';
-import 'package:o_learning/features/account/account_feature_home.dart';
-import 'package:o_learning/mocks/account_data.dart';
+import 'package:o_learning/features/change_password/change_password_feature_confirm_password.dart';
+import 'package:o_learning/features/change_password/change_password_feature_new_password.dart';
+import 'package:o_learning/features/change_password/change_password_feature_password.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 
-class AccountFeature extends StatefulWidget {
+class ChangePasswordFeature extends StatefulWidget {
   final PageSliderRepository pageSliderRepository;
 
-  AccountFeature({@required this.pageSliderRepository});
+  ChangePasswordFeature({@required this.pageSliderRepository});
 
   @override
-  _AccountFeature createState() => _AccountFeature(pageSliderRepository: this.pageSliderRepository);
+  _ChangePasswordFeature createState() => _ChangePasswordFeature(pageSliderRepository: this.pageSliderRepository);
 }
 
-class _AccountFeature extends State<AccountFeature> {
+class _ChangePasswordFeature extends State<ChangePasswordFeature> {
   final PageSliderRepository pageSliderRepository;
   WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
 
-  _AccountFeature({@required this.pageSliderRepository});
+  _ChangePasswordFeature({@required this.pageSliderRepository});
 
   @override
   void initState() {
@@ -42,9 +43,18 @@ class _AccountFeature extends State<AccountFeature> {
               showDot: false,
               components: [
                 IWidgetSlider(
-                  component: AccountHomeFeature(
+                  component: ChangePasswordPasswordFeature(
                     widgetSliderRepository: this.widgetSliderRepository,
-                    mockAccountItem: mockAccountItem,
+                  ),
+                ),
+                IWidgetSlider(
+                  component: ChangePasswordNewPasswordFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
+                  ),
+                ),
+                IWidgetSlider(
+                  component: ChangePasswordConfirmPasswordFeature(
+                    widgetSliderRepository: this.widgetSliderRepository,
                   ),
                 ),
               ],

@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/loading.dart';
+import 'package:o_learning/components/loading_item.dart';
 import 'package:o_learning/features/course/course_section_feature.dart';
 import 'package:o_learning/features/course/course_select_feature.dart';
 import 'package:o_learning/mocks/course_data.dart';
@@ -82,58 +84,66 @@ class _CourseFeature extends State<CourseFeature> {
                       }
 
                       return AnimatedOpacity(
-                        opacity: snapshot.data ? 0.5 : 1,
+                        opacity: (snapshot.data || quizRepository.status.isLoading) ? 0.5 : 1,
                         duration: Duration(milliseconds: 250),
-                        child: Container(
-                          color: Colors.white,
-                          child: NotificationListener<ScrollUpdateNotification>(
-                            onNotification: (notification) {
-                              double transparent =
-                                  notification.metrics.pixels / 200;
-                              if (transparent > 1) {
-                                transparent = 1;
-                              }
-                              if (transparent <= 0) {
-                                transparent = 0;
-                              }
-                              if (transparent <= 1) {
-                                this._oldTransparentBackground = transparent;
-                                this.transparentBackground.add(transparent);
-                              }
+                        child: IgnorePointer(
+                          ignoring:
+                              snapshot.data || quizRepository.status.isLoading,
+                          child: Container(
+                            color: Colors.white,
+                            child:
+                                NotificationListener<ScrollUpdateNotification>(
+                              onNotification: (notification) {
+                                double transparent =
+                                    notification.metrics.pixels / 200;
+                                if (transparent > 1) {
+                                  transparent = 1;
+                                }
+                                if (transparent <= 0) {
+                                  transparent = 0;
+                                }
+                                if (transparent <= 1) {
+                                  this._oldTransparentBackground = transparent;
+                                  this.transparentBackground.add(transparent);
+                                }
 
-                              return true;
-                            },
-                            child: ListView(
-                              padding: EdgeInsets.zero,
-                              children: [
-                                CourseSectionFeature(
-                                  topWidget: Container(
-                                    margin: EdgeInsets.only(bottom: 20),
-                                    height: 350,
-                                    width: MediaQuery.of(context).size.width,
-                                    child: Image.asset(
-                                      'lib/statics/course_background.jpg',
-                                      fit: BoxFit.cover,
+                                return true;
+                              },
+                              child: ListView(
+                                padding: EdgeInsets.zero,
+                                children: [
+                                  CourseSectionFeature(
+                                    topWidget: Container(
+                                      margin: EdgeInsets.only(bottom: 20),
+                                      height: 350,
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Image.asset(
+                                        'lib/statics/course_background.jpg',
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
+                                    course: mockHtml,
+                                    onClick: (String id) async {
+                                      await quizRepository.mockGetQuizDetail();
+                                      quizRepository.expandQuizFeature();
+                                    },
                                   ),
-                                  course: mockHtml,
-                                  onClick: (String id){
-                                    quizRepository.expandQuizFeature();
-                                  },
-                                ),
-                                CourseSectionFeature(
-                                  course: mockHtmlIntermediate,
-                                  onClick: (String id){
-                                    quizRepository.expandQuizFeature();
-                                  },
-                                ),
-                                CourseSectionFeature(
-                                  course: mockCss,
-                                  onClick: (String id){
-                                    quizRepository.expandQuizFeature();
-                                  },
-                                ),
-                              ],
+                                  CourseSectionFeature(
+                                    course: mockHtmlIntermediate,
+                                    onClick: (String id) async {
+                                      await quizRepository.mockGetQuizDetail();
+                                      quizRepository.expandQuizFeature();
+                                    },
+                                  ),
+                                  CourseSectionFeature(
+                                    course: mockCss,
+                                    onClick: (String id) async {
+                                      await quizRepository.mockGetQuizDetail();
+                                      quizRepository.expandQuizFeature();
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -319,6 +329,9 @@ class _CourseFeature extends State<CourseFeature> {
                         ),
                       );
                     },
+                  ),
+                  LoadingItem(
+                    isLoading: quizRepository.status.isLoading,
                   ),
                 ],
               ),

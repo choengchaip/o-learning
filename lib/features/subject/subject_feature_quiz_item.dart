@@ -37,56 +37,63 @@ class SubjectQuizItemFeature extends StatelessWidget {
           ),
         ),
         ...List.generate(this.items.length, (index) {
-          return Container(
-            color: index % 2 == 0 ? Colors.white : primaryColorLighter,
-            padding: EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Container(
-                  width: 30,
-                  height: 30,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: this.items[index].no == '0' ? Theme.of(context).primaryColorDark : Theme.of(context).primaryColorLight,
-                    shape: BoxShape.circle,
-                  ),
-                  child: this.items[index].no == '0'
-                      ? Icon(
-                          Icons.play_arrow_rounded,
-                          color: Colors.white,
-                        )
-                      : Text(
-                          this.items[index].no,
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      left: 16,
-                      right: 16,
+          return GestureDetector(
+            onTap: () {
+              this.onClick(this.items[index].id);
+            },
+            child: Container(
+              color: index % 2 == 0 ? Colors.white : primaryColorLighter,
+              padding: EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Container(
+                    width: 30,
+                    height: 30,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: this.items[index].no == '0'
+                          ? Theme.of(context).primaryColorDark
+                          : Theme.of(context).primaryColorLight,
+                      shape: BoxShape.circle,
                     ),
-                    child: Text(
-                      this.items[index].title,
-                      style: TextStyle(
-                        fontSize: fontSizeP,
-                        fontWeight: FontWeight.bold,
+                    child: this.items[index].no == '0'
+                        ? Icon(
+                            Icons.play_arrow_rounded,
+                            color: Colors.white,
+                          )
+                        : Text(
+                            this.items[index].no,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: Text(
+                        this.items[index].title,
+                        style: TextStyle(
+                          fontSize: fontSizeP,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  child: Text(
-                    '${this.items[index].progress.toString()}/${this.items[index].totalChoice.toString()}',
-                    style: TextStyle(
-                      fontSize: fontSizeS1,
-                      fontWeight: FontWeight.w100,
+                  Container(
+                    child: Text(
+                      '${this.items[index].progress.toString()}/${this.items[index].totalChoice.toString()}',
+                      style: TextStyle(
+                        fontSize: fontSizeS1,
+                        fontWeight: FontWeight.w100,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         }),

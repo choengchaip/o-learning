@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/field.dart';
-import 'package:o_learning/utils/validate_helper.dart';
 
 class FieldText extends StatelessWidget {
   final TextEditingController controller;

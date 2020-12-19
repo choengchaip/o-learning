@@ -6,7 +6,7 @@ import 'package:o_learning/states/object.dart';
 import 'package:o_learning/states/types.dart';
 
 class BaseRepository<T, L> extends ChangeNotifier {
-  IStatus<T, L> object = commonObject;
+  IStatus object = commonObject;
   BuildContext context;
   StreamController<String> lang;
 
@@ -29,8 +29,14 @@ class BaseRepository<T, L> extends ChangeNotifier {
     this.notifyListeners();
   }
 
-  toSuccessDataStatus() {
+  toSuccessDataStatus({Map<String, dynamic> data}) {
     this.object.isSuccess = true;
+    if (data != null) {
+      this.object.data = {
+        ...this.object.data,
+        ...data
+      };
+    }
     this.notifyListeners();
   }
 

@@ -90,5 +90,25 @@
     "logging_in": "กำลังเข้าสู่ระบบ ...",
     "signing_up": "กำลังสมัครสมาชิก ...",
     "loading": "กำลังโหลด ..."
+  },
+  "account": {
+    "title": "บัญชี",
+    "change_password_button": "เปลี่ยนรหัสผ่าน",
+    "star_description": "เรียน และทำแบบฝึกหัด เพื่อรับดาวเพิ่ม\nดาวสามารถนำไปและของรางวัลได้มากมาย",
+    "score_description": "คะแนนสะสมที่คุณทำได้\nเปลี่ยนเทียบกับผู้เล่นคนอื่น",
+    "quiz_button": "ทำแบบฝึกหัด",
+    "coupon_shop_button": "แลกของรางวัล",
+    "score_button": "ดูตารางคะแนน"
+  },
+  "change_password": {
+    "back": "กลับ",
+    "password_title": "กรุณากรอกรหัสผ่านปัจจุบัน",
+    "password_placeholder": "กรอกรหัสผ่านปัจจุบัน",
+    "new_password_title": "กรุณากรอกรหัสผ่านใหม่",
+    "new_password_placeholder": "กรอกรหัสผ่านใหม่",
+    "confirm_password_title": "กรุณากรอกรหัสผ่านใหม่อีกครั้ง",
+    "confirm_password_placeholder": "กรอกรหัสผ่านใหม่อีกครั้ง",
+    "continue_button": "ไปต่อ",
+    "change_password_button": "เปลี่ยนรหัสผ่าน"
   }
 }

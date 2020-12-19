@@ -36,8 +36,6 @@ class _SubjectQuizFeature extends State<SubjectQuizFeature> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocaleRepository appLocaleRepo =
-        Provider.of<AppLocaleRepository>(context);
     QuizRepository quizRepository = Provider.of<QuizRepository>(context);
     SubjectRepository subjectRepository =
         Provider.of<SubjectRepository>(context);
@@ -63,7 +61,8 @@ class _SubjectQuizFeature extends State<SubjectQuizFeature> {
                   ),
                   SubjectQuizItemFeature(
                     title: 'Command Line',
-                    onClick: (String id) {
+                    onClick: (String id)async {
+                      await quizRepository.mockGetQuizDetail();
                       quizRepository.expandQuizFeature();
                     },
                     items: mockQuizItems,

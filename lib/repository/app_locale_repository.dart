@@ -4,7 +4,7 @@ import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/repository/base_repository.dart';
 import 'package:o_learning/states/types.dart';
 
-class AppLocaleRepository extends BaseRepository<dynamic, dynamic> {
+class AppLocaleRepository extends BaseRepository {
   String get locale => this.object.data['lang'];
 
   Future<void> loadAsset() async {

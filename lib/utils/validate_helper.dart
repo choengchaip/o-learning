@@ -8,4 +8,12 @@ class ValidateHelper {
 
     return false;
   }
+
+  static bool isPasswordValid(String password) {
+    if (password.length > 6) {
+      return true;
+    }
+
+    return false;
+  }
 }

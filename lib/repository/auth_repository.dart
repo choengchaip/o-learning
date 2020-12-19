@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:o_learning/mocks/about_me_data.dart';
 import 'package:o_learning/repository/base_repository.dart';
 
-class AuthRepository extends BaseRepository<dynamic, dynamic> {
+class AuthRepository extends BaseRepository {
   String nameText = '';
   String emailText = '';
   String passwordText = '';
+  String newPasswordText = '';
+  String confirmPasswordText = '';
 
   bool get isAuth => this.object.data['is_auth'] ?? false;
 
@@ -34,6 +36,8 @@ class AuthRepository extends BaseRepository<dynamic, dynamic> {
     this.nameText = '';
     this.emailText = '';
     this.passwordText = '';
+    this.newPasswordText = '';
+    this.confirmPasswordText = '';
   }
 
   void setName(String name) {
@@ -46,5 +50,23 @@ class AuthRepository extends BaseRepository<dynamic, dynamic> {
 
   void setPassword(String password) {
     this.passwordText = password;
+  }
+
+  void setNewPassword(String password) {
+    this.newPasswordText = password;
+  }
+
+  void setConfirmPassword(String password) {
+    this.confirmPasswordText = password;
+  }
+
+  Future<void> changePassword() async {
+    this.toLoadingStatus();
+
+    await Future.delayed(Duration(seconds: 2), () {
+
+    });
+
+    this.toCompleteStatus();
   }
 }

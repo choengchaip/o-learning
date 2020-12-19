@@ -4,8 +4,8 @@ import 'package:o_learning/states/types.dart';
 
 class BottomMenu extends StatelessWidget {
   final List<IBottomMenuType> menuItems;
-  final Function(BottomMenuType) onChanged;
-  final BottomMenuType currentMenu;
+  final Function(int) onChanged;
+  final int currentMenu;
 
   BottomMenu({
     @required this.menuItems,
@@ -33,7 +33,7 @@ class BottomMenu extends StatelessWidget {
         children: List.generate(this.menuItems.length, (int index) {
           return GestureDetector(
             onTap: () {
-              this.onChanged(this.menuItems[index].menuType);
+              this.onChanged(index);
             },
             child: Container(
               alignment: Alignment.center,
@@ -45,7 +45,7 @@ class BottomMenu extends StatelessWidget {
                   Container(
                     child: Icon(
                       this.menuItems[index].icon,
-                      color: this.currentMenu == this.menuItems[index].menuType
+                      color: this.currentMenu == index
                           ? Theme.of(context).primaryColor
                           : Colors.black38,
                     ),
@@ -55,7 +55,7 @@ class BottomMenu extends StatelessWidget {
                       this.menuItems[index].title,
                       style: TextStyle(
                         color:
-                            this.currentMenu == this.menuItems[index].menuType
+                            this.currentMenu == index
                                 ? Theme.of(context).primaryColor
                                 : Colors.black38,
                       ),
