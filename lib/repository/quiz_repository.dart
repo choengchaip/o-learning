@@ -106,16 +106,6 @@ class QuizRepository extends BaseRepository {
     this.toCompleteStatus();
   }
 
-  Future<void> mockSubmitScore() async {
-    this.toLoadingStatus();
-
-    await Future.delayed(Duration(seconds: 2), () {
-      this.toSuccessDataStatus();
-    });
-
-    this.toCompleteStatus();
-  }
-
   IQuestionItem findQuestionById(String questionId) {
     try {
       return this.findItem.questions.singleWhere(

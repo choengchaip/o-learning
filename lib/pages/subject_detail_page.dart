@@ -5,6 +5,8 @@ import 'package:o_learning/components/types.dart';
 import 'package:o_learning/features/quiz/quiz_feature.dart';
 import 'package:o_learning/features/subject/subject_feature.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
+import 'package:o_learning/repository/quiz_repository.dart';
+import 'package:provider/provider.dart';
 
 class SubjectDetailPage extends StatefulWidget {
   @override
@@ -16,6 +18,8 @@ class _SubjectDetailPage extends State<SubjectDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    QuizRepository quizRepository = Provider.of<QuizRepository>(context);
+
     return Scaffold(
       body: Container(
         child: Stack(
@@ -40,7 +44,7 @@ class _SubjectDetailPage extends State<SubjectDetailPage> {
                 ],
               ),
             ),
-            QuizFeature(),
+            quizRepository.expandQuiz ? QuizFeature(): Container(),
           ],
         ),
       ),

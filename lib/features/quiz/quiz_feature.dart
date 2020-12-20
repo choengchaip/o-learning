@@ -9,6 +9,7 @@ import 'package:o_learning/features/quiz/quiz_feature_bottom.dart';
 import 'package:o_learning/features/quiz/quiz_feature_item.dart';
 import 'package:o_learning/features/quiz/quiz_feature_navbar.dart';
 import 'package:o_learning/features/quiz/quiz_feature_progress.dart';
+import 'package:o_learning/pages/score_summary_page.dart';
 import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _QuizFeature extends State<QuizFeature> {
               }
             }
 
-            return  AnimatedPositioned(
+            return AnimatedPositioned(
               top: snapshot.data ? 0 : MediaQuery.of(context).size.height,
               duration: Duration(milliseconds: 250),
               curve: Curves.ease,
@@ -99,11 +100,12 @@ class _QuizFeature extends State<QuizFeature> {
                           scrollable: false,
                           showDot: false,
                           components: List.generate(
-                              quizRepository.findItem.questions.length, (index) {
+                              quizRepository.findItem.questions.length,
+                              (index) {
                             return IWidgetSlider(
                               component: QuizItemFeature(
                                 questionItem:
-                                quizRepository.findItem.questions[index],
+                                    quizRepository.findItem.questions[index],
                               ),
                             );
                           }),
@@ -112,33 +114,34 @@ class _QuizFeature extends State<QuizFeature> {
                       QuizBottomFeature(
                         widgetSliderRepository: this.widgetSliderRepository,
                         onSuccess: () async {
-                          await quizRepository.mockSubmitScore();
                           quizRepository.answerWrongAlert = false;
-                          quizRepository.resetAnswer();
+                          // quizRepository.resetAnswer();
                           this.positionController.add(false);
                           await Future.delayed(Duration(milliseconds: 250), () {
                             quizRepository.hideQuizFeature();
                             quizRepository.disposeChoices();
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => ScoreSummaryPage(
+                              quizRepository: quizRepository,
+                            )));
                           });
                         },
                         onNext: () {
                           quizRepository.answerQuestion();
-                          if (quizRepository.answerWrongAlert) {
-                          } else {
+                          if (!quizRepository.answerWrongAlert) {
                             this.widgetSliderRepository.nextWidget();
                             quizRepository.currentChoiceId = '';
                             quizRepository.currentQuestionId = '';
                             this.progressController.add(num.parse(
-                                ((MediaQuery.of(context).size.width *
-                                    (this
-                                        .widgetSliderRepository
-                                        .activeWidgetIndex +
-                                        1)) /
-                                    quizRepository.findItem.totalQuestion)
-                                    .toStringAsFixed(8))
+                                    ((MediaQuery.of(context).size.width *
+                                                (this
+                                                        .widgetSliderRepository
+                                                        .activeWidgetIndex +
+                                                    1)) /
+                                            quizRepository
+                                                .findItem.totalQuestion)
+                                        .toStringAsFixed(8))
                                 .toDouble());
                           }
-                          // print(quizRepository.answers);
                         },
                       ),
                     ],

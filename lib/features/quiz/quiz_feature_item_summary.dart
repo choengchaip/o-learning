@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:o_learning/components/curve_button.dart';
-import 'package:o_learning/states/quiz_data_types.dart';
+import 'package:o_learning/repository/quiz_repository.dart';
+import 'package:provider/provider.dart';
 
 class QuizItemSummaryFeature extends StatelessWidget {
   final Function onClick;
@@ -11,6 +12,8 @@ class QuizItemSummaryFeature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    QuizRepository quizRepository = Provider.of<QuizRepository>(context);
+
     return Container(
       child: Column(
         children: [
@@ -19,6 +22,9 @@ class QuizItemSummaryFeature extends StatelessWidget {
               alignment: Alignment.center,
               child: Text('Score summary feature'),
             ),
+          ),
+          Container(
+
           ),
           CurveButton(
             title: 'OK',

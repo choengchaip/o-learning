@@ -45,6 +45,22 @@ Map<String, dynamic> mockQuizItem = {
       },
       'answer_wrong_message': 'You are wrong!2',
       'score': 60,
-    }
+    },
+    // {
+    //   'question_id': 'question_04',
+    //   'type_string': 'text',
+    //   'question':
+    //   'โจทย์ข้อเขียน คล้ายกับแบบเติมคำ แต่จะให้ผู้เรียนพิมเอง เช่น\nทำให้ตัวแปร user_agent เก็บ "Desktop"',
+    //   'code': 'name = "Singh"',
+    //   'correct_answer_id': 'choice_02',
+    //   'correct_answer_ids': {
+    //     'answer_01': 'choice_03',
+    //     'answer_02': 'choice_01',
+    //     'answer_03': 'choice_02',
+    //   },
+    //   'correct_text': 'Desktop',
+    //   'answer_wrong_message': 'You are wrong!2',
+    //   'score': 60,
+    // }
   ]
 };

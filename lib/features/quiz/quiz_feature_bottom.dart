@@ -194,12 +194,17 @@ class QuizBottomFeature extends StatelessWidget {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           if (this.widgetSliderRepository.activeWidgetIndex ==
                               this.widgetSliderRepository.components.length -
                                   1) {
-                            this.onSuccess();
-                          }else{
+                            await Future(() {
+                              this.onNext();
+                            });
+                            if (!quizRepository.answerWrongAlert) {
+                              this.onSuccess();
+                            }
+                          } else {
                             if (quizRepository.canAnswer) {
                               this.onNext();
                             }
