@@ -10,6 +10,7 @@ import 'package:o_learning/features/welcome/welcome_feature_page_detail.dart';
 import 'package:o_learning/pages/authentication_page.dart';
 import 'package:o_learning/pages/main_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:o_learning/utils/page_helper.dart';
@@ -40,6 +41,8 @@ class _WelcomeFeature extends State<WelcomeFeature> {
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
+    AuthRepository authRepo =
+    Provider.of<AuthRepository>(context);
 
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -53,7 +56,8 @@ class _WelcomeFeature extends State<WelcomeFeature> {
               children: [
                 GestureDetector(
                   onTap: (){
-                    pageLauncher(MainPage(), context);
+                    authRepo.login();
+                    // pageLauncher(MainPage(), context);
                   },
                   child: Container(
                     child: Text(

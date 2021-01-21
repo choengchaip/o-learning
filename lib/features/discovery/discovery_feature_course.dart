@@ -45,8 +45,8 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
   @override
   void initState() {
     this.selectedCourse = StreamController<String>();
-    this.selectedCourse.add(this.mockItems[0].id);
-    this.selectedCourseId = this.mockItems[0].id;
+    this.selectedCourse.add(this.mockItems[0].course_id);
+    this.selectedCourseId = this.mockItems[0].course_id;
     this.scrollController = ScrollController();
     super.initState();
   }
@@ -122,15 +122,15 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                                     index,
                                 duration: Duration(milliseconds: 250),
                                 curve: Curves.ease);
-                            this.selectedCourse.add(this.mockItems[index].id);
+                            this.selectedCourse.add(this.mockItems[index].course_id);
                           },
                           child: CourseItem(
                             appLocaleRepository: appLocaleRepo,
                             margin: EdgeInsets.only(left: 8, right: 16),
-                            image: this.mockItems[index].image,
-                            title: this.mockItems[index].title,
-                            description: this.mockItems[index].description,
-                            isActive: this.mockItems[index].id == snapshot.data,
+                            image: this.mockItems[index].course_image,
+                            title: this.mockItems[index].course_name,
+                            description: this.mockItems[index].course_description,
+                            isActive: this.mockItems[index].course_id == snapshot.data,
                           ),
                         );
                       },

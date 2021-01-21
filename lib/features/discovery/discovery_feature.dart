@@ -32,6 +32,7 @@ class _DiscoveryFeature extends State<DiscoveryFeature> {
   @override
   void initState() {
     this.widgetSliderRepository.initial(pageSliderRepo: this.pageSliderRepository);
+    this.discoveryWidgetRepository.fetchCourse();
     super.initState();
   }
 

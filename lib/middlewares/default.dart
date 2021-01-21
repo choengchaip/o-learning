@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:o_learning/pages/main_page.dart';
 import 'package:o_learning/pages/welcome_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
+import 'package:o_learning/utils/cache_helper.dart';
 import 'package:o_learning/utils/page_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -29,26 +31,48 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(this.context);
     AuthRepository authRepo = Provider.of<AuthRepository>(this.context);
+    CacheHelper cacheHelper = new CacheHelper();
 
+    await cacheHelper.initial();
     await appLocaleRepo.initContext(context: this.context);
     await appLocaleRepo.loadAsset();
+    await authRepo.initCacheHelper(cacheHelper);
 
-    await precacheImage(Image.asset('lib/statics/experience_book_a_lot.png').image, context);
-    await precacheImage(Image.asset('lib/statics/experience_book_base.png').image, context);
-    await precacheImage(Image.asset('lib/statics/experience_book_little.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/experience_book_a_lot.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/experience_book_base.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/experience_book_little.png').image, context);
     await precacheImage(Image.asset('lib/statics/logo.png').image, context);
-    await precacheImage(Image.asset('lib/statics/discovery_goal.png').image, context);
-    await precacheImage(Image.asset('lib/statics/discovery_notification.png').image, context);
-    await precacheImage(Image.asset('lib/statics/login_old_man.png').image, context);
-    await precacheImage(Image.asset('lib/statics/login_man.png').image, context);
-    await precacheImage(Image.asset('lib/statics/login_girl.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/discovery_goal.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/discovery_notification.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/login_old_man.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/login_man.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/login_girl.png').image, context);
 
     // Mocks
-    await precacheImage(Image.asset('lib/statics/mocks/course_web_development.png').image, context);
-    await precacheImage(Image.asset('lib/statics/mocks/course_python.png').image, context);
+    await precacheImage(
+        Image.asset('lib/statics/mocks/course_web_development.png').image,
+        context);
+    await precacheImage(
+        Image.asset('lib/statics/mocks/course_python.png').image, context);
+
+    IUserCache userCache = await cacheHelper.getUser();
+    if (userCache != null) {
+      authRepo.setEmail(userCache.email);
+      authRepo.setAccessToken(userCache.access_token);
+    }
 
     if (authRepo.isNotAuth) {
       pageLauncher(WelcomePage(), context);
+    } else {
+      pageLauncher(MainPage(), context);
     }
   }
 
@@ -59,7 +83,8 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
         child: Center(
           child: Container(
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
             ),
           ),
         ),

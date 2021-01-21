@@ -59,15 +59,15 @@ class CourseSelectFeature extends StatelessWidget {
                         (MediaQuery.of(context).size.width * 0.75) * index,
                         duration: Duration(milliseconds: 250),
                         curve: Curves.ease);
-                    this.selectedCourse.add(this.items[index].id);
-                    this.onChanged(this.items[index].id);
+                    this.selectedCourse.add(this.items[index].course_id);
+                    this.onChanged(this.items[index].course_id);
                   },
                   child: CourseItem(
-                    image: this.items[index].image,
-                    title: this.items[index].title,
-                    description: this.items[index].description,
+                    image: this.items[index].course_image,
+                    title: this.items[index].course_name,
+                    description: this.items[index].course_description,
                     progress: this.items[index].progress,
-                    isActive: snapshot.data == this.items[index].id,
+                    isActive: snapshot.data == this.items[index].course_id,
                     appLocaleRepository: appLocaleRepository,
                   ),
                 );

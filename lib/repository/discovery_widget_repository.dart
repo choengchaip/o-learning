@@ -1,4 +1,6 @@
+import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/repository/base_repository.dart';
+import 'package:http/http.dart' as http;
 
 class DiscoveryWidgetRepository extends BaseRepository {
   DiscoveryWidgetRepository() {
@@ -6,7 +8,13 @@ class DiscoveryWidgetRepository extends BaseRepository {
     this.object.data['course_id'] = '';
     this.object.data['experience'] = '';
     this.object.data['time_spend'] = '';
+    this.object.data['course_items'] = [];
     notifyListeners();
+  }
+
+  Future fetchCourse() async {
+    http.Response data = await http.get('${Config.baseURL}/courses');
+    print(data.body);
   }
 
   addAliasToList(String alias) {

@@ -119,7 +119,7 @@ class _AuthenticationLoginPasswordFeature
                           onPressed: () async {
                             authRepo.setPassword(this.passwordText.text);
                             this.passwordFocus.unfocus();
-                            await authRepo.login(isErrorMock: false);
+                            await authRepo.login();
                             if (authRepo.status.isError) {
                               Flushbar(
                                 flushbarPosition: FlushbarPosition.TOP,
