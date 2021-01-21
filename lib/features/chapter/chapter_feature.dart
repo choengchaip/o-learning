@@ -47,7 +47,7 @@ class _MainSubjectCategoriesChapterFeature
       child: Column(
         children: [
           HeaderBackButtonCenter(
-            headerTitle: subjectRepository.categoryItem.title,
+            headerTitle: subjectRepository.courseItem['category_name'],
             backTitle: 'Back',
             onBack: () {
               this.widgetSliderRepository.prevWidget();

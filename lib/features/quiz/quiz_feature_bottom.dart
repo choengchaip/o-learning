@@ -100,10 +100,10 @@ class QuizBottomFeature extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(
               top: 12,
-              bottom: MediaQuery.of(context).padding.bottom + 12,
               left: 8,
               right: 8,
             ),
+            margin: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(

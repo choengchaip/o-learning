@@ -6,7 +6,7 @@ import 'package:o_learning/states/subject_data_types.dart';
 
 class CategoriesListRecommendFeature extends StatelessWidget {
   final String title;
-  final List<IRecommendItem> items;
+  final dynamic items;
   final Function(String id) onClick;
 
   CategoriesListRecommendFeature({
@@ -49,11 +49,11 @@ class CategoriesListRecommendFeature extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    this.onClick(this.items[index].id);
+                    this.onClick(this.items[index]['course_id']);
                   },
                   child: CategoriesListRecommendItemFeature(
-                    title: this.items[index].title,
-                    image: this.items[index].image,
+                    title: this.items[index]['course_name'],
+                    image: 'lib/statics/mocks/course_continue_${index+1}.jpg',
                   ),
                 );
               },

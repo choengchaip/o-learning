@@ -15,6 +15,8 @@ class AuthRepository extends BaseRepository {
   String newPasswordText = '';
   String confirmPasswordText = '';
   String accessToken = '';
+  int star = 0;
+  int progress = 0;
 
   initCacheHelper(CacheHelper cacheHelper) {
     this.cacheHelper = cacheHelper;
@@ -127,6 +129,18 @@ class AuthRepository extends BaseRepository {
   void setEmail(String email) {
     this.emailText = email;
     this.object.data['email'] = email;
+    this.notifyListeners();
+  }
+
+  void setStar(int start) {
+    this.star = start;
+    this.object.data['star'] = star;
+    this.notifyListeners();
+  }
+
+  void setProgress(int progress) {
+    this.progress = progress;
+    this.object.data['progress'] = progress;
     this.notifyListeners();
   }
 

@@ -179,7 +179,7 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                                 ),
                                 Container(
                                   child: Text(
-                                    '10',
+                                    authRepo.star.toString(),
                                     style: TextStyle(fontSize: fontSizeH1),
                                   ),
                                 ),
@@ -220,14 +220,6 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                                     ),
                                   ),
                                 ),
-                                // Container(
-                                //   child: Text(
-                                //     appLocaleRepo.$l('account', 'coupon_shop_button'),
-                                //     style: TextStyle(
-                                //       color: Theme.of(context).primaryColor,
-                                //     ),
-                                //   ),
-                                // ),
                               ],
                             ),
                           ),
@@ -270,7 +262,7 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                                 ),
                                 Container(
                                   child: Text(
-                                    '10',
+                                    authRepo.progress.toString(),
                                     style: TextStyle(fontSize: fontSizeH1),
                                   ),
                                 ),

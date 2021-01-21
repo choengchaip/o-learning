@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/field_text.dart';
+import 'package:o_learning/components/loading_item.dart';
 import 'package:o_learning/features/category/categories_list_feature_continue_learning.dart';
 import 'package:o_learning/features/category/categories_list_feature_recommend.dart';
 import 'package:o_learning/features/category/categories_list_feature_search.dart';
 import 'package:o_learning/mocks/subject_data_types.dart';
 import 'package:o_learning/pages/subject_detail_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/category_repository.dart';
 import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
@@ -27,13 +29,13 @@ class CategoriesListFeature extends StatefulWidget {
       );
 }
 
-class _CategoriesListFeature
-    extends State<CategoriesListFeature> {
+class _CategoriesListFeature extends State<CategoriesListFeature> {
   final WidgetSliderRepository widgetSliderRepository;
 
   StreamController<bool> searchExpand;
   TextEditingController searchController;
   FocusNode searchNode;
+  CategoryRepository categoryRepository = new CategoryRepository();
 
   _CategoriesListFeature({
     @required this.widgetSliderRepository,
@@ -84,40 +86,68 @@ class _CategoriesListFeature
                         title: 'Continue Learning',
                         items: mockContinueLearning,
                         onClick: (String id) {
-                          subjectRepository.setCourseId(id);
-                          subjectRepository.setCourseDetail(
-                            mockCategories
-                                .singleWhere((element) => element.id == id),
-                          );
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
+                          // subjectRepository.setCourseId(id);
+                          // subjectRepository.setCourseDetail(
+                          //   mockCategories
+                          //       .singleWhere((element) => element.id == id),
+                          // );
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (_) => SubjectDetailPage()));
                         },
                       ),
-                      CategoriesListRecommendFeature(
-                        title: 'Recommend Courses',
-                        items: mockRecommend,
-                        onClick: (String id) {
-                          subjectRepository.setCourseId(id);
-                          subjectRepository.setCourseDetail(
-                            mockCategories
-                                .singleWhere((element) => element.id == id),
+                      FutureBuilder(
+                        future: this.categoryRepository.fetchCacheAllCourse(),
+                        builder: (BuildContext context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Container(
+                              height: 200,
+                              color: Colors.white,
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Theme.of(context).primaryColor),
+                              ),
+                            );
+                          }
+
+                          return CategoriesListRecommendFeature(
+                            title: 'Recommend Courses',
+                            items: this.categoryRepository.courseItems,
+                            onClick: (String id) async {
+                              await subjectRepository.getCourseDetail(id);
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => SubjectDetailPage()));
+                            },
                           );
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
                         },
                       ),
-                      CategoriesListSearchFeature(
-                        title: 'Browse Categories',
-                        items: mockCategories,
-                        onClick: (String id) {
-                          subjectRepository.setCourseId(id);
-                          subjectRepository.setCourseDetail(
-                                mockCategories
-                                    .singleWhere((element) => element.id == id),
-                              );
-                          this.widgetSliderRepository.nextWidget();
-                        },
-                        onSearch: () {
-                          this.searchExpand.add(!snapshot.data);
-                          this.searchNode.requestFocus();
+                      FutureBuilder(
+                        future: categoryRepository.fetchCacheCategories(),
+                        builder: (BuildContext context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return Container(
+                              height: 200,
+                              color: Colors.white,
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Theme.of(context).primaryColor),
+                              ),
+                            );
+                          }
+
+                          return CategoriesListSearchFeature(
+                            title: 'Browse Categories',
+                            items: this.categoryRepository.items,
+                            onClick: (String id) async {
+                              await categoryRepository.getCategoryDetail(id);
+                              this.widgetSliderRepository.nextWidget();
+                            },
+                            onSearch: () {
+                              this.searchExpand.add(!snapshot.data);
+                              this.searchNode.requestFocus();
+                            },
+                          );
                         },
                       ),
                     ],
@@ -222,6 +252,9 @@ class _CategoriesListFeature
                   ],
                 ),
               ),
+            ),
+            LoadingItem(
+              isLoading: categoryRepository.status.isLoading,
             ),
           ],
         );

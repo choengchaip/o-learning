@@ -1,22 +1,28 @@
+import 'dart:convert';
+
+import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/repository/base_repository.dart';
-import 'package:o_learning/states/subject_data_types.dart';
+import 'package:http/http.dart' as http;
+import 'package:o_learning/utils/object_helper.dart';
 
 class SubjectRepository extends BaseRepository {
   SubjectRepository() {
-    this.object.data['course_id'] = '';
-    this.object.data['course_detail'] = {};
     notifyListeners();
   }
 
-  ICategoryItem get categoryItem =>  this.object.data['course_detail'];
+  dynamic get courseItem => this.object.data['course_item'];
 
-  setCourseId(String id) {
-    this.object.data['course_id'] = id;
-    notifyListeners();
-  }
+  Future getCourseDetail(String courseId) async {
+    this.toLoadingStatus();
+    try {
+      http.Response data = await http.get('${Config.baseURL}/courses/my/$courseId',
+          headers: {...ObjectHelper.getHeaderOption(this)});
+      this.object.data['course_item'] = jsonDecode(data.body);
+    } catch (e) {
+      print('get course detail error $e');
+      this.toErrorStatus();
+    }
 
-  setCourseDetail(ICategoryItem categoryItem) {
-    this.object.data['course_detail'] = categoryItem;
-    notifyListeners();
+    this.toCompleteStatus();
   }
 }

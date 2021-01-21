@@ -40,18 +40,25 @@ class _LeaderBoardLeagueFeature extends State<LeaderBoardLeagueFeature> {
     return FutureBuilder(
       future: this.leaderBoardRepo.fetchCacheLeaderBoard(),
       builder: (BuildContext context, data) {
-        return Loading(
-          isLoading: !data.hasData,
-          component: Container(
-            child: Column(
-              children: [
-                LeaderBoardLeagueAchievementFeature(),
-                LeaderBoardLeagueListFeature(
-                  mockItems: mockLeaderBoardUserItems,
-                  leaderBoardRepository: this.leaderBoardRepo,
-                )
-              ],
+        if (!data.hasData) {
+          return Center(
+            child: Container(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Theme.of(context).primaryColor),
+              ),
             ),
+          );
+        }
+        return Container(
+          child: Column(
+            children: [
+              LeaderBoardLeagueAchievementFeature(),
+              LeaderBoardLeagueListFeature(
+                mockItems: mockLeaderBoardUserItems,
+                leaderBoardRepository: this.leaderBoardRepo,
+              )
+            ],
           ),
         );
       },

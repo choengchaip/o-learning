@@ -7,7 +7,7 @@ import 'package:o_learning/states/subject_data_types.dart';
 
 class CategoriesListSearchFeature extends StatelessWidget {
   final String title;
-  final List<ICategoryItem> items;
+  final List<dynamic> items;
   final Function onSearch;
   final Function(String id) onClick;
 
@@ -84,7 +84,7 @@ class CategoriesListSearchFeature extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          this.onClick(this.items[index].id);
+                          this.onClick(this.items[index]['category_id']);
                         },
                         child: Container(
                           color: secondaryColor,
@@ -101,7 +101,7 @@ class CategoriesListSearchFeature extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   child: Text(
-                                    this.items[index].title,
+                                    this.items[index]['category_name'],
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       color: Colors.white,

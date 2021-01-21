@@ -6,7 +6,7 @@ import 'package:o_learning/states/subject_data_types.dart';
 
 class SubjectQuizItemFeature extends StatelessWidget {
   final title;
-  final List<IQuizItem> items;
+  final dynamic items;
   final Function(String id) onClick;
 
   SubjectQuizItemFeature({
@@ -39,7 +39,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
         ...List.generate(this.items.length, (index) {
           return GestureDetector(
             onTap: () {
-              this.onClick(this.items[index].id);
+              this.onClick(this.items[index]['module_id']);
             },
             child: Container(
               color: index % 2 == 0 ? Colors.white : primaryColorLighter,
@@ -51,18 +51,18 @@ class SubjectQuizItemFeature extends StatelessWidget {
                     height: 30,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: this.items[index].no == '0'
+                      color: index == 0
                           ? Theme.of(context).primaryColorDark
                           : Theme.of(context).primaryColorLight,
                       shape: BoxShape.circle,
                     ),
-                    child: this.items[index].no == '0'
+                    child: index == 0
                         ? Icon(
                             Icons.play_arrow_rounded,
                             color: Colors.white,
                           )
                         : Text(
-                            this.items[index].no,
+                            index.toString(),
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -75,7 +75,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
                         right: 16,
                       ),
                       child: Text(
-                        this.items[index].title,
+                        this.items[index]['module_name'],
                         style: TextStyle(
                           fontSize: fontSizeP,
                           fontWeight: FontWeight.bold,
@@ -85,7 +85,8 @@ class SubjectQuizItemFeature extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      '${this.items[index].progress.toString()}/${this.items[index].totalChoice.toString()}',
+                      '0 / ${this.items[index]['submodules'].length}',
+                      // '${this.items[index].progress.toString()}/${this.items[index].totalChoice.toString()}',
                       style: TextStyle(
                         fontSize: fontSizeS1,
                         fontWeight: FontWeight.w100,
