@@ -67,6 +67,7 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
     if (userCache != null) {
       authRepo.setEmail(userCache.email);
       authRepo.setAccessToken(userCache.access_token);
+      await authRepo.fetchMe();
     }
 
     if (authRepo.isNotAuth) {

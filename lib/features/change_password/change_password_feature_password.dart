@@ -113,6 +113,7 @@ class _ChangePasswordPasswordFeature
                         title: appLocaleRepo.$l(
                             'change_password', 'continue_button'),
                         onPressed: () {
+                          authRepo.setPassword(this.passwordText.text);
                           this.widgetSliderRepository.nextWidget();
                         },
                       );

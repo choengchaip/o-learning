@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/loading.dart';
-import 'package:o_learning/pages/authentication_page.dart';
 import 'package:o_learning/pages/change_password_page.dart';
 import 'package:o_learning/pages/welcome_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
@@ -99,7 +98,7 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                         children: [
                           Container(
                             child: Text(
-                              this.mockAccountItem.title,
+                              authRepo.nameText,
                               style: TextStyle(
                                 fontSize: fontSizeH5,
                                 fontWeight: FontWeight.bold,
@@ -108,7 +107,7 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                           ),
                           Container(
                             child: Text(
-                              this.mockAccountItem.email,
+                              authRepo.emailText,
                               style: TextStyle(
                                 fontSize: fontSizeP,
                                 color: gray,

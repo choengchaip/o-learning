@@ -1,6 +1,7 @@
 import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/repository/base_repository.dart';
 import 'package:http/http.dart' as http;
+import 'package:o_learning/utils/object_helper.dart';
 
 class DiscoveryWidgetRepository extends BaseRepository {
   DiscoveryWidgetRepository() {
@@ -13,8 +14,9 @@ class DiscoveryWidgetRepository extends BaseRepository {
   }
 
   Future fetchCourse() async {
-    http.Response data = await http.get('${Config.baseURL}/courses');
-    print(data.body);
+    http.Response data = await http.get('${Config.baseURL}/courses', headers: {
+      ...ObjectHelper.getHeaderOption(this)
+    });
   }
 
   addAliasToList(String alias) {

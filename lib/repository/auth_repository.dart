@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:o_learning/cores/config.dart';
 import 'package:http/http.dart' as http;
 import 'package:o_learning/repository/base_repository.dart';
+import 'package:o_learning/states/about_data_types.dart';
 import 'package:o_learning/utils/cache_helper.dart';
+import 'package:o_learning/utils/object_helper.dart';
 
 class AuthRepository extends BaseRepository {
   CacheHelper cacheHelper;
@@ -33,11 +34,41 @@ class AuthRepository extends BaseRepository {
     try {
       http.Response data = await http.post('${Config.baseURL}/oauth/token',
           body: jsonEncode({
-            "email": 'demo1@gmail.com',
-            "password": '12345678',
+            "email": this.emailText,
+            "password": this.passwordText,
           }));
       this.accessToken = data.body;
       this.object.data['access_token'] = data.body;
+      await this.fetchMe();
+    } catch (e) {
+      print(e);
+      this.toErrorStatus();
+    }
+
+    if (isErrorMock) {
+      this.toErrorStatus();
+    }
+    this.toCompleteStatus();
+  }
+
+  Future<void> register({bool isErrorMock: false}) async {
+    this.toLoadingStatus();
+
+    try {
+      http.Response data = await http.post('${Config.baseURL}/users',
+          body: jsonEncode({
+            "email": this.emailText,
+            "password": this.passwordText,
+          }));
+      this.accessToken = data.body;
+      this.object.data['access_token'] = data.body;
+
+      data = await http.put('${Config.baseURL}/users',
+          body: jsonEncode({
+            "name": this.nameText,
+          }),
+          headers: {...ObjectHelper.getHeaderOption(this)});
+
       await this.fetchMe();
     } catch (e) {
       print(e);
@@ -62,39 +93,15 @@ class AuthRepository extends BaseRepository {
     this.toLoadingStatus();
 
     try {
-      http.Request request = new http.Request('GET', Uri.parse('${Config.baseURL}/users/profile'));
-      request.headers['Authorization'] = "Bearer "+this.accessToken.replaceAll('"', '');
+      http.Response data = await http.get(
+          'https://oschool.topwork.asia/api/users/profile',
+          headers: {...ObjectHelper.getHeaderOption(this)});
 
-      print(request.headers);
+      IAboutMe me = IAboutMe.fromJson(jsonDecode(data.body));
+      this.setName(me.name);
+      this.setEmail(me.email);
 
-
-      await http.Client().send(request).then((response) {
-        response.stream.bytesToString().then((value) {
-          print(value.toString());
-          // jsonResponse = value.toString();
-          // completer.complete(jsonResponse);
-        });
-      });
-
-
-      // await http.send(request).then((response) {
-      //   response.stream.bytesToString().then((value) {
-      //     print(value.toString());
-      //     jsonResponse = value.toString();
-      //     completer.complete(jsonResponse);
-      //   });
-      // }).catchError((error) {
-      //   print(error.toString());
-      // });
-
-
-      // http.Response data = await http
-      //     .get('https://oschool.topwork.asia/api/users/profile', headers: {
-      //   'Content-Type': 'application/json; charset=UTF-8',
-      //   'Authorization': this.accessToken
-      // });
-
-      await this.cacheHelper.setUser(this.emailText, this.accessToken);
+      await this.cacheHelper.setUser(me.email, this.accessToken);
     } catch (e) {
       print(e);
       this.toErrorStatus();
@@ -113,6 +120,8 @@ class AuthRepository extends BaseRepository {
 
   void setName(String name) {
     this.nameText = name;
+    this.object.data['name'] = name;
+    this.notifyListeners();
   }
 
   void setEmail(String email) {
@@ -142,7 +151,23 @@ class AuthRepository extends BaseRepository {
   Future<void> changePassword() async {
     this.toLoadingStatus();
 
-    await Future.delayed(Duration(seconds: 2), () {});
+    this.toLoadingStatus();
+
+    try {
+      http.Response data =
+          await http.patch('${Config.baseURL}/users/resetpassword',
+              body: jsonEncode({
+                "oldpassword": this.passwordText,
+                "newpassword": this.newPasswordText,
+              }),
+              headers: {...ObjectHelper.getHeaderOption(this)});
+      if (data.body == "400") {
+        this.toErrorStatus();
+      }
+    } catch (e) {
+      print('change password error $e');
+      this.toErrorStatus();
+    }
 
     this.toCompleteStatus();
   }

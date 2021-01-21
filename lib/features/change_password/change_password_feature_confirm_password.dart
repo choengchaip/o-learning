@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
@@ -100,9 +101,14 @@ class _ChangePasswordConfirmPasswordFeature
                             placeholder: appLocaleRepo.$l('change_password',
                                 'confirm_password_placeholder'),
                             onChanged: (String value) {
-                              this
-                                  .passwordValid
-                                  .add(this.formKey.currentState.validate());
+                              if (authRepo.newPasswordText !=
+                                  this.passwordText.text) {
+                                this.passwordValid.add(false);
+                              } else {
+                                this
+                                    .passwordValid
+                                    .add(this.formKey.currentState.validate());
+                              }
                             },
                           ),
                         ),
@@ -123,7 +129,19 @@ class _ChangePasswordConfirmPasswordFeature
                             onPressed: () async {
                               passwordFocus.unfocus();
                               await authRepo.changePassword();
-                              Navigator.of(context).pop();
+
+                              if (authRepo.status.isError) {
+                                Flushbar(
+                                  flushbarPosition: FlushbarPosition.TOP,
+                                  title: 'Change password failed',
+                                  message: 'please try again later.',
+                                  backgroundColor:
+                                      Theme.of(context).primaryColor,
+                                  duration: Duration(seconds: 2),
+                                )..show(context);
+                              } else {
+                                Navigator.of(context).pop();
+                              }
                             },
                           );
                         },
