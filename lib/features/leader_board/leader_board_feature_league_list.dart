@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/features/leader_board/leader_board_feature_item.dart';
+import 'package:o_learning/repository/leader_board_repository.dart';
 import 'package:o_learning/states/leader_board_data_types.dart';
 
 class LeaderBoardLeagueListFeature extends StatelessWidget {
   final List<ILeaderBoardUserItem> mockItems;
+  final LeaderBoardRepository leaderBoardRepository;
 
   LeaderBoardLeagueListFeature({
     @required this.mockItems,
+    @required this.leaderBoardRepository,
   });
 
   Widget getUserIcon(BuildContext context, String score) {
@@ -72,11 +75,16 @@ class LeaderBoardLeagueListFeature extends StatelessWidget {
           padding: EdgeInsets.only(
             bottom: 20,
           ),
-          itemCount: this.mockItems.length,
+          itemCount: this.leaderBoardRepository.items.length,
           itemBuilder: (BuildContext context, int index) {
             return LeaderBoardItemFeature(
-              title: this.mockItems[index].title,
-              score: this.mockItems[index].score,
+              title: this.leaderBoardRepository.items[index]['user_name'] == ''
+                  ? 'Invalid name'
+                  : this.leaderBoardRepository.items[index]['user_name'],
+              score: this
+                  .leaderBoardRepository
+                  .items[index]['module_progress_current']
+                  .toString(),
               imageUrl: this.mockItems[index].imageUrl,
               background: Theme.of(context)
                   .primaryColorLight

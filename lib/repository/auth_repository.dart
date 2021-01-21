@@ -94,7 +94,7 @@ class AuthRepository extends BaseRepository {
 
     try {
       http.Response data = await http.get(
-          'https://oschool.topwork.asia/api/users/profile',
+          '${Config.baseURL}/users/profile',
           headers: {...ObjectHelper.getHeaderOption(this)});
 
       IAboutMe me = IAboutMe.fromJson(jsonDecode(data.body));
