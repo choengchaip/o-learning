@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/states/course_data_types.dart';
 import 'package:o_learning/states/subject_data_types.dart';
 
 class SubjectQuizItemFeature extends StatelessWidget {
   final title;
-  final dynamic items;
+  final List<IModule> items;
   final Function(String id) onClick;
 
   SubjectQuizItemFeature({
@@ -39,7 +40,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
         ...List.generate(this.items.length, (index) {
           return GestureDetector(
             onTap: () {
-              this.onClick(this.items[index]['module_id']);
+              this.onClick(this.items[index].id);
             },
             child: Container(
               color: index % 2 == 0 ? Colors.white : primaryColorLighter,
@@ -75,7 +76,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
                         right: 16,
                       ),
                       child: Text(
-                        this.items[index]['module_name'],
+                        this.items[index].title,
                         style: TextStyle(
                           fontSize: fontSizeP,
                           fontWeight: FontWeight.bold,
@@ -85,7 +86,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
                   ),
                   Container(
                     child: Text(
-                      '0 / ${this.items[index]['submodules'].length}',
+                      '0 / ${this.items[index].subModules.length}',
                       // '${this.items[index].progress.toString()}/${this.items[index].totalChoice.toString()}',
                       style: TextStyle(
                         fontSize: fontSizeS1,

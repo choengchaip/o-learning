@@ -38,6 +38,13 @@ class ICategoryItem {
     @required this.title,
     this.image,
   });
+
+  factory ICategoryItem.fromJson(Map<String, dynamic> rawJson) {
+    return ICategoryItem(
+      id: rawJson["category_id"],
+      title: rawJson["category_name"],
+    );
+  }
 }
 
 class IQuizItem {

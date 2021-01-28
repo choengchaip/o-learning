@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:o_learning/components/loading.dart';
 import 'package:o_learning/features/leader_board/leader_board_feature_league_achievement.dart';
 import 'package:o_learning/features/leader_board/leader_board_feature_league_list.dart';
 import 'package:o_learning/mocks/leader_board_data.dart';
@@ -55,7 +54,6 @@ class _LeaderBoardLeagueFeature extends State<LeaderBoardLeagueFeature> {
             children: [
               LeaderBoardLeagueAchievementFeature(),
               LeaderBoardLeagueListFeature(
-                mockItems: mockLeaderBoardUserItems,
                 leaderBoardRepository: this.leaderBoardRepo,
               )
             ],

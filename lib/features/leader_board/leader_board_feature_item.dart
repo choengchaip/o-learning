@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:o_learning/components/cache_image.dart';
 
 class LeaderBoardItemFeature extends StatelessWidget {
   final String title;
@@ -26,20 +27,14 @@ class LeaderBoardItemFeature extends StatelessWidget {
       child: Row(
         children: [
           this.icon,
-          Container(
-            margin: EdgeInsets.only(right: 24),
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: this.imageUrl,
-                ).image,
-              )
+          CacheImage(
+            image: this.imageUrl,
+            width: 45,
+            height: 45,
+            margin: EdgeInsets.only(
+              right: 24,
             ),
+            shape: BoxShape.circle,
           ),
           Expanded(
             child: Container(

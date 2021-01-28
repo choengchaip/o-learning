@@ -15,6 +15,7 @@ class ILeaderBoardUserItem {
     return ILeaderBoardUserItem(
         id: rawJson['user_id'],
         title: rawJson['user_name'] ?? 'No name',
-        score: rawJson['module_progress_current']);
+        imageUrl: rawJson['image'] ?? '',
+        score: rawJson['module_progress_current'].toString());
   }
 }

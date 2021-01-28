@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/features/category/categories_list_feature_continue_learning_item.dart';
-import 'package:o_learning/states/subject_data_types.dart';
+import 'package:o_learning/states/course_data_types.dart';
 
 class CategoriesListContinueLearningFeature extends StatelessWidget {
   final String title;
-  final List<IContinueLearningItem> items;
+  final List<ICourseItem> items;
   final Function(String id) onClick;
 
   CategoriesListContinueLearningFeature({
@@ -54,8 +54,8 @@ class CategoriesListContinueLearningFeature extends StatelessWidget {
                   child: CategoriesListContinueLearningItemFeature(
                     title: this.items[index].title,
                     image: this.items[index].image,
-                    progress: this.items[index].progress,
-                    totalChoice: this.items[index].totalChoice,
+                    progress: this.items[index].current,
+                    totalChoice: this.items[index].max,
                   ),
                 );
               },

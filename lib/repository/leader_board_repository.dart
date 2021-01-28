@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/repository/base_repository.dart';
 import 'package:http/http.dart' as http;
+import 'package:o_learning/states/leader_board_data_types.dart';
 import 'package:o_learning/utils/object_helper.dart';
 
 class LeaderBoardRepository extends BaseRepository {
@@ -9,8 +10,13 @@ class LeaderBoardRepository extends BaseRepository {
     this.object.data['leader_board_items'] = List<Map<String, dynamic>>();
   }
 
-  List get items {
-    return this.object.data['leader_board_items'];
+  List<ILeaderBoardUserItem> get items {
+    List<ILeaderBoardUserItem> data = List<ILeaderBoardUserItem>();
+    (this.object.data['leader_board_items'] as List<dynamic>).forEach((raw) {
+      data.add(ILeaderBoardUserItem.fromJson(raw));
+    });
+
+    return data;
   }
 
   Future<bool> fetchLeaderBoard() async {

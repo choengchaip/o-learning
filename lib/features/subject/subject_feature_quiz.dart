@@ -44,7 +44,7 @@ class _SubjectQuizFeature extends State<SubjectQuizFeature> {
       child: Column(
         children: [
           HeaderBackButtonCenter(
-            headerTitle: subjectRepository.courseItem['course_name'],
+            headerTitle: subjectRepository.courseItem.title,
             backTitle: 'Back',
             onBack: () {
               Navigator.of(context).pop();
@@ -60,12 +60,12 @@ class _SubjectQuizFeature extends State<SubjectQuizFeature> {
                     color: Colors.black38,
                   ),
                   SubjectQuizItemFeature(
-                    title: subjectRepository.courseItem['course_description'],
+                    title: subjectRepository.courseItem.description,
                     onClick: (String id)async {
                       await quizRepository.mockGetQuizDetail();
                       quizRepository.expandQuizFeature();
                     },
-                    items: subjectRepository.courseItem['modules'],
+                    items: subjectRepository.courseItem.modules,
                   )
                 ],
               ),

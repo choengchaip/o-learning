@@ -15,6 +15,7 @@ class AuthRepository extends BaseRepository {
   String newPasswordText = '';
   String confirmPasswordText = '';
   String accessToken = '';
+  String currentCourse = '';
   int star = 0;
   int progress = 0;
 
@@ -159,6 +160,11 @@ class AuthRepository extends BaseRepository {
   void setAccessToken(String token) {
     this.accessToken = token;
     this.object.data['access_token'] = token;
+    this.notifyListeners();
+  }
+
+  void setCourse(String courseId) {
+    this.currentCourse = courseId;
     this.notifyListeners();
   }
 

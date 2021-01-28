@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/features/category/categories_list_feature_recommend_item.dart';
+import 'package:o_learning/states/course_data_types.dart';
 import 'package:o_learning/states/subject_data_types.dart';
 
 class CategoriesListRecommendFeature extends StatelessWidget {
   final String title;
-  final dynamic items;
+  final List<ICourseItem> items;
   final Function(String id) onClick;
 
   CategoriesListRecommendFeature({
@@ -49,11 +50,11 @@ class CategoriesListRecommendFeature extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    this.onClick(this.items[index]['course_id']);
+                    this.onClick(this.items[index].id);
                   },
                   child: CategoriesListRecommendItemFeature(
-                    title: this.items[index]['course_name'],
-                    image: 'lib/statics/mocks/course_continue_${index+1}.jpg',
+                    title: this.items[index].title,
+                    image: this.items[index].image,
                   ),
                 );
               },

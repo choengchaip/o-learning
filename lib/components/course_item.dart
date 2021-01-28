@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/cache_image.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 
 class CourseItem extends StatelessWidget {
@@ -54,13 +55,8 @@ class CourseItem extends StatelessWidget {
               children: [
                 Flexible(
                   flex: 4,
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: Image.asset(this.image),
+                  child: CacheImage(
+                    image: this.image,
                   ),
                 ),
                 Flexible(

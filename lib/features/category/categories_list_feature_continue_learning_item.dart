@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/cache_image.dart';
 
 class CategoriesListContinueLearningItemFeature extends StatelessWidget {
   final String image;
@@ -41,15 +43,8 @@ class CategoriesListContinueLearningItemFeature extends StatelessWidget {
           children: [
             Flexible(
               flex: 11,
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    image: Image.asset(this.image).image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              child: CacheImage(
+                image: this.image,
               ),
             ),
             Flexible(
@@ -59,7 +54,7 @@ class CategoriesListContinueLearningItemFeature extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 color: Colors.white,
                 child: Text(
-                  'COURSE 0/6',
+                  'COURSE ${this.progress ?? '0'}/${this.totalChoice ?? 0}',
                   style: TextStyle(
                     fontSize: fontSizeS2,
                   ),

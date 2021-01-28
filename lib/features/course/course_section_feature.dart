@@ -6,13 +6,16 @@ import 'package:o_learning/features/course/course_section_card_feature.dart';
 import 'package:o_learning/states/course_data_types.dart';
 
 class CourseSectionFeature extends StatelessWidget {
-  final ICourseItem course;
+  final IModule module;
   final Function(String id) onClick;
   Widget topWidget;
 
-  CourseSectionFeature(
-      {Key key, @required this.course, @required this.onClick, this.topWidget})
-      : super(key: key) {
+  CourseSectionFeature({
+    Key key,
+    @required this.module,
+    @required this.onClick,
+    this.topWidget,
+  }) : super(key: key) {
     if (this.topWidget == null) {
       this.topWidget = Container();
     }
@@ -48,7 +51,7 @@ class CourseSectionFeature extends StatelessWidget {
                         padding: EdgeInsets.only(
                             top: 8, bottom: 8, left: 16, right: 16),
                         child: Text(
-                          this.course.title,
+                          this.module.title,
                           style: TextStyle(
                               fontSize: fontSizeP, fontWeight: FontWeight.bold),
                         ),
@@ -62,21 +65,25 @@ class CourseSectionFeature extends StatelessWidget {
           Wrap(
             spacing: 16,
             runSpacing: 16,
-            children: List.generate(this.course.chapters.length, (index) {
-              return GestureDetector(
-                onTap: () {
-                  if (this.course.chapters[index].canLearn) {}
-                },
-                child: CourseSectionCardFeature(
-                  title: this.course.chapters[index].title,
-                  icon: this.course.chapters[index].icon,
-                  canLearn: this.course.chapters[index].canLearn,
-                  isPassed: this.course.chapters[index].isPassed,
-                  progress: this.course.chapters[index].progress,
-                  onClick: this.onClick,
-                ),
-              );
-            }),
+            children: List.generate(
+              this.module?.subModules?.length ?? 0,
+              (index) {
+                return GestureDetector(
+                  onTap: () {
+
+                  },
+                  child: CourseSectionCardFeature(
+                    title: this.module?.subModules[index].title,
+                    icon: Icons.ac_unit,
+                    // icon: this.course.chapters[index].icon,
+                    canLearn: true,
+                    isPassed: true,
+                    progress: this.module?.subModules[index].current,
+                    onClick: this.onClick,
+                  ),
+                );
+              },
+            ),
           ),
           Container(
             height: 32,

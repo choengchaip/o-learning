@@ -7,11 +7,9 @@ import 'package:o_learning/repository/leader_board_repository.dart';
 import 'package:o_learning/states/leader_board_data_types.dart';
 
 class LeaderBoardLeagueListFeature extends StatelessWidget {
-  final List<ILeaderBoardUserItem> mockItems;
   final LeaderBoardRepository leaderBoardRepository;
 
   LeaderBoardLeagueListFeature({
-    @required this.mockItems,
     @required this.leaderBoardRepository,
   });
 
@@ -78,14 +76,14 @@ class LeaderBoardLeagueListFeature extends StatelessWidget {
           itemCount: this.leaderBoardRepository.items.length,
           itemBuilder: (BuildContext context, int index) {
             return LeaderBoardItemFeature(
-              title: this.leaderBoardRepository.items[index]['user_name'] == ''
+              title: this.leaderBoardRepository.items[index].title == ''
                   ? 'Invalid name'
-                  : this.leaderBoardRepository.items[index]['user_name'],
+                  : this.leaderBoardRepository.items[index].title,
               score: this
                   .leaderBoardRepository
-                  .items[index]['module_progress_current']
+                  .items[index].score
                   .toString(),
-              imageUrl: this.mockItems[index].imageUrl,
+              imageUrl: this.leaderBoardRepository.items[index].imageUrl,
               background: Theme.of(context)
                   .primaryColorLight
                   .withOpacity(index % 2 == 0 ? 0.25 : 0.15),

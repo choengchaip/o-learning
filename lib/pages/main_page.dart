@@ -11,6 +11,7 @@ import 'package:o_learning/features/course/course_feature.dart';
 import 'package:o_learning/features/leader_board/leader_board_feature.dart';
 import 'package:o_learning/features/quiz/quiz_feature.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/category_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/states/types.dart';
@@ -23,6 +24,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPage extends State<MainPage> {
   PageSliderRepository pageSliderRepository = new PageSliderRepository();
+  CategoryRepository categoryRepository = new CategoryRepository();
   StreamController<int> currentMenu;
 
   @override
@@ -140,7 +142,7 @@ class _MainPage extends State<MainPage> {
                 ],
               ),
             ),
-            quizRepository.expandQuiz ? QuizFeature(): Container(),
+            quizRepository.expandQuiz ? QuizFeature() : Container(),
           ],
         ),
       ),

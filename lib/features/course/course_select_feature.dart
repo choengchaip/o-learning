@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/course_item.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
-import 'package:o_learning/states/discovery_data_types.dart';
+import 'package:o_learning/states/course_data_types.dart';
 
 class CourseSelectFeature extends StatelessWidget {
   final bool isExpand;
-  final List<IDiscoveryCourseItem> items;
-  final Function(String id) onChanged;
+  final List<ICourseItem> items;
+  final Function(String id, String name) onChanged;
   final AppLocaleRepository appLocaleRepository;
 
   StreamController<String> selectedCourse = StreamController<String>();
@@ -59,15 +59,15 @@ class CourseSelectFeature extends StatelessWidget {
                         (MediaQuery.of(context).size.width * 0.75) * index,
                         duration: Duration(milliseconds: 250),
                         curve: Curves.ease);
-                    this.selectedCourse.add(this.items[index].course_id);
-                    this.onChanged(this.items[index].course_id);
+                    this.selectedCourse.add(this.items[index].id);
+                    this.onChanged(this.items[index].id, this.items[index].title);
                   },
                   child: CourseItem(
-                    image: this.items[index].course_image,
-                    title: this.items[index].course_name,
-                    description: this.items[index].course_description,
-                    progress: this.items[index].progress,
-                    isActive: snapshot.data == this.items[index].course_id,
+                    image: this.items[index].image,
+                    title: this.items[index].title,
+                    description: this.items[index].description,
+                    progress: this.items[index].current,
+                    isActive: snapshot.data == this.items[index].id,
                     appLocaleRepository: appLocaleRepository,
                   ),
                 );

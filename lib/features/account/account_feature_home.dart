@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/cache_image.dart';
 import 'package:o_learning/components/loading.dart';
 import 'package:o_learning/pages/change_password_page.dart';
 import 'package:o_learning/pages/welcome_page.dart';
@@ -11,7 +12,6 @@ import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:o_learning/states/account_data_types.dart';
 import 'package:o_learning/utils/page_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class AccountHomeFeature extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
@@ -37,6 +37,12 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
     @required this.widgetSliderRepository,
     this.mockAccountItem,
   });
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,19 +77,11 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  CacheImage(
                     height: 95,
                     width: 95,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: this.mockAccountItem.imageUrl,
-                        ).image,
-                      ),
-                      shape: BoxShape.circle,
-                      color: Colors.black,
-                    ),
+                    image: 'https://png2.cleanpng.com/sh/3d416db06c946a92b5d7376b41d96002/L0KzQYm3VMAzN5x6iZH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TfF3aaVmip91b3fsfn78kBVzNZJ7eeZqcj24cbS5UMdmPpQ9e6M8Mz64RoOCVsc3O2I6SqQBNkW3RIeBUsI0NqFzf3==/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6c8c133.5629676315226654468223.png',
+                    shape: BoxShape.circle,
                   ),
                   Expanded(
                     child: Container(

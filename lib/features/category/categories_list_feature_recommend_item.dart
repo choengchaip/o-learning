@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/cache_image.dart';
 
 class CategoriesListRecommendItemFeature extends StatelessWidget {
   final String image;
@@ -24,12 +25,8 @@ class CategoriesListRecommendItemFeature extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: Image.asset(this.image).image,
-                        fit: BoxFit.cover),
-                  ),
+                child: CacheImage(
+                  image: this.image,
                 ),
               ),
             ),

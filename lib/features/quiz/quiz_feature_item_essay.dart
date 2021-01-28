@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
@@ -5,7 +6,6 @@ import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/states/quiz_data_types.dart';
 import 'package:provider/provider.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class QuizItemEssayFeature extends StatelessWidget {
   final IQuestionItem questionItem;
@@ -27,14 +27,18 @@ class QuizItemEssayFeature extends StatelessWidget {
       children: [
         this.questionItem.imageUrl == null
             ? Container()
-            : Container(
-                width: MediaQuery.of(context).size.width,
-                height: (MediaQuery.of(context).size.width / ration169),
-                child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: this.questionItem.imageUrl,
-                  fit: BoxFit.cover,
+            : CachedNetworkImage(
+                imageUrl: this.questionItem.imageUrl,
+                imageBuilder: (context, imageProvider) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: (MediaQuery.of(context).size.width / ration169),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover),
+                  ),
                 ),
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
         Container(
           color: Colors.white,
@@ -66,8 +70,10 @@ class QuizItemEssayFeature extends StatelessWidget {
                         top: 6,
                       ),
                       child: Row(
-                        children: List.generate(quizRepository.answerIds == null ? 0 : quizRepository.answerIds.length,
-                            (index) {
+                        children: List.generate(
+                            quizRepository.answerIds == null
+                                ? 0
+                                : quizRepository.answerIds.length, (index) {
                           return Container(
                             margin: EdgeInsets.only(
                               right: 4,

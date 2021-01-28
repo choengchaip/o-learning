@@ -2,13 +2,12 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
-import 'package:o_learning/components/loading.dart';
 import 'package:o_learning/components/loading_item.dart';
 import 'package:o_learning/features/course/course_section_feature.dart';
 import 'package:o_learning/features/course/course_select_feature.dart';
-import 'package:o_learning/mocks/course_data.dart';
-import 'package:o_learning/mocks/main_data.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/auth_repository.dart';
+import 'package:o_learning/repository/category_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -31,11 +30,13 @@ class _CourseFeature extends State<CourseFeature> {
   final PageSliderRepository pageSliderRepository;
 
   WidgetSliderRepository widgetSliderRepository = new WidgetSliderRepository();
+  CategoryRepository categoryRepository = new CategoryRepository();
   ScrollController mainScrollController = ScrollController();
   StreamController<double> transparentBackground;
   StreamController<bool> courseExpand;
   bool _courseExpand;
   double _oldTransparentBackground;
+  String currentCourseName = '';
 
   _CourseFeature({
     @required this.pageSliderRepository,
@@ -64,6 +65,7 @@ class _CourseFeature extends State<CourseFeature> {
 
   @override
   Widget build(BuildContext context) {
+    AuthRepository authRepo = Provider.of<AuthRepository>(context);
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
     QuizRepository quizRepository = Provider.of<QuizRepository>(context);
@@ -84,7 +86,10 @@ class _CourseFeature extends State<CourseFeature> {
                       }
 
                       return AnimatedOpacity(
-                        opacity: (snapshot.data || quizRepository.status.isLoading) ? 0.5 : 1,
+                        opacity:
+                            (snapshot.data || quizRepository.status.isLoading)
+                                ? 0.5
+                                : 1,
                         duration: Duration(milliseconds: 250),
                         child: IgnorePointer(
                           ignoring:
@@ -109,40 +114,72 @@ class _CourseFeature extends State<CourseFeature> {
 
                                 return true;
                               },
-                              child: ListView(
-                                padding: EdgeInsets.zero,
-                                children: [
-                                  CourseSectionFeature(
-                                    topWidget: Container(
-                                      margin: EdgeInsets.only(bottom: 20),
-                                      height: 350,
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Image.asset(
-                                        'lib/statics/course_background.jpg',
-                                        fit: BoxFit.cover,
+                              child: FutureBuilder(
+                                future: this
+                                    .categoryRepository
+                                    .fetchMyCourseDetail(authRepo.currentCourse),
+                                builder: (BuildContext context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Container(
+                                      color: Colors.white,
+                                      alignment: Alignment.center,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Theme.of(context).primaryColor),
                                       ),
-                                    ),
-                                    course: mockHtml,
-                                    onClick: (String id) async {
-                                      await quizRepository.mockGetQuizDetail();
-                                      quizRepository.expandQuizFeature();
+                                    );
+                                  }
+
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount: this
+                                            .categoryRepository
+                                            .myCourseItem
+                                            ?.modules
+                                            ?.length ??
+                                        0,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      if (index == 0) {
+                                        return CourseSectionFeature(
+                                          topWidget: Container(
+                                            margin: EdgeInsets.only(bottom: 20),
+                                            height: 350,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: Image.asset(
+                                              'lib/statics/course_background.jpg',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          module: this
+                                              .categoryRepository
+                                              .myCourseItem
+                                              .modules[0],
+                                          onClick: (String id) async {
+                                            await quizRepository
+                                                .mockGetQuizDetail();
+                                            quizRepository.expandQuizFeature();
+                                          },
+                                        );
+                                      }
+
+                                      return CourseSectionFeature(
+                                        module: this
+                                            .categoryRepository
+                                            .myCourseItem
+                                            .modules[index],
+                                        onClick: (String id) async {
+                                          await quizRepository
+                                              .mockGetQuizDetail();
+                                          quizRepository.expandQuizFeature();
+                                        },
+                                      );
                                     },
-                                  ),
-                                  CourseSectionFeature(
-                                    course: mockHtmlIntermediate,
-                                    onClick: (String id) async {
-                                      await quizRepository.mockGetQuizDetail();
-                                      quizRepository.expandQuizFeature();
-                                    },
-                                  ),
-                                  CourseSectionFeature(
-                                    course: mockCss,
-                                    onClick: (String id) async {
-                                      await quizRepository.mockGetQuizDetail();
-                                      quizRepository.expandQuizFeature();
-                                    },
-                                  ),
-                                ],
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -150,19 +187,43 @@ class _CourseFeature extends State<CourseFeature> {
                       );
                     },
                   ),
-                  StreamBuilder(
-                    stream: this.courseExpand.stream,
+                  FutureBuilder(
+                    future: this.categoryRepository.fetchCacheMyCourse(),
                     builder: (BuildContext context, snapshot) {
                       if (!snapshot.hasData) {
-                        this.courseExpand.add(false);
-                        return Container();
+                        return Container(
+                          height: 200,
+                          color: Colors.white,
+                          alignment: Alignment.center,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Theme.of(context).primaryColor),
+                          ),
+                        );
                       }
 
-                      return CourseSelectFeature(
-                        isExpand: snapshot.data,
-                        appLocaleRepository: appLocaleRepo,
-                        items: mockMainCourseItems,
-                        onChanged: (String id) {},
+                      return StreamBuilder(
+                        stream: this.courseExpand.stream,
+                        builder: (BuildContext context, snapshot) {
+                          if (!snapshot.hasData) {
+                            this.courseExpand.add(false);
+                            return Container();
+                          }
+
+                          return CourseSelectFeature(
+                            isExpand: snapshot.data,
+                            appLocaleRepository: appLocaleRepo,
+                            items: this.categoryRepository.myCourseItems,
+                            onChanged: (String id, String name) {
+                              this._courseExpand = !this._courseExpand;
+                              this.courseExpand.add(this._courseExpand);
+                              authRepo.setCourse(id);
+                              setState(() {
+                                this.currentCourseName = name;
+                              });
+                            },
+                          );
+                        },
                       );
                     },
                   ),
@@ -210,7 +271,12 @@ class _CourseFeature extends State<CourseFeature> {
                                   children: [
                                     Container(
                                       child: Text(
-                                        'Web',
+                                        this
+                                                .categoryRepository
+                                                .myCourseItem
+                                                ?.title ??
+                                            this.currentCourseName ??
+                                            'Invalid',
                                         style: TextStyle(
                                           fontSize: fontSizeP,
                                           fontWeight: FontWeight.bold,
