@@ -72,7 +72,8 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
       await authRepo.fetchMe();
       await categoryRepository.fetchMyCourse();
       if (categoryRepository.myCourseItems.length > 0) {
-        authRepo.setCourse(categoryRepository.myCourseItems[0].id);
+        authRepo.setCourseId(categoryRepository.myCourseItems[0].id);
+        authRepo.setCourseName(categoryRepository.myCourseItems[0].title);
       }
     }
 

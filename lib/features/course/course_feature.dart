@@ -17,8 +17,9 @@ class CourseFeature extends StatefulWidget {
   final PageSliderRepository pageSliderRepository;
 
   CourseFeature({
+    @required Key key,
     @required this.pageSliderRepository,
-  });
+  }) : super(key: key);
 
   @override
   _CourseFeature createState() => _CourseFeature(
@@ -36,7 +37,6 @@ class _CourseFeature extends State<CourseFeature> {
   StreamController<bool> courseExpand;
   bool _courseExpand;
   double _oldTransparentBackground;
-  String currentCourseName = '';
 
   _CourseFeature({
     @required this.pageSliderRepository,
@@ -117,7 +117,8 @@ class _CourseFeature extends State<CourseFeature> {
                               child: FutureBuilder(
                                 future: this
                                     .categoryRepository
-                                    .fetchMyCourseDetail(authRepo.currentCourse),
+                                    .fetchCacheMyCourseDetail(
+                                        authRepo.currentCourseId),
                                 builder: (BuildContext context, snapshot) {
                                   if (!snapshot.hasData) {
                                     return Container(
@@ -217,10 +218,8 @@ class _CourseFeature extends State<CourseFeature> {
                             onChanged: (String id, String name) {
                               this._courseExpand = !this._courseExpand;
                               this.courseExpand.add(this._courseExpand);
-                              authRepo.setCourse(id);
-                              setState(() {
-                                this.currentCourseName = name;
-                              });
+                              authRepo.setCourseId(id);
+                              authRepo.setCourseName(name);
                             },
                           );
                         },
@@ -271,12 +270,7 @@ class _CourseFeature extends State<CourseFeature> {
                                   children: [
                                     Container(
                                       child: Text(
-                                        this
-                                                .categoryRepository
-                                                .myCourseItem
-                                                ?.title ??
-                                            this.currentCourseName ??
-                                            'Invalid',
+                                        authRepo.currentCourseName ?? 'Invalid',
                                         style: TextStyle(
                                           fontSize: fontSizeP,
                                           fontWeight: FontWeight.bold,

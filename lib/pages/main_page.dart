@@ -55,6 +55,7 @@ class _MainPage extends State<MainPage> {
                       components: [
                         IPageSlider(
                           component: CourseFeature(
+                            key: PageStorageKey<String>("course_feature"),
                             pageSliderRepository: this.pageSliderRepository,
                           ),
                         ),
