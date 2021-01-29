@@ -10,6 +10,7 @@ import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/category_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/quiz_repository.dart';
+import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -68,6 +69,7 @@ class _CourseFeature extends State<CourseFeature> {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
     QuizRepository quizRepository = Provider.of<QuizRepository>(context);
+    SubjectRepository subjectRepository = Provider.of<SubjectRepository>(context);
 
     return Container(
       child: Column(
@@ -159,8 +161,7 @@ class _CourseFeature extends State<CourseFeature> {
                                               .myCourseItem
                                               .modules[0],
                                           onClick: (String id) async {
-                                            await quizRepository
-                                                .mockGetQuizDetail();
+                                            await subjectRepository.getCourseDetail(id);
                                             quizRepository.expandQuizFeature();
                                           },
                                         );
@@ -172,8 +173,7 @@ class _CourseFeature extends State<CourseFeature> {
                                             .myCourseItem
                                             .modules[index],
                                         onClick: (String id) async {
-                                          await quizRepository
-                                              .mockGetQuizDetail();
+                                          await subjectRepository.getCourseDetail(id);
                                           quizRepository.expandQuizFeature();
                                         },
                                       );

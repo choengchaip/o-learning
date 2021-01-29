@@ -115,15 +115,14 @@ class _QuizFeature extends State<QuizFeature> {
                         widgetSliderRepository: this.widgetSliderRepository,
                         onSuccess: () async {
                           quizRepository.answerWrongAlert = false;
-                          // quizRepository.resetAnswer();
                           this.positionController.add(false);
-                          await Future.delayed(Duration(milliseconds: 250), () {
-                            quizRepository.hideQuizFeature();
-                            quizRepository.disposeChoices();
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => ScoreSummaryPage(
-                              quizRepository: quizRepository,
-                            )));
-                          });
+                          await quizRepository.submitAnswer();
+                          quizRepository.hideQuizFeature();
+                          quizRepository.disposeChoices();
+                          quizRepository.resetAnswer();
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => ScoreSummaryPage(
+                            quizRepository: quizRepository,
+                          )));
                         },
                         onNext: () {
                           quizRepository.answerQuestion();

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
 import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/mocks/quiz_data.dart';
 import 'package:o_learning/repository/base_repository.dart';
@@ -144,8 +145,6 @@ class QuizRepository extends BaseRepository {
         quizKey = 'default';
       }
 
-      print(quizId);
-
       http.Response data = await http.get(
           '${Config.baseURL}/submodule/title/$quizId',
           headers: {...ObjectHelper.getHeaderOption(this)});
@@ -218,6 +217,7 @@ class QuizRepository extends BaseRepository {
         ...this.object.data['answers'],
         {
           'question_id': this._currentQuestionId,
+          'type': this.currentQuestion.typeString,
           'choice_id': this._currentChoiceId,
           'score': questionItem?.score ?? 0,
           'is_correct': isCorrect,
@@ -255,5 +255,36 @@ class QuizRepository extends BaseRepository {
   void resetAnswer() {
     this.object.data['answers'] = List<Map<String, dynamic>>();
     this.notifyListeners();
+  }
+
+  Future submitAnswer() async {
+    this.toLoadingStatus();
+
+    List<Map<String, dynamic>> answers = List<Map<String, dynamic>>();
+    (this.object.data['answers'] as List).forEach((raw) {
+      answers.add(ObjectHelper.toMap(raw));
+    });
+
+    for (int i = 0; i < answers.length; i++) {
+      DateTime now = DateTime.now();
+      String dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss").format(now);
+      try {
+        await http.post('${Config.baseURL}/learning_progress/title',
+            body: jsonEncode({
+              "status": answers[i]['is_correct'] ? "1" : 0,
+              "title_id": answers[i]['question_id'],
+              "title_type": answers[i]['type'],
+              "start_time": dateFormat,
+              "finish_time": dateFormat,
+              "star": answers[i]['is_correct'] ? 10 : 0,
+            }),
+            headers: {...ObjectHelper.getHeaderOption(this)});
+      } catch (e) {
+        print('get category detail error $e');
+        this.toErrorStatus();
+      }
+    }
+
+    this.toCompleteStatus();
   }
 }
