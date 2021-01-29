@@ -8,7 +8,7 @@ import 'package:o_learning/states/subject_data_types.dart';
 class SubjectQuizItemFeature extends StatelessWidget {
   final title;
   final List<IModule> items;
-  final Function(String id) onClick;
+  final Function(String id, List<ISubModule> quizItems) onClick;
 
   SubjectQuizItemFeature({
     @required this.title,
@@ -30,7 +30,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
             right: 16,
           ),
           child: Text(
-            this.title,
+            this.title ?? '',
             style: TextStyle(
               fontSize: fontSizeP,
               color: Colors.black,
@@ -40,7 +40,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
         ...List.generate(this.items.length, (index) {
           return GestureDetector(
             onTap: () {
-              this.onClick(this.items[index].id);
+              this.onClick(this.items[index].id, this.items[index].subModules);
             },
             child: Container(
               color: index % 2 == 0 ? Colors.white : primaryColorLighter,
@@ -76,7 +76,7 @@ class SubjectQuizItemFeature extends StatelessWidget {
                         right: 16,
                       ),
                       child: Text(
-                        this.items[index].title,
+                        this.items[index].title ?? '',
                         style: TextStyle(
                           fontSize: fontSizeP,
                           fontWeight: FontWeight.bold,

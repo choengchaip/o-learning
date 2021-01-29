@@ -1,23 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:o_learning/utils/object_helper.dart';
 
 class IQuizItem {
-  final String quizId;
   final int totalQuestion;
-  final int maxScore;
   List<IQuestionItem> questions;
 
   IQuizItem({
-    @required this.quizId,
     @required this.totalQuestion,
-    @required this.maxScore,
     @required this.questions,
   });
 
   factory IQuizItem.fromJson(Map<String, dynamic> rawJson) {
     return IQuizItem(
-      quizId: rawJson['quiz_id'],
-      totalQuestion: rawJson['total_question'],
-      maxScore: rawJson['max_score'],
+      totalQuestion: rawJson['total_question'] ?? 1,
       questions: IQuestionItem.fromListJson(rawJson['questions']),
     );
   }
@@ -39,15 +34,26 @@ class IChoiceItem {
     @required this.choiceText,
   });
 
-  static List<IChoiceItem> fromListJson(
-      List<Map<String, dynamic>> listRawJson) {
+  static List<IChoiceItem> fromListJson(List<dynamic> listRawJson) {
     if (listRawJson == null) {
       return <IChoiceItem>[].toList();
     }
 
-    return listRawJson.map((rawJson) {
-      return IChoiceItem.fromJson(rawJson);
-    }).toList();
+    List<String> rawChoices =
+        (ObjectHelper.toMap(listRawJson[0])['choice'] as String)
+            .replaceAll('&quot;', '')
+            .replaceAll('[', '')
+            .replaceAll(']', '')
+            .replaceAll(new RegExp(r'\s+'), '')
+            .split(',');
+    List<IChoiceItem> choices = List<IChoiceItem>();
+
+    for (int i = 0; i < rawChoices.length; i++) {
+      choices
+          .add(IChoiceItem(choiceId: i.toString(), choiceText: rawChoices[i]));
+    }
+
+    return choices;
   }
 
   factory IChoiceItem.fromJson(Map<String, dynamic> rawJson) {
@@ -59,7 +65,8 @@ class IChoiceItem {
 }
 
 class IQuestionItem {
-  final String questionId;
+  final String id;
+  final String title;
   final String imageUrl;
   final String typeString;
   final String question;
@@ -72,7 +79,8 @@ class IQuestionItem {
   final int score;
 
   IQuestionItem({
-    @required this.questionId,
+    @required this.id,
+    @required this.title,
     @required this.typeString,
     @required this.question,
     this.imageUrl,
@@ -87,9 +95,9 @@ class IQuestionItem {
 
   ChoiceType get type {
     switch (this.typeString) {
-      case 'reading':
+      case 'CONTENT':
         return ChoiceType.READING;
-      case 'choice':
+      case 'QUIZ':
         return ChoiceType.CHOICE;
       case 'essay':
         return ChoiceType.ESSAY;
@@ -111,16 +119,30 @@ class IQuestionItem {
     }).toList();
   }
 
+  static String getAnswerChoice(List<dynamic> rawJson) {
+    if (rawJson == null) {
+      return '';
+    }
+
+    try {
+      return ObjectHelper.toMap(rawJson[0])['answer'];
+    } catch (e) {
+      print('set answer error $e');
+      return '';
+    }
+  }
+
   factory IQuestionItem.fromJson(Map<String, dynamic> rawJson) {
     return IQuestionItem(
-      questionId: rawJson['question_id'],
+      id: rawJson['title_id'],
+      title: rawJson['title_name'],
       imageUrl: rawJson['image_url'],
-      typeString: rawJson['type_string'],
-      question: rawJson['question'],
-      note: rawJson['note'],
+      typeString: rawJson['title_type'],
+      question: rawJson['title_description'],
+      note: rawJson['note'] ?? '',
       code: rawJson['code'],
-      choices: IChoiceItem.fromListJson(rawJson['choices']),
-      correctChoiceId: rawJson['correct_answer_id'],
+      choices: IChoiceItem.fromListJson(rawJson['choice']),
+      correctChoiceId: IQuestionItem.getAnswerChoice(rawJson['choice']),
       correctChoiceIds: rawJson['correct_answer_ids'],
       answerWrongMessage: rawJson['answer_wrong_message'],
       score: rawJson['score'],

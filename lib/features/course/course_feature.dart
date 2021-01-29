@@ -17,9 +17,8 @@ class CourseFeature extends StatefulWidget {
   final PageSliderRepository pageSliderRepository;
 
   CourseFeature({
-    @required Key key,
     @required this.pageSliderRepository,
-  }) : super(key: key);
+  });
 
   @override
   _CourseFeature createState() => _CourseFeature(

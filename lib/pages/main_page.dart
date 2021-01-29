@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/components/bottom_menu.dart';
 import 'package:o_learning/components/page_slider.dart';
 import 'package:o_learning/components/types.dart';
@@ -55,7 +54,6 @@ class _MainPage extends State<MainPage> {
                       components: [
                         IPageSlider(
                           component: CourseFeature(
-                            key: PageStorageKey<String>("course_feature"),
                             pageSliderRepository: this.pageSliderRepository,
                           ),
                         ),

@@ -66,23 +66,6 @@ class CategoryRepository extends BaseRepository {
     return this.object.data['category_item'];
   }
 
-  Future getCategoryDetail(String categoryId) async {
-    this.toLoadingStatus();
-    try {
-      http.Response data = await http.get(
-          '${Config.baseURL}/courses?category_id=$categoryId',
-          headers: {...ObjectHelper.getHeaderOption(this)});
-      this.object.data['category_item'] =
-          jsonDecode(data.body == '' ? null : data.body);
-    } catch (e) {
-      print('get category detail error $e');
-      this.toErrorStatus();
-    }
-
-    this.toCompleteStatus();
-    return true;
-  }
-
   Future<bool> fetchCategories() async {
     try {
       http.Response data = await http.get('${Config.baseURL}/category',

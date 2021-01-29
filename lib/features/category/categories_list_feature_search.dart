@@ -9,7 +9,7 @@ class CategoriesListSearchFeature extends StatelessWidget {
   final String title;
   final List<ICategoryItem> items;
   final Function onSearch;
-  final Function(String id) onClick;
+  final Function(String id, String name) onClick;
 
   CategoriesListSearchFeature({
     @required this.title,
@@ -84,7 +84,7 @@ class CategoriesListSearchFeature extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          this.onClick(this.items[index].id);
+                          this.onClick(this.items[index].id, this.items[index].title);
                         },
                         child: Container(
                           color: secondaryColor,

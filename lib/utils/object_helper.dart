@@ -11,6 +11,10 @@ class ObjectHelper {
   }
 
   static toMap(dynamic raw) {
+    if (raw == null) {
+      return null;
+    }
+
     Map<String, dynamic> map = Map<String, dynamic>();
 
     (raw as Map).forEach((key, value) {

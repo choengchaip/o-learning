@@ -86,7 +86,7 @@ class _QuizFeature extends State<QuizFeature> {
                               0) {
                             this.progressController.add(
                                 (MediaQuery.of(context).size.width * 1) /
-                                    quizRepository.findItem.totalQuestion);
+                                   quizRepository.findItem?.totalQuestion);
                           }
 
                           return QuizProgressFeature(
@@ -100,12 +100,12 @@ class _QuizFeature extends State<QuizFeature> {
                           scrollable: false,
                           showDot: false,
                           components: List.generate(
-                              quizRepository.findItem.questions.length,
+                              quizRepository.quizItem('').questions.length,
                               (index) {
                             return IWidgetSlider(
                               component: QuizItemFeature(
                                 questionItem:
-                                    quizRepository.findItem.questions[index],
+                                    quizRepository.quizItem('').questions[index],
                               ),
                             );
                           }),
@@ -128,7 +128,6 @@ class _QuizFeature extends State<QuizFeature> {
                         onNext: () {
                           quizRepository.answerQuestion();
                           if (!quizRepository.answerWrongAlert) {
-                            this.widgetSliderRepository.nextWidget();
                             quizRepository.currentChoiceId = '';
                             quizRepository.currentQuestionId = '';
                             this.progressController.add(num.parse(
@@ -138,9 +137,10 @@ class _QuizFeature extends State<QuizFeature> {
                                                         .activeWidgetIndex +
                                                     1)) /
                                             quizRepository
-                                                .findItem.totalQuestion)
+                                                .quizItem('').totalQuestion)
                                         .toStringAsFixed(8))
                                 .toDouble());
+                            this.widgetSliderRepository.nextWidget();
                           }
                         },
                       ),

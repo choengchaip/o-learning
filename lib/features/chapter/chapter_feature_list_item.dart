@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/components/cache_image.dart';
 
 class ChapterListItemFeature extends StatelessWidget {
   final String id;
@@ -38,13 +39,8 @@ class ChapterListItemFeature extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(6),
               ),
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: Image.asset(this.image).image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              child: CacheImage(
+                image: this.image,
                 width: 100,
               ),
             ),

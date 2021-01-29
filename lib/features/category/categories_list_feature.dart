@@ -168,8 +168,9 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
                           return CategoriesListSearchFeature(
                             title: 'Browse Categories',
                             items: this.categoryRepository.items,
-                            onClick: (String id) async {
-                              await categoryRepository.getCategoryDetail(id);
+                            onClick: (String id, String name) async {
+                              await subjectRepository.setCategoryName(name);
+                              await subjectRepository.getCategoryDetail(id);
                               this.widgetSliderRepository.nextWidget();
                             },
                             onSearch: () {

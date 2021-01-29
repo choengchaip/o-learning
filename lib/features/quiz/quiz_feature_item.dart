@@ -33,7 +33,7 @@ class QuizItemFeature extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuizRepository quizRepository = Provider.of<QuizRepository>(context);
-    quizRepository.currentQuestionId = this.questionItem.questionId;
+    quizRepository.currentQuestionId = this.questionItem.id;
 
     return Container(
       color: grayLighter.withOpacity(0.25),

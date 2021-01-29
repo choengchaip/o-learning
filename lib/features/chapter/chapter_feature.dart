@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/components/header_back_button_center.dart';
+import 'package:o_learning/components/loading.dart';
 import 'package:o_learning/features/chapter/chapter_feature_list.dart';
 import 'package:o_learning/mocks/subject_data_types.dart';
 import 'package:o_learning/pages/subject_detail_page.dart';
@@ -23,8 +24,7 @@ class ChapterFeature extends StatefulWidget {
       );
 }
 
-class _MainSubjectCategoriesChapterFeature
-    extends State<ChapterFeature> {
+class _MainSubjectCategoriesChapterFeature extends State<ChapterFeature> {
   final WidgetSliderRepository widgetSliderRepository;
 
   _MainSubjectCategoriesChapterFeature({
@@ -43,23 +43,28 @@ class _MainSubjectCategoriesChapterFeature
     SubjectRepository subjectRepository =
         Provider.of<SubjectRepository>(context);
 
-    return Container(
-      child: Column(
-        children: [
-          HeaderBackButtonCenter(
-            headerTitle: subjectRepository.courseItem.title,
-            backTitle: 'Back',
-            onBack: () {
-              this.widgetSliderRepository.prevWidget();
-            },
-          ),
-          ChapterListFeature(
-            items: mockCategoryChapters,
-            onClick: (String id) {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => SubjectDetailPage()));
-            },
-          ),
-        ],
+    return Loading(
+      isLoading: subjectRepository.status.isLoading,
+      component: Container(
+        child: Column(
+          children: [
+            HeaderBackButtonCenter(
+              headerTitle: subjectRepository.categoryName,
+              backTitle: 'Back',
+              onBack: () {
+                this.widgetSliderRepository.prevWidget();
+              },
+            ),
+            ChapterListFeature(
+              items: subjectRepository.categoryCourseItems,
+              onClick: (String id) async {
+                await subjectRepository.getCourseDetail(id);
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => SubjectDetailPage()));
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

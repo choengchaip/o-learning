@@ -18,7 +18,8 @@ class QuizItemReadingFeature extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           CachedNetworkImage(
-            imageUrl: this.questionItem.imageUrl,
+            height: 200,
+            imageUrl: this.questionItem.imageUrl ?? '',
             imageBuilder: (context, imageProvider) => Container(
               width: MediaQuery.of(context).size.width,
               height: (MediaQuery.of(context).size.width / ration169),
@@ -33,7 +34,7 @@ class QuizItemReadingFeature extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(16),
             child: Text(
-                this.questionItem.question,
+                this.questionItem.question ?? '',
               style: TextStyle(
                 fontSize: fontSizeP,
               ),

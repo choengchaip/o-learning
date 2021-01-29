@@ -4,7 +4,7 @@ import 'package:o_learning/features/chapter/chapter_feature_list_item.dart';
 import 'package:o_learning/states/course_data_types.dart';
 
 class ChapterListFeature extends StatelessWidget {
-  final List<IChapterItem> items;
+  final List<ICourseItem> items;
   final Function(String id) onClick;
 
   ChapterListFeature({

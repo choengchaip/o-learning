@@ -1,7 +1,12 @@
-import 'dart:async';
+import 'dart:convert';
+
+import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/mocks/quiz_data.dart';
 import 'package:o_learning/repository/base_repository.dart';
+import 'package:o_learning/states/course_data_types.dart';
 import 'package:o_learning/states/quiz_data_types.dart';
+import 'package:http/http.dart' as http;
+import 'package:o_learning/utils/object_helper.dart';
 
 class QuizRepository extends BaseRepository {
   bool expandQuiz = false;
@@ -63,6 +68,21 @@ class QuizRepository extends BaseRepository {
 
   IQuizItem get findItem => IQuizItem.fromJson(this.object.data);
 
+  IQuizItem quizItem(String id) {
+    List<IQuestionItem> items = List<IQuestionItem>();
+    String quizId = id;
+    if (quizId == '') {
+      quizId = 'default';
+    }
+
+    (this.object.data['${quizId}_quiz_items'] as List).forEach((raw) {
+      items.add(IQuestionItem.fromJson(ObjectHelper.toMap(raw)));
+    });
+
+    return new IQuizItem(
+        totalQuestion: items?.length ?? 0, questions: items ?? []);
+  }
+
   bool get answerWrongAlert => this._answerWrongAlert;
 
   set answerWrongAlert(bool value) {
@@ -83,11 +103,15 @@ class QuizRepository extends BaseRepository {
   }
 
   bool get canAnswer {
-    if (this.currentQuestion?.type == ChoiceType.ESSAY) {
+    if (this.currentQuestion == null) {
+      return true;
+    } else if (this.currentQuestion?.type == ChoiceType.ESSAY) {
       return this.answerIds.where((answer) => answer['value'] == '').isEmpty;
-    } else {
+    } else if (this.currentQuestion?.type != ChoiceType.READING) {
       return this._currentChoiceId != '' ||
           this.currentQuestion?.type == ChoiceType.READING;
+    } else {
+      return true;
     }
   }
 
@@ -106,11 +130,40 @@ class QuizRepository extends BaseRepository {
     this.toCompleteStatus();
   }
 
+  Future<bool> getQuizDetail(String id, List<ISubModule> quizItems) async {
+    this.toLoadingStatus();
+
+    try {
+      if (quizItems.isEmpty) {
+        throw ('Quiz is empty');
+      }
+      String quizId = id;
+      String quizKey = id;
+      if (id == '') {
+        quizId = quizItems[0].id;
+        quizKey = 'default';
+      }
+
+      print(quizId);
+
+      http.Response data = await http.get(
+          '${Config.baseURL}/submodule/title/$quizId',
+          headers: {...ObjectHelper.getHeaderOption(this)});
+      this.object.data['${quizKey}_quiz_items'] = jsonDecode(data.body);
+    } catch (e) {
+      this.toErrorStatus();
+    }
+
+    this.toCompleteStatus();
+    return true;
+  }
+
   IQuestionItem findQuestionById(String questionId) {
     try {
-      return this.findItem.questions.singleWhere(
-          (question) => question.questionId == questionId,
-          orElse: null);
+      return this
+          .quizItem('')
+          .questions
+          .singleWhere((question) => question.id == questionId, orElse: null);
     } catch (e) {
       return null;
     }
@@ -192,10 +245,10 @@ class QuizRepository extends BaseRepository {
   void resetChoice() {
     this.object.data['answer_ids'] = List.generate(
         this.currentQuestion.choices.length,
-            (index) => {
-          'label': '',
-          'value': '',
-        });
+        (index) => {
+              'label': '',
+              'value': '',
+            });
     this.notifyListeners();
   }
 
