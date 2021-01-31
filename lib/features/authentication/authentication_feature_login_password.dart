@@ -8,7 +8,7 @@ import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/components/field_password.dart';
 import 'package:o_learning/components/header_back_button.dart';
 import 'package:o_learning/components/loading.dart';
-import 'package:o_learning/pages/main_page.dart';
+import 'package:o_learning/pages/index.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -81,8 +81,7 @@ class _AuthenticationLoginPasswordFeature
                         appLocaleRepo.$l(
                             'authentication_login', 'password_title'),
                         style: TextStyle(
-                            fontSize: fontSizeH3,
-                            fontWeight: FontWeight.bold),
+                            fontSize: fontSizeH3, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(
@@ -93,8 +92,7 @@ class _AuthenticationLoginPasswordFeature
                           controller: this.passwordText,
                           focusNode: passwordFocus,
                           placeholder: appLocaleRepo.$l(
-                              'authentication_login',
-                              'password_placeholder'),
+                              'authentication_login', 'password_placeholder'),
                           onChanged: (String value) {
                             this
                                 .passwordValid
@@ -105,8 +103,7 @@ class _AuthenticationLoginPasswordFeature
                     ),
                     StreamBuilder(
                       stream: passwordValid.stream,
-                      builder:
-                          (BuildContext context, AsyncSnapshot snapshot) {
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (!snapshot.hasData) {
                           return Container();
                         }
@@ -125,13 +122,12 @@ class _AuthenticationLoginPasswordFeature
                                 flushbarPosition: FlushbarPosition.TOP,
                                 title: 'Login failed',
                                 message: 'please try again later.',
-                                backgroundColor:
-                                Theme.of(context).primaryColor,
+                                backgroundColor: Theme.of(context).primaryColor,
                                 duration: Duration(seconds: 2),
                               )..show(context);
+                            } else {
+                              pageLauncher(Index(), context);
                             }
-
-                            pageLauncher(MainPage(), context);
                           },
                         );
                       },
@@ -139,8 +135,8 @@ class _AuthenticationLoginPasswordFeature
                     Container(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        appLocaleRepo.$l('authentication_login',
-                            'forget_password_title'),
+                        appLocaleRepo.$l(
+                            'authentication_login', 'forget_password_title'),
                         style: TextStyle(
                             fontSize: fontSizeP,
                             color: gray,

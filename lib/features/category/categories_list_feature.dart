@@ -8,7 +8,6 @@ import 'package:o_learning/components/loading_item.dart';
 import 'package:o_learning/features/category/categories_list_feature_continue_learning.dart';
 import 'package:o_learning/features/category/categories_list_feature_recommend.dart';
 import 'package:o_learning/features/category/categories_list_feature_search.dart';
-import 'package:o_learning/mocks/subject_data_types.dart';
 import 'package:o_learning/pages/subject_detail_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/category_repository.dart';

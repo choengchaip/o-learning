@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
+import 'package:o_learning/pages/index.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
+import 'package:o_learning/repository/quiz_repository.dart';
 import 'package:o_learning/repository/score_repository.dart';
+import 'package:o_learning/utils/page_helper.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 class ScoreSummaryResultFeature extends StatefulWidget {
@@ -34,6 +38,8 @@ class _ScoreSummaryResultFeature extends State<ScoreSummaryResultFeature> {
 
   @override
   Widget build(BuildContext context) {
+    QuizRepository quizRepository = Provider.of<QuizRepository>(context);
+
     return Container(
       color: grayLighter.withOpacity(0.5),
       padding: EdgeInsets.only(
@@ -59,7 +65,7 @@ class _ScoreSummaryResultFeature extends State<ScoreSummaryResultFeature> {
                       axes: <RadialAxis>[
                         RadialAxis(
                           minimum: 0,
-                          maximum: 100,
+                          maximum: quizRepository.receivePoint.toDouble(),
                           showLabels: false,
                           showTicks: false,
                           axisLineStyle: AxisLineStyle(
@@ -82,7 +88,7 @@ class _ScoreSummaryResultFeature extends State<ScoreSummaryResultFeature> {
                               angle: 90,
                               widget: Container(
                                 child: Text(
-                                  '130',
+                                  quizRepository.receivePoint.toString(),
                                   style: TextStyle(
                                     fontSize: 68,
                                   ),
@@ -179,7 +185,7 @@ class _ScoreSummaryResultFeature extends State<ScoreSummaryResultFeature> {
                               ),
                               Container(
                                 child: Text(
-                                  '13',
+                                  quizRepository.receivePoint.toString(),
                                   style: TextStyle(
                                     fontSize: fontSizeP,
                                   ),
@@ -202,7 +208,7 @@ class _ScoreSummaryResultFeature extends State<ScoreSummaryResultFeature> {
                               ),
                               Container(
                                 child: Text(
-                                  'x 10',
+                                  'x 1',
                                   style: TextStyle(
                                     fontSize: fontSizeP,
                                   ),
@@ -248,7 +254,7 @@ class _ScoreSummaryResultFeature extends State<ScoreSummaryResultFeature> {
                             ),
                             Container(
                               child: Text(
-                                '130',
+                                quizRepository.receivePoint.toString(),
                                 style: TextStyle(
                                   fontSize: fontSizeH4,
                                   fontWeight: FontWeight.bold,
@@ -267,7 +273,7 @@ class _ScoreSummaryResultFeature extends State<ScoreSummaryResultFeature> {
           CurveButton(
             title: 'CONTINUE',
             onPressed: () {
-              Navigator.of(context).pop();
+              pageLauncher(Index(), context);
             },
           ),
         ],

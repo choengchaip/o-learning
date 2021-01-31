@@ -84,16 +84,16 @@ class SubjectQuizItemFeature extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Container(
-                    child: Text(
-                      '0 / ${this.items[index].subModules.length}',
-                      // '${this.items[index].progress.toString()}/${this.items[index].totalChoice.toString()}',
-                      style: TextStyle(
-                        fontSize: fontSizeS1,
-                        fontWeight: FontWeight.w100,
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   child: Text(
+                  //     '0 / ${this.items[index].subModules.length}',
+                  //     // '${this.items[index].progress.toString()}/${this.items[index].totalChoice.toString()}',
+                  //     style: TextStyle(
+                  //       fontSize: fontSizeS1,
+                  //       fontWeight: FontWeight.w100,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

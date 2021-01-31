@@ -161,7 +161,7 @@ class _CourseFeature extends State<CourseFeature> {
                                               .myCourseItem
                                               .modules[0],
                                           onClick: (String id) async {
-                                            await subjectRepository.getCourseDetail(id);
+                                            await quizRepository.getQuizDetail(id, []);
                                             quizRepository.expandQuizFeature();
                                           },
                                         );
@@ -173,7 +173,7 @@ class _CourseFeature extends State<CourseFeature> {
                                             .myCourseItem
                                             .modules[index],
                                         onClick: (String id) async {
-                                          await subjectRepository.getCourseDetail(id);
+                                          await quizRepository.getQuizDetail(id, []);
                                           quizRepository.expandQuizFeature();
                                         },
                                       );
@@ -337,7 +337,7 @@ class _CourseFeature extends State<CourseFeature> {
                                         Container(
                                           padding: EdgeInsets.only(top: 4),
                                           child: Text(
-                                            '13',
+                                            authRepo.star.toString(),
                                             style: TextStyle(
                                                 fontSize: fontSizeP,
                                                 fontWeight: FontWeight.bold,
@@ -371,7 +371,7 @@ class _CourseFeature extends State<CourseFeature> {
                                         Container(
                                           padding: EdgeInsets.only(top: 4),
                                           child: Text(
-                                            '13',
+                                            authRepo.progress.toString(),
                                             style: TextStyle(
                                                 fontSize: fontSizeP,
                                                 fontWeight: FontWeight.bold,

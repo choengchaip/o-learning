@@ -8,6 +8,7 @@ import 'package:o_learning/components/widget_slider.dart';
 import 'package:o_learning/features/authentication/authentication_feature_login.dart';
 import 'package:o_learning/features/welcome/welcome_feature_page_detail.dart';
 import 'package:o_learning/pages/authentication_page.dart';
+import 'package:o_learning/pages/index.dart';
 import 'package:o_learning/pages/main_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
@@ -52,24 +53,24 @@ class _WelcomeFeature extends State<WelcomeFeature> {
             padding: EdgeInsets.all(16),
             width: MediaQuery.of(context).size.width,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    authRepo.login();
-                    // pageLauncher(MainPage(), context);
-                  },
-                  child: Container(
-                    child: Text(
-                      'คลิกเพื่อข้ามขั้นตอน (ทดสอบ)',
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: fontSizeP,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: (){
+                //     authRepo.login();
+                //     pageLauncher(Index(), context);
+                //   },
+                //   child: Container(
+                //     child: Text(
+                //       'คลิกเพื่อข้ามขั้นตอน (ทดสอบ)',
+                //       style: TextStyle(
+                //         color: Theme.of(context).primaryColor,
+                //         fontSize: fontSizeP,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 GestureDetector(
                   onTap: (){
                     // pageLauncher(MainPage(), context);

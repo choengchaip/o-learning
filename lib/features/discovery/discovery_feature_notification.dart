@@ -9,6 +9,7 @@ import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/pages/authentication_page.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:o_learning/utils/page_helper.dart';
@@ -60,6 +61,7 @@ class _DiscoveryNotification extends State<DiscoveryNotification> {
 
   @override
   Widget build(BuildContext context) {
+    AuthRepository authRepository = Provider.of<AuthRepository>(context);
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
 
@@ -171,11 +173,13 @@ class _DiscoveryNotification extends State<DiscoveryNotification> {
             title: appLocaleRepo.$l(
                 'discovery_notification', 'enable_notification_button'),
             onPressed: () {
+              authRepository.setCourseId(this.discoveryWidgetRepository.courseId);
               this.requestNotificationPermission();
             },
           ),
           GestureDetector(
             onTap: (){
+              authRepository.setCourseId(this.discoveryWidgetRepository.courseId);
               this.proceed();
             },
             child: Container(

@@ -13,11 +13,7 @@ class DiscoveryWidgetRepository extends BaseRepository {
     notifyListeners();
   }
 
-  Future fetchCourse() async {
-    http.Response data = await http.get('${Config.baseURL}/courses', headers: {
-      ...ObjectHelper.getHeaderOption(this)
-    });
-  }
+  String get courseId => this.object.data['course_id'];
 
   addAliasToList(String alias) {
     (this.object.data['aliases'] as List<String>).add(alias);

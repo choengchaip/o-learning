@@ -28,10 +28,14 @@ class _LeaderBoardFriendFeature extends State<LeaderBoardFriendFeature> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          LeaderBoardFriendListFeature(
-            mockItems: mockLeaderBoardFriendItems,
-          )
+          Container(
+            child: Text("No API"),
+          ),
+          // LeaderBoardFriendListFeature(
+          //   mockItems: mockLeaderBoardFriendItems,
+          // )
         ],
       ),
     );

@@ -9,6 +9,9 @@ import 'package:o_learning/utils/object_helper.dart';
 
 class AuthRepository extends BaseRepository {
   CacheHelper cacheHelper;
+  int currentStar = 0;
+  int currentProgress = 0;
+  String userId = '';
   String nameText = '';
   String emailText = '';
   String passwordText = '';
@@ -41,11 +44,15 @@ class AuthRepository extends BaseRepository {
             "email": this.emailText,
             "password": this.passwordText,
           }));
-      this.accessToken = data.body;
-      this.object.data['access_token'] = data.body;
-      await this.fetchMe();
+      if (data.body == "") {
+        throw ('Username or Password Wrong');
+      } else {
+        this.accessToken = data.body;
+        this.object.data['access_token'] = data.body;
+        await this.fetchMe();
+      }
     } catch (e) {
-      print(e);
+      print(e.toString());
       this.toErrorStatus();
     }
 
@@ -64,16 +71,34 @@ class AuthRepository extends BaseRepository {
             "email": this.emailText,
             "password": this.passwordText,
           }));
-      this.accessToken = data.body;
-      this.object.data['access_token'] = data.body;
+      print('register ${data.body}');
+      if (data.body == "") {
+        throw ('Error');
+      } else {
+        this.accessToken = data.body;
+        this.object.data['access_token'] = data.body;
 
-      data = await http.put('${Config.baseURL}/users',
-          body: jsonEncode({
-            "name": this.nameText,
-          }),
-          headers: {...ObjectHelper.getHeaderOption(this)});
+        data = await http.put('${Config.baseURL}/users/profile',
+            body: jsonEncode({
+              "name": this.nameText,
+            }),
+            headers: {...ObjectHelper.getHeaderOption(this)});
 
-      await this.fetchMe();
+        await this.fetchMe();
+
+        if (this.currentCourseId != '') {
+          data = await http.post('${Config.baseURL}/courses/my',
+              body: jsonEncode({
+                "course_id": this.currentCourseId,
+                "user_id": this.userId,
+              }),
+              headers: {...ObjectHelper.getHeaderOption(this)});
+
+          if (data.body == "") {
+            throw ('Error');
+          }
+        }
+      }
     } catch (e) {
       print(e);
       this.toErrorStatus();
@@ -97,13 +122,15 @@ class AuthRepository extends BaseRepository {
     this.toLoadingStatus();
 
     try {
-      http.Response data = await http.get(
-          '${Config.baseURL}/users/profile',
+      http.Response data = await http.get('${Config.baseURL}/users/profile',
           headers: {...ObjectHelper.getHeaderOption(this)});
 
       IAboutMe me = IAboutMe.fromJson(jsonDecode(data.body));
+      this.setUserId(me.id);
       this.setName(me.name);
       this.setEmail(me.email);
+      this.setStar(me.star);
+      this.setProgress(me.progress);
 
       await this.cacheHelper.setUser(me.email, this.accessToken);
     } catch (e) {
@@ -120,6 +147,12 @@ class AuthRepository extends BaseRepository {
     this.passwordText = '';
     this.newPasswordText = '';
     this.confirmPasswordText = '';
+  }
+
+  void setUserId(String userId) {
+    this.userId = userId;
+    this.object.data['id'] = userId;
+    this.notifyListeners();
   }
 
   void setName(String name) {

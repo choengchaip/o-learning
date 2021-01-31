@@ -95,8 +95,7 @@ class CategoryRepository extends BaseRepository {
   Future<bool> fetchAllCourse() async {
     try {
       http.Response data = await http.get(
-          '${Config.baseURL}/courses?category_id=none',
-          headers: {...ObjectHelper.getHeaderOption(this)});
+          '${Config.baseURL}/courses?category_id=none');
       this.object.data['course_items'] = jsonDecode(data.body);
     } catch (e) {
       this.toErrorStatus();
@@ -109,8 +108,7 @@ class CategoryRepository extends BaseRepository {
     if (this.courseItems.isEmpty) {
       try {
         http.Response data = await http.get(
-            '${Config.baseURL}/courses?category_id=none',
-            headers: {...ObjectHelper.getHeaderOption(this)});
+            '${Config.baseURL}/courses?category_id=none');
         this.object.data['course_items'] = jsonDecode(data.body);
       } catch (e) {
         this.toErrorStatus();

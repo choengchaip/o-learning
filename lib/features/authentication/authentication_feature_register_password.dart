@@ -7,7 +7,7 @@ import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/components/field_password.dart';
 import 'package:o_learning/components/header_back_button.dart';
 import 'package:o_learning/components/loading.dart';
-import 'package:o_learning/pages/main_page.dart';
+import 'package:o_learning/pages/index.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -55,7 +55,7 @@ class _AuthenticationRegisterPasswordFeature
       this.passwordValid.add(true);
     }
 
-    return  Loading(
+    return Loading(
       isLoading: authRepo.status.isLoading,
       message: appLocaleRepo.$l('status', 'logging_in'),
       component: Container(
@@ -64,8 +64,7 @@ class _AuthenticationRegisterPasswordFeature
         child: Column(
           children: [
             HeaderBackButton(
-              backTitle:
-              appLocaleRepo.$l('authentication_register', 'back'),
+              backTitle: appLocaleRepo.$l('authentication_register', 'back'),
               onBack: () {
                 this.widgetSliderRepository.prevWidget();
               },
@@ -82,8 +81,7 @@ class _AuthenticationRegisterPasswordFeature
                         appLocaleRepo.$l(
                             'authentication_login', 'password_title'),
                         style: TextStyle(
-                            fontSize: fontSizeH3,
-                            fontWeight: FontWeight.bold),
+                            fontSize: fontSizeH3, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Container(
@@ -94,8 +92,7 @@ class _AuthenticationRegisterPasswordFeature
                           controller: this.passwordText,
                           focusNode: passwordFocus,
                           placeholder: appLocaleRepo.$l(
-                              'authentication_login',
-                              'password_placeholder'),
+                              'authentication_login', 'password_placeholder'),
                           onChanged: (String value) {
                             this
                                 .passwordValid
@@ -106,8 +103,7 @@ class _AuthenticationRegisterPasswordFeature
                     ),
                     StreamBuilder(
                       stream: passwordValid.stream,
-                      builder:
-                          (BuildContext context, AsyncSnapshot snapshot) {
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (!snapshot.hasData) {
                           return Container();
                         }
@@ -126,13 +122,12 @@ class _AuthenticationRegisterPasswordFeature
                                 flushbarPosition: FlushbarPosition.TOP,
                                 title: 'Login failed',
                                 message: 'please try again later.',
-                                backgroundColor:
-                                Theme.of(context).primaryColor,
+                                backgroundColor: Theme.of(context).primaryColor,
                                 duration: Duration(seconds: 2),
                               )..show(context);
+                            } else {
+                              pageLauncher(Index(), context);
                             }
-
-                            pageLauncher(MainPage(), context);
                           },
                         );
                       },

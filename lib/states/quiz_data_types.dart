@@ -12,7 +12,7 @@ class IQuizItem {
 
   factory IQuizItem.fromJson(Map<String, dynamic> rawJson) {
     return IQuizItem(
-      totalQuestion: rawJson['total_question'] ?? 1,
+      totalQuestion: 1,
       questions: IQuestionItem.fromListJson(rawJson['questions']),
     );
   }

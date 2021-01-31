@@ -4,19 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
 
 class CourseSectionCardFeature extends StatelessWidget {
+  final String id;
   final String title;
   final IconData icon;
   final bool canLearn;
   final bool isPassed;
   final int progress;
+  final int max;
   final Function(String id) onClick;
 
   CourseSectionCardFeature({
+    @required this.id,
     @required this.title,
     @required this.icon,
     @required this.canLearn,
     @required this.isPassed,
     @required this.progress,
+    @required this.max,
     @required this.onClick,
   });
 
@@ -25,7 +29,7 @@ class CourseSectionCardFeature extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (this.canLearn) {
-          this.onClick(this.title);
+          this.onClick(this.id);
         } else {
           Flushbar(
             flushbarPosition: FlushbarPosition.TOP,
@@ -112,7 +116,7 @@ class CourseSectionCardFeature extends StatelessWidget {
                           ),
                         ),
                         Flexible(
-                          flex: 100 - this.progress,
+                          flex: this.max - this.progress,
                           child: Container(
                             height: 8,
                             color: Colors.black12,

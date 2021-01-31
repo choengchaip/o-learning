@@ -68,19 +68,19 @@ class CourseSectionFeature extends StatelessWidget {
             children: List.generate(
               this.module?.subModules?.length ?? 0,
               (index) {
-                return GestureDetector(
-                  onTap: () {
-
-                  },
-                  child: CourseSectionCardFeature(
-                    title: this.module?.subModules[index].title,
-                    icon: Icons.ac_unit,
-                    // icon: this.course.chapters[index].icon,
-                    canLearn: true,
-                    isPassed: true,
-                    progress: this.module?.subModules[index].current,
-                    onClick: this.onClick,
-                  ),
+                return CourseSectionCardFeature(
+                  id: this.module?.subModules[index].id,
+                  title: this.module?.subModules[index].title,
+                  icon: Icons.ac_unit,
+                  // icon: this.course.chapters[index].icon,
+                  canLearn: true,
+                  isPassed: true,
+                  progress: this.module?.subModules[index].current >
+                          this.module?.subModules[index].current
+                      ? this.module?.subModules[index].max
+                      : this.module?.subModules[index].current,
+                  max: this.module?.subModules[index].max,
+                  onClick: this.onClick,
                 );
               },
             ),

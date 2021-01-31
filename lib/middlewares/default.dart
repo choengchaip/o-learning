@@ -5,6 +5,7 @@ import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/category_repository.dart';
 import 'package:o_learning/utils/cache_helper.dart';
+import 'package:o_learning/utils/object_helper.dart';
 import 'package:o_learning/utils/page_helper.dart';
 import 'package:provider/provider.dart';
 
@@ -71,10 +72,13 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
       authRepo.setAccessToken(userCache.access_token);
       await authRepo.fetchMe();
       await categoryRepository.fetchMyCourse();
+
       if (categoryRepository.myCourseItems.length > 0) {
         authRepo.setCourseId(categoryRepository.myCourseItems[0].id);
         authRepo.setCourseName(categoryRepository.myCourseItems[0].title);
       }
+    } else {
+      await categoryRepository.fetchAllCourse();
     }
 
     if (authRepo.isNotAuth) {

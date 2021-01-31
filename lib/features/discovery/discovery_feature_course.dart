@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
@@ -7,32 +6,34 @@ import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/course_item.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:o_learning/repository/category_repository.dart';
 import 'package:o_learning/repository/discovery_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
-import 'package:o_learning/states/discovery_data_types.dart';
+import 'package:o_learning/states/course_data_types.dart';
 import 'package:provider/provider.dart';
 
 class DiscoveryCourse extends StatefulWidget {
   final WidgetSliderRepository widgetSliderRepository;
   final DiscoveryWidgetRepository discoveryWidgetRepository;
-  final List<IDiscoveryCourseItem> mockItems;
+  final List<ICourseItem> items;
 
   DiscoveryCourse(
       {@required this.widgetSliderRepository,
       @required this.discoveryWidgetRepository,
-      @required this.mockItems});
+      @required this.items});
 
   @override
   _DiscoveryCourse createState() => _DiscoveryCourse(
       widgetSliderRepository: this.widgetSliderRepository,
       discoveryWidgetRepository: this.discoveryWidgetRepository,
-      mockItems: this.mockItems);
+      items: this.items);
 }
 
 class _DiscoveryCourse extends State<DiscoveryCourse> {
   final WidgetSliderRepository widgetSliderRepository;
   final DiscoveryWidgetRepository discoveryWidgetRepository;
-  final List<IDiscoveryCourseItem> mockItems;
+  final List<ICourseItem> items;
+
   StreamController<String> selectedCourse;
   ScrollController scrollController;
   String selectedCourseId;
@@ -40,13 +41,13 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
   _DiscoveryCourse(
       {@required this.widgetSliderRepository,
       @required this.discoveryWidgetRepository,
-      @required this.mockItems});
+      @required this.items});
 
   @override
   void initState() {
     this.selectedCourse = StreamController<String>();
-    this.selectedCourse.add(this.mockItems[0].course_id);
-    this.selectedCourseId = this.mockItems[0].course_id;
+    this.selectedCourse.add(this.items[0].id);
+    this.selectedCourseId = this.items[0].id;
     this.scrollController = ScrollController();
     super.initState();
   }
@@ -113,7 +114,7 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                       padding: EdgeInsets.only(left: 16, right: 16),
                       controller: this.scrollController,
                       scrollDirection: Axis.horizontal,
-                      itemCount: mockItems.length,
+                      itemCount: items.length,
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
@@ -122,15 +123,15 @@ class _DiscoveryCourse extends State<DiscoveryCourse> {
                                     index,
                                 duration: Duration(milliseconds: 250),
                                 curve: Curves.ease);
-                            this.selectedCourse.add(this.mockItems[index].course_id);
+                            this.selectedCourse.add(this.items[index].id);
                           },
                           child: CourseItem(
                             appLocaleRepository: appLocaleRepo,
                             margin: EdgeInsets.only(left: 8, right: 16),
-                            image: this.mockItems[index].course_image,
-                            title: this.mockItems[index].course_name,
-                            description: this.mockItems[index].course_description,
-                            isActive: this.mockItems[index].course_id == snapshot.data,
+                            image: this.items[index].image,
+                            title: this.items[index].title,
+                            description: this.items[index].description,
+                            isActive: this.items[index].id == snapshot.data,
                           ),
                         );
                       },

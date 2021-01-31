@@ -15,7 +15,7 @@ class IAboutMe {
   String authentication_key;
   dynamic watch_history;
   int star;
-  int progess;
+  int progress;
 
   IAboutMe({
     this.id,
@@ -32,7 +32,7 @@ class IAboutMe {
     this.authentication_key,
     this.watch_history,
     this.star,
-    this.progess,
+    this.progress,
   });
 
   factory IAboutMe.fromJson(Map<String, dynamic> rawJson) {
@@ -51,7 +51,7 @@ class IAboutMe {
       authentication_key: rawJson['authentication_key'],
       watch_history: rawJson['watch_history'],
       star: rawJson['star'],
-      progess: rawJson['progess'],
+      progress: rawJson['progress'],
     );
   }
 }

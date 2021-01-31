@@ -17,7 +17,9 @@ class LeaderBoardLeagueListFeature extends StatelessWidget {
     switch (score) {
       case '1':
         return Container(
-          margin: EdgeInsets.only(right: 16),
+          width: 50,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(right: 6),
           padding: EdgeInsets.all(4.5),
           decoration:
               BoxDecoration(color: Colors.white, shape: BoxShape.circle),
@@ -28,7 +30,9 @@ class LeaderBoardLeagueListFeature extends StatelessWidget {
         );
       case '2':
         return Container(
-          margin: EdgeInsets.only(right: 16),
+          width: 50,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(right: 6),
           padding: EdgeInsets.all(4.5),
           decoration:
               BoxDecoration(color: Colors.white, shape: BoxShape.circle),
@@ -39,7 +43,9 @@ class LeaderBoardLeagueListFeature extends StatelessWidget {
         );
       case '3':
         return Container(
-          margin: EdgeInsets.only(right: 16),
+          width: 50,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(right: 6),
           padding: EdgeInsets.all(4.5),
           decoration:
               BoxDecoration(color: Colors.white, shape: BoxShape.circle),
@@ -50,7 +56,9 @@ class LeaderBoardLeagueListFeature extends StatelessWidget {
         );
       default:
         return Container(
-          margin: EdgeInsets.only(right: 16),
+          width: 50,
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(right: 6),
           padding: EdgeInsets.all(12),
           decoration: BoxDecoration(shape: BoxShape.circle),
           child: Text(

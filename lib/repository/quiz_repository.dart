@@ -16,6 +16,8 @@ class QuizRepository extends BaseRepository {
   bool _isAnswersInitial = false;
   String _currentQuestionId = '';
   String _currentChoiceId = '';
+  String currentQuizId = '';
+  int receivePoint = 0;
 
   QuizRepository() {
     if (!this._isInitial) {
@@ -67,16 +69,11 @@ class QuizRepository extends BaseRepository {
     this.notifyListeners();
   }
 
-  IQuizItem get findItem => IQuizItem.fromJson(this.object.data);
-
-  IQuizItem quizItem(String id) {
+  IQuizItem get quizItem {
     List<IQuestionItem> items = List<IQuestionItem>();
-    String quizId = id;
-    if (quizId == '') {
-      quizId = 'default';
-    }
 
-    (this.object.data['${quizId}_quiz_items'] as List).forEach((raw) {
+    (this.object.data['${this.currentQuizId}_quiz_items'] as List)
+        .forEach((raw) {
       items.add(IQuestionItem.fromJson(ObjectHelper.toMap(raw)));
     });
 
@@ -135,14 +132,25 @@ class QuizRepository extends BaseRepository {
     this.toLoadingStatus();
 
     try {
-      if (quizItems.isEmpty) {
+      if (quizItems.isEmpty && id == '') {
         throw ('Quiz is empty');
       }
       String quizId = id;
       String quizKey = id;
+      this.currentQuizId = id;
       if (id == '') {
         quizId = quizItems[0].id;
         quizKey = 'default';
+        this.currentQuizId = 'default';
+
+        for (int i = 0; i < quizItems.length; i++) {
+          if (quizItems[i].current < quizItems[i].max) {
+            quizId = quizItems[i].id;
+            quizKey = quizItems[i].id;
+            this.currentQuizId = quizItems[i].id;
+            break;
+          }
+        }
       }
 
       http.Response data = await http.get(
@@ -160,7 +168,7 @@ class QuizRepository extends BaseRepository {
   IQuestionItem findQuestionById(String questionId) {
     try {
       return this
-          .quizItem('')
+          .quizItem
           .questions
           .singleWhere((question) => question.id == questionId, orElse: null);
     } catch (e) {
@@ -260,6 +268,7 @@ class QuizRepository extends BaseRepository {
   Future submitAnswer() async {
     this.toLoadingStatus();
 
+    this.receivePoint = 0;
     List<Map<String, dynamic>> answers = List<Map<String, dynamic>>();
     (this.object.data['answers'] as List).forEach((raw) {
       answers.add(ObjectHelper.toMap(raw));
@@ -279,6 +288,7 @@ class QuizRepository extends BaseRepository {
               "star": answers[i]['is_correct'] ? 10 : 0,
             }),
             headers: {...ObjectHelper.getHeaderOption(this)});
+        this.receivePoint++;
       } catch (e) {
         print('get category detail error $e');
         this.toErrorStatus();

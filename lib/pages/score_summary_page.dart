@@ -59,6 +59,7 @@ class _ScoreSummaryPage extends State<ScoreSummaryPage> {
                       IPageSlider(
                         component: ScoreSummaryResultFeature(
                           pageSliderRepository: this.pageSliderRepository,
+                          scoreRepository: this.scoreRepository,
                         ),
                       ),
                     ],

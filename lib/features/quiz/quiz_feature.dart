@@ -86,7 +86,7 @@ class _QuizFeature extends State<QuizFeature> {
                               0) {
                             this.progressController.add(
                                 (MediaQuery.of(context).size.width * 1) /
-                                   quizRepository.findItem?.totalQuestion);
+                                   quizRepository.quizItem?.totalQuestion);
                           }
 
                           return QuizProgressFeature(
@@ -100,12 +100,12 @@ class _QuizFeature extends State<QuizFeature> {
                           scrollable: false,
                           showDot: false,
                           components: List.generate(
-                              quizRepository.quizItem('').questions.length,
+                              quizRepository.quizItem.questions.length,
                               (index) {
                             return IWidgetSlider(
                               component: QuizItemFeature(
                                 questionItem:
-                                    quizRepository.quizItem('').questions[index],
+                                    quizRepository.quizItem.questions[index],
                               ),
                             );
                           }),
@@ -115,14 +115,14 @@ class _QuizFeature extends State<QuizFeature> {
                         widgetSliderRepository: this.widgetSliderRepository,
                         onSuccess: () async {
                           quizRepository.answerWrongAlert = false;
-                          this.positionController.add(false);
                           await quizRepository.submitAnswer();
-                          quizRepository.hideQuizFeature();
-                          quizRepository.disposeChoices();
-                          quizRepository.resetAnswer();
                           Navigator.of(context).push(MaterialPageRoute(builder: (_) => ScoreSummaryPage(
                             quizRepository: quizRepository,
                           )));
+                          this.positionController.add(false);
+                          quizRepository.hideQuizFeature();
+                          quizRepository.disposeChoices();
+                          quizRepository.resetAnswer();
                         },
                         onNext: () {
                           quizRepository.answerQuestion();
@@ -136,7 +136,7 @@ class _QuizFeature extends State<QuizFeature> {
                                                         .activeWidgetIndex +
                                                     1)) /
                                             quizRepository
-                                                .quizItem('').totalQuestion)
+                                                .quizItem.totalQuestion)
                                         .toStringAsFixed(8))
                                 .toDouble());
                             this.widgetSliderRepository.nextWidget();
