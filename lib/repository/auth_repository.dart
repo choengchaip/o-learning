@@ -174,8 +174,8 @@ class AuthRepository extends BaseRepository {
   }
 
   void setProgress(int progress) {
-    this.progress = progress;
-    this.object.data['progress'] = progress;
+    this.progress = progress ?? 0;
+    this.object.data['progress'] = progress ?? 0;
     this.notifyListeners();
   }
 

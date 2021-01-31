@@ -280,12 +280,12 @@ class QuizRepository extends BaseRepository {
       try {
         await http.post('${Config.baseURL}/learning_progress/title',
             body: jsonEncode({
-              "status": answers[i]['is_correct'] ? "1" : 0,
+              "status": "1",
               "title_id": answers[i]['question_id'],
               "title_type": answers[i]['type'],
               "start_time": dateFormat,
               "finish_time": dateFormat,
-              "star": answers[i]['is_correct'] ? 10 : 0,
+              "star": 1,
             }),
             headers: {...ObjectHelper.getHeaderOption(this)});
         this.receivePoint++;
