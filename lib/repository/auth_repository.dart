@@ -29,11 +29,11 @@ class AuthRepository extends BaseRepository {
 
   bool get isAuth =>
       this.object.data['access_token'] != '' ||
-      this.object.data['access_token'] != null;
+          this.object.data['access_token'] != null;
 
   bool get isNotAuth =>
       this.object.data['access_token'] == '' ||
-      this.object.data['access_token'] == null;
+          this.object.data['access_token'] == null;
 
   Future<void> login({bool isErrorMock: false}) async {
     this.toLoadingStatus();
@@ -118,6 +118,15 @@ class AuthRepository extends BaseRepository {
     this.object.data['course_items'] = '';
     this.object.data['my_course_items'] = '';
     this.object.data['my_course_item'] = '';
+    this.userId = '';
+    this.nameText = '';
+    this.emailText = '';
+    this.passwordText = '';
+    this.newPasswordText = '';
+    this.confirmPasswordText = '';
+    this.accessToken = '';
+    this.currentCourseId = '';
+    this.currentCourseName = '';
     await this.cacheHelper.removeUser();
     this.toCompleteStatus();
   }
@@ -218,12 +227,12 @@ class AuthRepository extends BaseRepository {
 
     try {
       http.Response data =
-          await http.patch('${Config.baseURL}/users/resetpassword',
-              body: jsonEncode({
-                "oldpassword": this.passwordText,
-                "newpassword": this.newPasswordText,
-              }),
-              headers: {...ObjectHelper.getHeaderOption(this)});
+      await http.patch('${Config.baseURL}/users/resetpassword',
+          body: jsonEncode({
+            "oldpassword": this.passwordText,
+            "newpassword": this.newPasswordText,
+          }),
+          headers: {...ObjectHelper.getHeaderOption(this)});
       if (data.body == "400") {
         this.toErrorStatus();
       }
