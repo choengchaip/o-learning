@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/cache_image.dart';
+import 'package:o_learning/utils/string_helper.dart';
 
 class CategoriesListRecommendItemFeature extends StatelessWidget {
   final int index;
@@ -40,7 +41,7 @@ class CategoriesListRecommendItemFeature extends StatelessWidget {
               bottom: 8,
             ),
             child: Text(
-              this.title,
+              StringHelper.capitalize(this.title),
               style: TextStyle(
                 fontSize: fontSizeS1,
                 fontWeight: FontWeight.bold,
