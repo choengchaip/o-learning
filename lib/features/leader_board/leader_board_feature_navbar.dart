@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
+import 'package:provider/provider.dart';
 
 class LeaderBoardNavBarFeature extends StatelessWidget {
   final WidgetSliderRepository widgetSliderRepository;
@@ -14,6 +16,9 @@ class LeaderBoardNavBarFeature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocaleRepository appLocaleRepo =
+    Provider.of<AppLocaleRepository>(context);
+
     return StreamBuilder<int>(
       stream: navBar.stream,
       builder: (BuildContext context, snapshot) {
@@ -44,7 +49,7 @@ class LeaderBoardNavBarFeature extends StatelessWidget {
                             bottom: 16,
                           ),
                           child: Text(
-                            'LEAGUES',
+                            appLocaleRepo.$l('leader_board', 'leagues'),
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -66,7 +71,7 @@ class LeaderBoardNavBarFeature extends StatelessWidget {
                           ),
                           color: Theme.of(context).primaryColorLight,
                           child: Text(
-                            'FRIENDS',
+                            appLocaleRepo.$l('leader_board', 'friends'),
                             style: TextStyle(
                               color: Colors.white,
                             ),

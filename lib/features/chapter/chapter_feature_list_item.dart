@@ -6,17 +6,18 @@ import 'package:o_learning/components/cache_image.dart';
 
 class ChapterListItemFeature extends StatelessWidget {
   final String id;
+  final int index;
   final String title;
   final String description;
   final String image;
 
   ChapterListItemFeature({
     @required this.id,
+    @required this.index,
     @required this.title,
     @required this.description,
     @required this.image,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class ChapterListItemFeature extends StatelessWidget {
                 Radius.circular(6),
               ),
               child: CacheImage(
+                errorImageAsset: 'lib/statics/default/courses/course_${this.index % 4}.jpg',
                 image: this.image,
                 width: 100,
               ),

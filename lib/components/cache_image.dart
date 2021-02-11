@@ -8,13 +8,15 @@ class CacheImage extends StatelessWidget {
   final double width;
   final EdgeInsetsGeometry margin;
   BoxShape shape;
+  String errorImageAsset;
 
   CacheImage(
       {@required this.image,
       this.height,
       this.width,
       this.margin,
-      this.shape}) {
+      this.shape,
+      this.errorImageAsset}) {
     if (this.shape == null) {
       this.shape = BoxShape.rectangle;
     }
@@ -55,10 +57,14 @@ class CacheImage extends StatelessWidget {
         width: width,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          shape: this.shape,
-          color: Colors.white,
-        ),
-        child: Icon(Icons.error),
+            shape: this.shape,
+            color: Colors.white,
+            image: this.errorImageAsset != null
+                ? DecorationImage(
+                    image: Image.asset(this.errorImageAsset).image,
+                    fit: BoxFit.cover)
+                : null),
+        child: this.errorImageAsset != null ? Container() : Icon(Icons.error),
       ),
     );
   }

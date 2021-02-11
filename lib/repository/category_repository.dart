@@ -8,17 +8,11 @@ import 'package:o_learning/states/subject_data_types.dart';
 import 'package:o_learning/utils/object_helper.dart';
 
 class CategoryRepository extends BaseRepository {
-  dynamic _vm;
-
   CategoryRepository() {
     this.object.data['category_items'] = List<Map<String, dynamic>>();
     this.object.data['course_items'] = List<Map<String, dynamic>>();
     this.object.data['my_course_items'] = List<Map<String, dynamic>>();
     this.object.data['my_course_item'] = List<Map<String, dynamic>>();
-  }
-
-  initial(dynamic vm) {
-    this._vm = vm;
   }
 
   List<ICategoryItem> get items {

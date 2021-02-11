@@ -61,6 +61,8 @@ flutter:
     - lib/locales/en.json
     - lib/statics/
     - lib/statics/mocks/
+    - lib/statics/default/
+    - lib/statics/default/courses/
     - lib/assets/fonts/
 
     # An image asset can refer to one or more resolution-specific "variants", see

@@ -29,6 +29,7 @@ class LeaderBoardItemFeature extends StatelessWidget {
           this.icon,
           CacheImage(
             image: this.imageUrl,
+            errorImageAsset: 'lib/statics/default/user.png',
             width: 45,
             height: 45,
             margin: EdgeInsets.only(

@@ -98,7 +98,8 @@
     "score_description": "คะแนนสะสมที่คุณทำได้\nเปลี่ยนเทียบกับผู้เล่นคนอื่น",
     "quiz_button": "ทำแบบฝึกหัด",
     "coupon_shop_button": "แลกของรางวัล",
-    "score_button": "ดูตารางคะแนน"
+    "score_button": "ดูตารางคะแนน",
+    "logout": "ออกจากระบบ"
   },
   "change_password": {
     "back": "กลับ",
@@ -110,5 +111,17 @@
     "confirm_password_placeholder": "กรอกรหัสผ่านใหม่อีกครั้ง",
     "continue_button": "ไปต่อ",
     "change_password_button": "เปลี่ยนรหัสผ่าน"
+  },
+  "chapter": {
+    "continue_learning": "เรียนต่อสำหรับ",
+    "recommend_course": "เนื้อหาแนะนำ",
+    "browse_categories": "ค้นหาเนื้อหาที่อยากเรียน",
+    "search": "ค้นหา",
+    "no_course_regis": "คุณยังไม่มีหลักสูตร"
+  },
+  "leader_board": {
+    "leagues": "สนามแข่งขัน",
+    "friends": "อันดับผู้แข่งขัน",
+    "wooden_league": "อันดับผู้แข่งขัน"
   }
 }

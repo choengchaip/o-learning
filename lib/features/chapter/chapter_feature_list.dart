@@ -26,6 +26,7 @@ class ChapterListFeature extends StatelessWidget {
               },
               child: ChapterListItemFeature(
                 id: this.items[index].id,
+                index: index,
                 title: this.items[index].title,
                 description: this.items[index].description,
                 image: this.items[index].image,

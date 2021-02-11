@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/styles.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/states/subject_data_types.dart';
+import 'package:provider/provider.dart';
 
 class CategoriesListSearchFeature extends StatelessWidget {
   final String title;
@@ -20,6 +22,9 @@ class CategoriesListSearchFeature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLocaleRepository appLocaleRepo =
+    Provider.of<AppLocaleRepository>(context);
+
     return Container(
       color: Colors.white,
       padding: EdgeInsets.all(16),
@@ -41,27 +46,27 @@ class CategoriesListSearchFeature extends StatelessWidget {
                 Container(
                   child: Row(
                     children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 2),
-                        child: Icon(
-                          Icons.search,
-                          color: Theme.of(context).primaryColor,
-                          size: fontSizeH4,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: this.onSearch,
-                        child: Container(
-                          child: Text(
-                            'Search',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                              fontSize: fontSizeP,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   margin: EdgeInsets.only(right: 2),
+                      //   child: Icon(
+                      //     Icons.search,
+                      //     color: Theme.of(context).primaryColor,
+                      //     size: fontSizeH4,
+                      //   ),
+                      // ),
+                      // GestureDetector(
+                      //   onTap: this.onSearch,
+                      //   child: Container(
+                      //     child: Text(
+                      //       appLocaleRepo.$l('chapter', 'search'),
+                      //       style: TextStyle(
+                      //         color: Theme.of(context).primaryColor,
+                      //         fontSize: fontSizeP,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

@@ -6,6 +6,7 @@ import 'package:o_learning/components/cache_image.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 
 class CourseItem extends StatelessWidget {
+  final int index;
   final String image;
   final String title;
   final String description;
@@ -15,6 +16,7 @@ class CourseItem extends StatelessWidget {
   final AppLocaleRepository appLocaleRepository;
 
   CourseItem({
+    @required this.index,
     @required this.image,
     @required this.title,
     @required this.description,
@@ -56,6 +58,7 @@ class CourseItem extends StatelessWidget {
                 Flexible(
                   flex: 4,
                   child: CacheImage(
+                    errorImageAsset: 'lib/statics/default/courses/course_${this.index % 4}.jpg',
                     image: this.image,
                   ),
                 ),

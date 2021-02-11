@@ -99,7 +99,8 @@
     "score_description": "All score you earned\ncompared to your friends.",
     "quiz_button": "Do your quiz",
     "coupon_shop_button": "Coupon",
-    "score_button": "Leaderboard"
+    "score_button": "Leaderboard",
+    "logout": "Log out"
   },
   "change_password": {
     "back": "Back",
@@ -111,5 +112,17 @@
     "confirm_password_placeholder": "Password (min. 6 characters)",
     "continue_button": "CONTINUE",
     "change_password_button": "CHANGE PASSWORD"
+  },
+  "chapter": {
+    "continue_learning": "Continue Learning",
+    "recommend_course": "Recommend Courses",
+    "browse_categories": "Browse Categories",
+    "search": "Search",
+    "no_course_regis": "You have not register any course"
+  },
+  "leader_board": {
+    "leagues": "LEAGUES",
+    "friends": "FRIENDS",
+    "wooden_league": "Wooden League"
   }
 }

@@ -4,10 +4,12 @@ import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/cache_image.dart';
 
 class CategoriesListRecommendItemFeature extends StatelessWidget {
+  final int index;
   final String image;
   final String title;
 
   CategoriesListRecommendItemFeature({
+    @required this.index,
     @required this.image,
     @required this.title,
   });
@@ -26,6 +28,7 @@ class CategoriesListRecommendItemFeature extends StatelessWidget {
                   Radius.circular(8),
                 ),
                 child: CacheImage(
+                  errorImageAsset: 'lib/statics/default/courses/course_${this.index % 4}.jpg',
                   image: this.image,
                 ),
               ),

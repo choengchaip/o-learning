@@ -6,12 +6,14 @@ import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/cache_image.dart';
 
 class CategoriesListContinueLearningItemFeature extends StatelessWidget {
+  final int index;
   final String image;
   final String title;
   final int progress;
   final int totalChoice;
 
   CategoriesListContinueLearningItemFeature({
+    @required this.index,
     @required this.image,
     @required this.title,
     @required this.progress,
@@ -45,6 +47,7 @@ class CategoriesListContinueLearningItemFeature extends StatelessWidget {
               flex: 11,
               child: CacheImage(
                 image: this.image,
+                errorImageAsset: 'lib/statics/default/courses/course_${index % 5}.jpg',
               ),
             ),
             Flexible(

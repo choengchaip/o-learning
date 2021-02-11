@@ -5,7 +5,7 @@ import 'package:o_learning/assets/variables.dart';
 import 'package:o_learning/components/cache_image.dart';
 import 'package:o_learning/components/loading.dart';
 import 'package:o_learning/pages/change_password_page.dart';
-import 'package:o_learning/pages/welcome_page.dart';
+import 'package:o_learning/pages/index.dart';
 import 'package:o_learning/repository/app_locale_repository.dart';
 import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
@@ -80,7 +80,8 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
                   CacheImage(
                     height: 95,
                     width: 95,
-                    image: 'https://png2.cleanpng.com/sh/3d416db06c946a92b5d7376b41d96002/L0KzQYm3VMAzN5x6iZH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TfF3aaVmip91b3fsfn78kBVzNZJ7eeZqcj24cbS5UMdmPpQ9e6M8Mz64RoOCVsc3O2I6SqQBNkW3RIeBUsI0NqFzf3==/kisspng-computer-icons-avatar-login-user-avatar-5ac207e6c8c133.5629676315226654468223.png',
+                    image: '',
+                    errorImageAsset: 'lib/statics/default/user.png',
                     shape: BoxShape.circle,
                   ),
                   Expanded(
@@ -310,14 +311,14 @@ class _AccountHomeFeature extends State<AccountHomeFeature> {
             ),
             GestureDetector(
               onTap: () async {
+                pageLauncher(Index(), context);
                 await authRepo.logout();
-                pageLauncher(WelcomePage(), context);
               },
               child: Container(
                 alignment: Alignment.center,
                 color: Colors.redAccent,
                 padding: EdgeInsets.all(16),
-                child: Text('Log out',
+                child: Text(appLocaleRepo.$l('account', 'logout'),
                     style: TextStyle(
                       fontSize: fontSizeH4,
                       color: Colors.white,

@@ -52,6 +52,7 @@ class CategoriesListContinueLearningFeature extends StatelessWidget {
                     this.onClick(this.items[index].id);
                   },
                   child: CategoriesListContinueLearningItemFeature(
+                    index: index,
                     title: this.items[index].title,
                     image: this.items[index].image,
                     progress: this.items[index].current,

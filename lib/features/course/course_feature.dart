@@ -10,7 +10,6 @@ import 'package:o_learning/repository/auth_repository.dart';
 import 'package:o_learning/repository/category_repository.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';
 import 'package:o_learning/repository/quiz_repository.dart';
-import 'package:o_learning/repository/subject_widget_repository.dart';
 import 'package:o_learning/repository/widget_slider_repository.dart';
 import 'package:provider/provider.dart';
 
@@ -69,7 +68,6 @@ class _CourseFeature extends State<CourseFeature> {
     AppLocaleRepository appLocaleRepo =
         Provider.of<AppLocaleRepository>(context);
     QuizRepository quizRepository = Provider.of<QuizRepository>(context);
-    SubjectRepository subjectRepository = Provider.of<SubjectRepository>(context);
 
     return Container(
       child: Column(
@@ -133,6 +131,16 @@ class _CourseFeature extends State<CourseFeature> {
                                     );
                                   }
 
+                                  if (this.categoryRepository.myCourseItem ==
+                                      null) {
+                                    print("asd");
+                                    return Container(
+                                      alignment: Alignment.center,
+                                      child: Text(appLocaleRepo.$l(
+                                          'chapter', 'no_course_regis')),
+                                    );
+                                  }
+
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     itemCount: this
@@ -143,6 +151,7 @@ class _CourseFeature extends State<CourseFeature> {
                                         0,
                                     itemBuilder:
                                         (BuildContext context, int index) {
+                                          this.transparentBackground.add(this._oldTransparentBackground);
                                       if (index == 0) {
                                         return CourseSectionFeature(
                                           topWidget: Container(
@@ -161,7 +170,8 @@ class _CourseFeature extends State<CourseFeature> {
                                               .myCourseItem
                                               .modules[0],
                                           onClick: (String id) async {
-                                            await quizRepository.getQuizDetail(id, []);
+                                            await quizRepository
+                                                .getQuizDetail(id, []);
                                             quizRepository.expandQuizFeature();
                                           },
                                         );
@@ -173,7 +183,8 @@ class _CourseFeature extends State<CourseFeature> {
                                             .myCourseItem
                                             .modules[index],
                                         onClick: (String id) async {
-                                          await quizRepository.getQuizDetail(id, []);
+                                          await quizRepository
+                                              .getQuizDetail(id, []);
                                           quizRepository.expandQuizFeature();
                                         },
                                       );
@@ -236,79 +247,89 @@ class _CourseFeature extends State<CourseFeature> {
                         duration: Duration(milliseconds: 250),
                         color: Theme.of(context).primaryColor.withOpacity(
                             this._courseExpand ? 1 : snapshot.data),
-                        height: 50 + MediaQuery.of(context).padding.top,
+                        height: 50 + MediaQuery.of(context).padding.top + 16,
                         padding: EdgeInsets.only(
                             left: 16,
                             right: 16,
-                            top: MediaQuery.of(context).padding.top),
+                            top: MediaQuery.of(context).padding.top + 16),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                this._courseExpand = !this._courseExpand;
-                                this.courseExpand.add(this._courseExpand);
-                                if (this._courseExpand) {
-                                  this.transparentBackground.add(1);
-                                } else {
-                                  this
-                                      .transparentBackground
-                                      .add(this._oldTransparentBackground);
-                                }
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColorLight,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(32),
-                                  ),
-                                ),
-                                padding: EdgeInsets.only(
-                                    top: 6, bottom: 6, left: 12, right: 4),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                        authRepo.currentCourseName ?? 'Invalid',
-                                        style: TextStyle(
-                                          fontSize: fontSizeP,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                            this.categoryRepository.myCourseItem == null
+                                ? Container()
+                                : GestureDetector(
+                                    onTap: () {
+                                      this._courseExpand = !this._courseExpand;
+                                      this.courseExpand.add(this._courseExpand);
+                                      if (this._courseExpand) {
+                                        this.transparentBackground.add(1);
+                                      } else {
+                                        this.transparentBackground.add(
+                                            this._oldTransparentBackground);
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Theme.of(context).primaryColorLight,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(32),
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      child: Stack(
+                                      padding: EdgeInsets.only(
+                                          top: 6,
+                                          bottom: 6,
+                                          left: 12,
+                                          right: 4),
+                                      child: Row(
                                         children: [
-                                          AnimatedOpacity(
-                                            opacity: this._courseExpand ? 1 : 0,
-                                            duration:
-                                                Duration(milliseconds: 250),
-                                            child: Container(
-                                              child: Icon(
-                                                Icons.keyboard_arrow_up,
+                                          Container(
+                                            child: Text(
+                                              authRepo.currentCourseName ??
+                                                  'Invalid',
+                                              style: TextStyle(
+                                                fontSize: fontSizeP,
+                                                fontWeight: FontWeight.bold,
                                                 color: Colors.white,
                                               ),
                                             ),
                                           ),
-                                          AnimatedOpacity(
-                                            opacity: this._courseExpand ? 0 : 1,
-                                            duration:
-                                                Duration(milliseconds: 250),
-                                            child: Container(
-                                              child: Icon(
-                                                Icons.keyboard_arrow_down,
-                                                color: Colors.white,
-                                              ),
+                                          Container(
+                                            child: Stack(
+                                              children: [
+                                                AnimatedOpacity(
+                                                  opacity: this._courseExpand
+                                                      ? 1
+                                                      : 0,
+                                                  duration: Duration(
+                                                      milliseconds: 250),
+                                                  child: Container(
+                                                    child: Icon(
+                                                      Icons.keyboard_arrow_up,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                AnimatedOpacity(
+                                                  opacity: this._courseExpand
+                                                      ? 0
+                                                      : 1,
+                                                  duration: Duration(
+                                                      milliseconds: 250),
+                                                  child: Container(
+                                                    child: Icon(
+                                                      Icons.keyboard_arrow_down,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                                  ),
                             Container(
                               child: Row(
                                 children: [

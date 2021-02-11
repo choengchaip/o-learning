@@ -1,17 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o_learning/assets/variables.dart';
+import 'package:o_learning/repository/app_locale_repository.dart';
+import 'package:provider/provider.dart';
 
 class LeaderBoardLeagueAchievementFeature extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AppLocaleRepository appLocaleRepo =
+        Provider.of<AppLocaleRepository>(context);
+
     return Container(
       color: Theme.of(context).primaryColorLight,
       padding: EdgeInsets.all(8),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 8, bottom: 8),
+            padding: EdgeInsets.only(top: 12, bottom: 8),
             margin: EdgeInsets.only(
               bottom: 8,
             ),
@@ -39,7 +44,7 @@ class LeaderBoardLeagueAchievementFeature extends StatelessWidget {
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Wooden League',
+              appLocaleRepo.$l('leader_board', 'wooden_league'),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: fontSizeP,

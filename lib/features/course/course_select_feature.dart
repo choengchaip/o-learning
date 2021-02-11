@@ -26,12 +26,11 @@ class CourseSelectFeature extends StatelessWidget {
     return StreamBuilder<String>(
       stream: selectedCourse.stream,
       builder: (BuildContext context, snapshot) {
-
         return AnimatedPositioned(
           duration: Duration(milliseconds: 250),
           curve: Curves.ease,
           top: this.isExpand
-              ? 50 + MediaQuery.of(context).padding.top
+              ? 50 + MediaQuery.of(context).padding.top + 16
               : -(MediaQuery.of(context).size.width * 0.85) -
                   (MediaQuery.of(context).padding.top),
           child: Container(
@@ -60,9 +59,11 @@ class CourseSelectFeature extends StatelessWidget {
                         duration: Duration(milliseconds: 250),
                         curve: Curves.ease);
                     this.selectedCourse.add(this.items[index].id);
-                    this.onChanged(this.items[index].id, this.items[index].title);
+                    this.onChanged(
+                        this.items[index].id, this.items[index].title);
                   },
                   child: CourseItem(
+                    index: index,
                     image: this.items[index].image,
                     title: this.items[index].title,
                     description: this.items[index].description,

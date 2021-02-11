@@ -53,6 +53,7 @@ class CategoriesListRecommendFeature extends StatelessWidget {
                     this.onClick(this.items[index].id);
                   },
                   child: CategoriesListRecommendItemFeature(
+                    index: index,
                     title: this.items[index].title,
                     image: this.items[index].image,
                   ),

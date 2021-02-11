@@ -23,8 +23,7 @@ class CategoriesListFeature extends StatefulWidget {
   });
 
   @override
-  _CategoriesListFeature createState() =>
-      _CategoriesListFeature(
+  _CategoriesListFeature createState() => _CategoriesListFeature(
         widgetSliderRepository: this.widgetSliderRepository,
       );
 }
@@ -53,9 +52,9 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
   @override
   Widget build(BuildContext context) {
     AppLocaleRepository appLocaleRepo =
-    Provider.of<AppLocaleRepository>(context);
+        Provider.of<AppLocaleRepository>(context);
     SubjectRepository subjectRepository =
-    Provider.of<SubjectRepository>(context);
+        Provider.of<SubjectRepository>(context);
 
     return StreamBuilder<bool>(
       stream: searchExpand.stream,
@@ -73,21 +72,12 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
                 child: AnimatedContainer(
                   margin: EdgeInsets.only(
                     top: snapshot.data
-                        ? 80 + (MediaQuery
-                        .of(context)
-                        .padding
-                        .top)
-                        : MediaQuery
-                        .of(context)
-                        .padding
-                        .top,
+                        ? 80 + (MediaQuery.of(context).padding.top)
+                        : MediaQuery.of(context).padding.top,
                   ),
                   duration: Duration(milliseconds: 250),
                   color: grayLighter,
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width,
+                  width: MediaQuery.of(context).size.width,
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
@@ -101,15 +91,18 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
                               alignment: Alignment.center,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    Theme
-                                        .of(context)
-                                        .primaryColor),
+                                    Theme.of(context).primaryColor),
                               ),
                             );
                           }
 
+                          if (this.categoryRepository.myCourseItems.isEmpty) {
+                            return Container();
+                          }
+
                           return CategoriesListContinueLearningFeature(
-                            title: 'Continue Learning',
+                            title: appLocaleRepo.$l(
+                                'chapter', 'continue_learning'),
                             items: this.categoryRepository.myCourseItems,
                             onClick: (String id) async {
                               await subjectRepository.getCourseDetail(id);
@@ -129,15 +122,14 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
                               alignment: Alignment.center,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    Theme
-                                        .of(context)
-                                        .primaryColor),
+                                    Theme.of(context).primaryColor),
                               ),
                             );
                           }
 
                           return CategoriesListRecommendFeature(
-                            title: 'Recommend Courses',
+                            title:
+                                appLocaleRepo.$l('chapter', 'recommend_course'),
                             items: this.categoryRepository.courseItems,
                             onClick: (String id) async {
                               await subjectRepository.getCourseDetail(id);
@@ -157,15 +149,14 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
                               alignment: Alignment.center,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    Theme
-                                        .of(context)
-                                        .primaryColor),
+                                    Theme.of(context).primaryColor),
                               ),
                             );
                           }
 
                           return CategoriesListSearchFeature(
-                            title: 'Browse Categories',
+                            title: appLocaleRepo.$l(
+                                'chapter', 'browse_categories'),
                             items: this.categoryRepository.items,
                             onClick: (String id, String name) async {
                               await subjectRepository.setCategoryName(name);
@@ -187,25 +178,14 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
             AnimatedPositioned(
               top: snapshot.data
                   ? 0
-                  : -130 - (-MediaQuery
-                  .of(context)
-                  .padding
-                  .top),
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width,
+                  : -130 - (-MediaQuery.of(context).padding.top),
+              width: MediaQuery.of(context).size.width,
               duration: Duration(milliseconds: 250),
               child: Container(
-                color: Theme
-                    .of(context)
-                    .primaryColorLight,
+                color: Theme.of(context).primaryColorLight,
                 padding: EdgeInsets.only(
                     top:
-                    snapshot.data ? MediaQuery
-                        .of(context)
-                        .padding
-                        .top : 0),
+                        snapshot.data ? MediaQuery.of(context).padding.top : 0),
                 child: Row(
                   children: [
                     Container(
@@ -215,19 +195,15 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
                         left: 16,
                         right: 16,
                       ),
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
+                      width: MediaQuery.of(context).size.width,
                       child: Row(
                         children: [
                           Expanded(
                             child: ClipRRect(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(8)),
+                                  BorderRadius.all(Radius.circular(8)),
                               child: Container(
-                                color: Theme
-                                    .of(context)
+                                color: Theme.of(context)
                                     .primaryColor
                                     .withOpacity(0.5),
                                 child: Row(
@@ -258,8 +234,7 @@ class _CategoriesListFeature extends State<CategoriesListFeature> {
                                           controller: this.searchController,
                                           focusNode: this.searchNode,
                                           borderColor: Colors.transparent,
-                                          backgroundColor: Theme
-                                              .of(context)
+                                          backgroundColor: Theme.of(context)
                                               .primaryColorLight,
                                           placeholder: appLocaleRepo.$l(
                                               'authentication_register',

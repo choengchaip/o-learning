@@ -114,6 +114,10 @@ class AuthRepository extends BaseRepository {
     this.toLoadingStatus();
     this.reset();
     this.object.data['access_token'] = '';
+    this.object.data['category_items'] = '';
+    this.object.data['course_items'] = '';
+    this.object.data['my_course_items'] = '';
+    this.object.data['my_course_item'] = '';
     await this.cacheHelper.removeUser();
     this.toCompleteStatus();
   }
