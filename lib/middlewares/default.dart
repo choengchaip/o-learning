@@ -94,10 +94,7 @@ class _DefaultMiddleware extends State<DefaultMiddleware> {
       body: SafeArea(
         child: Center(
           child: Container(
-            child: CircularProgressIndicator(
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
-            ),
+            child: Image.asset("lib/statics/o_learning.jpg"),
           ),
         ),
       ),
