@@ -1,3 +1,5 @@
+// @dart=2.9
+
 class ILeaderBoardUserItem {
   String id;
   final String title;

@@ -1,3 +1,5 @@
+// @dart=2.9
+
 class IDiscoveryItem {
   final String image;
   final String title;

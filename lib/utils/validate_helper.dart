@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:o_learning/utils/regex_helper.dart';
 
 class ValidateHelper {

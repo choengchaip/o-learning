@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:flutter/cupertino.dart';
 import 'package:o_learning/components/types.dart';
 import 'package:o_learning/repository/page_slider_repository.dart';

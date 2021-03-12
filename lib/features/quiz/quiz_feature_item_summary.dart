@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:flutter/cupertino.dart';
 import 'package:o_learning/components/curve_button.dart';
 import 'package:o_learning/repository/quiz_repository.dart';

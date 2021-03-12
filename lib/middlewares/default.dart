@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:flutter/material.dart';
 import 'package:o_learning/pages/main_page.dart';
 import 'package:o_learning/pages/welcome_page.dart';

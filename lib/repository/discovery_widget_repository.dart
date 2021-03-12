@@ -1,7 +1,6 @@
-import 'package:o_learning/cores/config.dart';
+// @dart=2.9
+
 import 'package:o_learning/repository/base_repository.dart';
-import 'package:http/http.dart' as http;
-import 'package:o_learning/utils/object_helper.dart';
 
 class DiscoveryWidgetRepository extends BaseRepository {
   DiscoveryWidgetRepository() {

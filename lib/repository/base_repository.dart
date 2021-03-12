@@ -1,5 +1,6 @@
-import 'dart:async';
+// @dart=2.9
 
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:o_learning/cores/config.dart';
 import 'package:o_learning/states/object.dart';
